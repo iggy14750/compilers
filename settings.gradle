@@ -15,4 +15,5 @@ include 'api'
 include 'services:webservice'
 */
 
+include 'lexer'
 rootProject.name = 'compilers'
