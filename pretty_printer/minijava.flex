@@ -28,9 +28,12 @@ Identifier = [:jletter:] [:jletterdigit:]*
 %%
 
 <YYINITIAL> {
-    {WhiteSpace} {}
-    {LineBreak} {}
-    "public" { return symbol(sym.PUBLIC); }
-    {IntegerLiteral} { return symbol(sym.INT, Integer.parseInt(yytext())); }
-    {Identifier} { return symbol(sym.ID, yytext()); }
+    {WhiteSpace}             {}
+    {LineBreak}              {}
+    "public"                 { return symbol(sym.PUBLIC); }
+    "true"                   { return symbol(sym.TRUE); }
+    "false"                  { return symbol(sym.FALSE); }
+    {IntegerLiteral}         { return symbol(sym.INT, Integer.parseInt(yytext())); }
+    {Identifier}             { return symbol(sym.ID, yytext()); }
+
 }

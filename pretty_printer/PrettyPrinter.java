@@ -18,6 +18,12 @@ public class PrettyPrinter {
                 case sym.PUBLIC:
                     System.out.println("Public");
                     break;
+                case sym.TRUE:
+                    System.out.println("TRUE");
+                    break;
+                case sym.FALSE:
+                    System.out.println("FALSE");
+                    break;
                 default:
                     System.out.println("Unknown: " + s.sym + ", " + s.value);
             }
