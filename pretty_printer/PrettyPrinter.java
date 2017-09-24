@@ -67,6 +67,7 @@ public class PrettyPrinter {
                         print(literals[one.sym]);
                         break;
                     }
+                case sym.COMMA:
                 case sym.CLASS:
                 case sym.PUBLIC:
                 case sym.PRIVATE:
