@@ -2,13 +2,23 @@
 
 CLASSPATH = .#./:./#java_cup/runtime
 
-run: build
+default: build run
+
+run:
 	java -cp $(CLASSPATH) PrettyPrinter examples/main.java
 
-build: PrettyPrinter.class sym.class MJLexer.class
+force: touch build
+
+touch:
+	touch gen_sym.py minijava.flex keywords.txt PrettyPrinter.java examples/main.java
+
+build: sym.class PrettyPrinter.class MJLexer.class
 
 sym.class: sym.java
 	javac sym.java
+
+sym.java: keywords.txt gen_sym.py
+	python gen_sym.py
 
 PrettyPrinter.class: PrettyPrinter.java
 	javac -cp $(CLASSPATH) PrettyPrinter.java

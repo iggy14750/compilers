@@ -31,6 +31,7 @@ Identifier = [:jletter:] [:jletterdigit:]*
     {WhiteSpace}             {}
     {LineBreak}              {}
     "public"                 { return symbol(sym.PUBLIC); }
+    "private"                { return symbol(sym.PRIVATE); }
     "true"                   { return symbol(sym.TRUE); }
     "false"                  { return symbol(sym.FALSE); }
     "this"                   { return symbol(sym.THIS); }
