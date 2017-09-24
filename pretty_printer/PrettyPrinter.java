@@ -14,6 +14,7 @@ public class PrettyPrinter {
         int indentLevel = 0;
         Symbol one;
         Symbol two;
+        boolean arrayType = false;
 
         for (one = lex.next_token(); one.sym != sym.EOF; one = two) {
             two = lex.next_token();
@@ -62,15 +63,20 @@ public class PrettyPrinter {
                         print(literals[one.sym] + " ");
                     }
                     break;
+                case sym.RIGHT_PAREN:
+                    print(" " + literals[one.sym]);
+                    break;
                 case sym.LEFT_SQUARE_BRACKET:
                     if (two.sym == sym.RIGHT_SQUARE_BRACKET) {
                         print(literals[one.sym] + literals[two.sym]);
+                        if (arrayType) {
+                            print(" ");
+                        }
                         two = lex.next_token();
                     } else {
                         print(literals[one.sym] + " ");
                     }
                     break;
-                case sym.RIGHT_PAREN:
                 case sym.RIGHT_SQUARE_BRACKET:
                     print(" " + literals[one.sym]);
                     break;
@@ -79,6 +85,7 @@ public class PrettyPrinter {
                 case sym.BOOLEAN_TYPE:
                     if (two.sym == sym.LEFT_SQUARE_BRACKET) {
                         print(literals[one.sym]);
+                        arrayType = true;
                         break;
                     } // Note this can fall through - intentional!
                 case sym.COMMA:
