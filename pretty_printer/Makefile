@@ -19,6 +19,8 @@ sym.class: sym.java
 
 sym.java: keywords.txt gen_sym.py
 	python gen_sym.py sym
+	echo "Copy this into PrettyPrinter.java"
+	python gen_sym.py array
 
 PrettyPrinter.class: PrettyPrinter.java
 	javac -cp $(CLASSPATH) PrettyPrinter.java
