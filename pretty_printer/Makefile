@@ -18,7 +18,7 @@ sym.class: sym.java
 	javac sym.java
 
 sym.java: keywords.txt gen_sym.py
-	python gen_sym.py
+	python gen_sym.py sym
 
 PrettyPrinter.class: PrettyPrinter.java
 	javac -cp $(CLASSPATH) PrettyPrinter.java
