@@ -38,20 +38,19 @@ public class PrettyPrinter {
                     print(one.value.toString());
                     break;
                 case sym.SEMICOLON:
-                    print(literals[one.sym] + "\n");
-                    printTabs(indentLevel);
+                    print(literals[one.sym]);
+                    printNewLine(indentLevel);
                     break;
                 case sym.LEFT_CURLY:
-                    print(" " + literals[one.sym] + "\n");
                     indentLevel++;
-                    printTabs(indentLevel);
+                    print(" " + literals[one.sym]);
+                    printNewLine(indentLevel);
                     break;
                 case sym.RIGHT_CURLY:
                     indentLevel--;
-                    print("\n");
-                    printTabs(indentLevel);
-                    print(literals[one.sym] + "\n");
-                    printTabs(indentLevel);
+                    printNewLine(indentLevel);
+                    print(literals[one.sym]);
+                    printNewLine(indentLevel);
                     break;
                 case sym.INT_TYPE:
                 case sym.STRING_TYPE:
@@ -89,6 +88,12 @@ public class PrettyPrinter {
             print("\t");
             n--;
         }
+    }
+
+    /** Cause I'm not gonna do it right. */
+    private static void printNewLine(int indentLevel) {
+        print("\n");
+        printTabs(indentLevel);
     }
 
     /**
