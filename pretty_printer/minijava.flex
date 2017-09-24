@@ -43,6 +43,7 @@ BlockComment = "/*" [^*]* "*/"
     "int"                    { return symbol(sym.INT_TYPE); }
     "boolean"                { return symbol(sym.BOOLEAN_TYPE); }
     "String"                 { return symbol(sym.STRING_TYPE); }
+    "void"                   { return symbol(sym.VOID_TYPE); }
     "return"                 { return symbol(sym.RETURN); }
     "if"                     { return symbol(sym.IF); }
     "else"                   { return symbol(sym.ELSE); }
@@ -51,6 +52,7 @@ BlockComment = "/*" [^*]* "*/"
     "do"                     { return symbol(sym.DO); }
     "class"                  { return symbol(sym.CLASS); }
     "extends"                { return symbol(sym.EXTENDS); }
+    "static"                 { return symbol(sym.STATIC); }
 
     "["                      { return symbol(sym.LEFT_SQUARE_BRACKET); }
     "]"                      { return symbol(sym.RIGHT_SQUARE_BRACKET); }

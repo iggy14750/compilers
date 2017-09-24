@@ -7,11 +7,7 @@ import java_cup.runtime.Symbol;
 
 public class PrettyPrinter {
 
-    private static final String[] literals = { 
-        "public", "private", "true", "false", "this", "new", "int", "boolean", 
-        "String", "return", "if", "else", "while", "for", "do", "class", "extends", 
-        "[", "]", "(", ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!", "&", 
-        "&&", "|", "||", "<", ">", "+", "-", "*", "/"};
+    private static final String[] literals = { "public", "private", "true", "false", "this", "new", "int", "boolean", "String", "void", "return", "if", "else", "while", "for", "do", "class", "extends", "static", "[", "]", "(", ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!", "&", "&&", "|", "||", "<", ">", "+", "-", "*", "/",};
 
     public static void main(String[] args) throws IOException {
         MJLexer lex = new MJLexer(new FileReader(args[0]));
