@@ -33,6 +33,7 @@ Identifier = [:jletter:] [:jletterdigit:]*
     "public"                 { return symbol(sym.PUBLIC); }
     "true"                   { return symbol(sym.TRUE); }
     "false"                  { return symbol(sym.FALSE); }
+    "this"                   { return symbol(sym.THIS); }
     {IntegerLiteral}         { return symbol(sym.INT, Integer.parseInt(yytext())); }
     {Identifier}             { return symbol(sym.ID, yytext()); }
 

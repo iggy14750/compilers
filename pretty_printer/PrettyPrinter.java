@@ -24,6 +24,9 @@ public class PrettyPrinter {
                 case sym.FALSE:
                     System.out.println("FALSE");
                     break;
+                case sym.THIS:
+                    System.out.println("THIS");
+                    break;
                 default:
                     System.out.println("Unknown: " + s.sym + ", " + s.value);
             }
