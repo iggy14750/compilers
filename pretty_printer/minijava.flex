@@ -21,9 +21,13 @@ import java_cup.runtime.Symbol;
 
 LineBreak  = \n|\r|\r\n
 WhiteSpace = [ \n\r\t]+
+InputCharacter = [^\r\n]
 
 IntegerLiteral = 0 | [1-9][0-9]*
 Identifier = [:jletter:] [:jletterdigit:]*
+
+LineComment = "//" {InputCharacter}* {LineBreak}?
+BlockComment = "/*" [^*]* "*/"
 
 %%
 
@@ -73,7 +77,8 @@ Identifier = [:jletter:] [:jletterdigit:]*
     "*"                      { return symbol(sym.TIMES); }
     "/"                      { return symbol(sym.DIVIDE); }
 
-
+    {LineComment}            {}
+    {BlockComment}           { return symbol(sym.COMMENT, yytext()); }
     {IntegerLiteral}         { return symbol(sym.INT, Integer.parseInt(yytext())); }
     {Identifier}             { return symbol(sym.ID, yytext()); }
 

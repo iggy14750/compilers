@@ -43,4 +43,5 @@ public class sym {
     public static final int DIVIDE = 40;
     public static final int INT = 41;
     public static final int ID = 42;
+    public static final int COMMENT = 43;
 }

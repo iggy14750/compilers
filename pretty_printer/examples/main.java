@@ -1,1 +1,7 @@
-412312 0 fewofiwj 2 public fe23234_342 true false this new
+
+public class main {
+    public static void main(String[] args) {
+        System.out.println();
+        /* Another Comment */
+    }
+}

@@ -22,6 +22,9 @@ public class PrettyPrinter {
                 case sym.INT:
                     System.out.println("Integer: " + s.value);
                     break;
+                case sym.COMMENT:
+                    System.out.println("Comment: " + s.value);
+                    break;
                 default:
                     if (s.sym < literals.length) {
                         System.out.println(literals[s.sym]);
@@ -30,5 +33,14 @@ public class PrettyPrinter {
                     }
             }
         }
+    }
+
+    /**
+     * Turns the raw text of a comment into a list of "words",
+     * splitting the string into tokens around whitespace,
+     * and drops the first tokens, which are the comment beginning and end.
+     */
+    private static String[] parseComment(String comment) {
+
     }
 }
