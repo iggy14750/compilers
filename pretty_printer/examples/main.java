@@ -9,5 +9,9 @@ public class main {
         if (p[x] == 0) {
             return new Object();
         }
+
+        do {
+            x++;!stuff;
+        } while(!stuff && (5 || 7 + 3));
     }
 }

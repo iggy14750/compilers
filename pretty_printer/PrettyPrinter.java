@@ -7,12 +7,13 @@ import java_cup.runtime.Symbol;
 
 public class PrettyPrinter {
 
-    private static final String[] literals = { "public", "private", "import", 
-        "true", "false", "this", "new", "int", "boolean", "String", "void", 
-        "return", "if", "else", "while", "for", "do", "switch", "case", "class",
-         "extends", "static", "[", "]", "(", ")", "{", "}", ";", ",", ".", "?", 
-         ":", "=", "==", "!", "++", "--", "&", "&&", "|", "||", "<", ">", "+", 
-         "-", "*", "/"};
+    private static final String[] literals = { 
+        "public", "private", "import", "true", "false", "this", "new", "int", 
+        "boolean", "String", "void", "return", "if", "else", "while", "for", 
+        "do", "switch", "case", "class", "extends", "static", "[", "]", "(", 
+        ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!", "++", "--", 
+        "&", "&&", "|", "||", "<", ">", "+", "-", "*", "/"
+    };
 
     public static void main(String[] args) throws IOException {
         MJLexer lex = new MJLexer(new FileReader(args[0]));
@@ -35,6 +36,8 @@ public class PrettyPrinter {
                 case sym.MINUS:
                 case sym.TIMES:
                 case sym.DIVIDE:
+                case sym.QUESTION_MARK:
+                case sym.COLON:
                     print(" " + literals[one.sym] + " ");
                     break;
                 case sym.ID:
@@ -88,6 +91,9 @@ public class PrettyPrinter {
                         print(literals[one.sym]);
                         break;
                     } // Note this can fall through - intentional!
+                case sym.IMPORT:
+                case sym.CASE:
+                case sym.SWITCH:
                 case sym.COMMA:
                 case sym.CLASS:
                 case sym.RETURN:
