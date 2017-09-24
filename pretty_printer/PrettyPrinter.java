@@ -34,8 +34,10 @@ public class PrettyPrinter {
                     break;
                 case sym.ID:
                 case sym.INT:
-                case sym.COMMENT:
                     print(one.value.toString());
+                    break;
+                case sym.COMMENT:
+                    printComment(indentLevel, one.value.toString());
                     break;
                 case sym.SEMICOLON:
                     print(literals[one.sym]);
@@ -94,6 +96,12 @@ public class PrettyPrinter {
     private static void printNewLine(int indentLevel) {
         print("\n");
         printTabs(indentLevel);
+    }
+
+    /** Does all the work of pretty-printing comments. */
+    private static void printComment(int indentLevel, String comment) {
+        print(comment);
+        printNewLine(indentLevel);
     }
 
     /**
