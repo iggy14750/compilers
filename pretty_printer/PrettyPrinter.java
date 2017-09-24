@@ -62,7 +62,16 @@ public class PrettyPrinter {
                         print(literals[one.sym] + " ");
                     }
                     break;
+                case sym.LEFT_SQUARE_BRACKET:
+                    if (two.sym == sym.RIGHT_SQUARE_BRACKET) {
+                        print(literals[one.sym] + literals[two.sym]);
+                        two = lex.next_token();
+                    } else {
+                        print(literals[one.sym] + " ");
+                    }
+                    break;
                 case sym.RIGHT_PAREN:
+                case sym.RIGHT_SQUARE_BRACKET:
                     print(" " + literals[one.sym]);
                     break;
                 case sym.INT_TYPE:
@@ -71,7 +80,7 @@ public class PrettyPrinter {
                     if (two.sym == sym.LEFT_SQUARE_BRACKET) {
                         print(literals[one.sym]);
                         break;
-                    }
+                    } // Note this can fall through - intentional!
                 case sym.COMMA:
                 case sym.CLASS:
                 case sym.RETURN:
