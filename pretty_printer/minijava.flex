@@ -27,7 +27,7 @@ IntegerLiteral = 0 | [1-9][0-9]*
 Identifier = [:jletter:] [:jletterdigit:]*
 
 LineComment = "//" {InputCharacter}* {LineBreak}?
-BlockComment = "/*" [^*]* "*/"
+BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
 
 %%
 

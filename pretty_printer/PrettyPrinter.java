@@ -12,9 +12,12 @@ public class PrettyPrinter {
     public static void main(String[] args) throws IOException {
         MJLexer lex = new MJLexer(new FileReader(args[0]));
         int indentLevel = 0;
+        Symbol one;
+        Symbol two;
 
-        for (Symbol s = lex.next_token(); s.sym != sym.EOF; s = lex.next_token()) {
-            switch (s.sym) {
+        for (one = lex.next_token(); one.sym != sym.EOF; one = two) {
+            two = lex.next_token();
+            switch (one.sym) {
                 case sym.EQ:
                 case sym.EQEQ:
                 case sym.AND:
@@ -27,19 +30,19 @@ public class PrettyPrinter {
                 case sym.MINUS:
                 case sym.TIMES:
                 case sym.DIVIDE:
-                    print(" " + literals[s.sym] + " ");
+                    print(" " + literals[one.sym] + " ");
                     break;
                 case sym.ID:
                 case sym.INT:
                 case sym.COMMENT:
-                    print(s.value.toString());
+                    print(one.value.toString());
                     break;
                 case sym.SEMICOLON:
-                    print(literals[s.sym] + "\n");
+                    print(literals[one.sym] + "\n");
                     printTabs(indentLevel);
                     break;
                 case sym.LEFT_CURLY:
-                    print(" " + literals[s.sym] + "\n");
+                    print(" " + literals[one.sym] + "\n");
                     indentLevel++;
                     printTabs(indentLevel);
                     break;
@@ -47,12 +50,16 @@ public class PrettyPrinter {
                     indentLevel--;
                     print("\n");
                     printTabs(indentLevel);
-                    print(literals[s.sym] + "\n");
+                    print(literals[one.sym] + "\n");
                     printTabs(indentLevel);
                     break;
                 case sym.INT_TYPE:
                 case sym.STRING_TYPE:
                 case sym.BOOLEAN_TYPE:
+                    if (two.sym == sym.LEFT_SQUARE_BRACKET) {
+                        print(literals[one.sym]);
+                        break;
+                    }
                 case sym.CLASS:
                 case sym.PUBLIC:
                 case sym.PRIVATE:
@@ -63,10 +70,10 @@ public class PrettyPrinter {
                 case sym.WHILE:
                 case sym.DO:
                 case sym.FOR:
-                    print(literals[s.sym] + " ");
+                    print(literals[one.sym] + " ");
                     break;
                 default:
-                    print(literals[s.sym]);
+                    print(literals[one.sym]);
             }
         }
     }
