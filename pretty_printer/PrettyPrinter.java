@@ -1,6 +1,7 @@
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
 
@@ -23,6 +24,9 @@ public class PrettyPrinter {
                     System.out.println("Integer: " + s.value);
                     break;
                 case sym.COMMENT:
+                    for (String str: parseComment((String)s.value)) {
+                        System.out.println(str);
+                    }
                     System.out.println("Comment: " + s.value);
                     break;
                 default:
@@ -41,6 +45,7 @@ public class PrettyPrinter {
      * and drops the first tokens, which are the comment beginning and end.
      */
     private static String[] parseComment(String comment) {
-
+        String[] basic = comment.split("[ \n\r\t]+");
+        return Arrays.copyOfRange(basic, 1, basic.length-1);
     }
 }
