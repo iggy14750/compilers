@@ -55,7 +55,12 @@ public class PrettyPrinter {
                     printNewLine(indentLevel);
                     break;
                 case sym.LEFT_PAREN:
-                    print(literals[one.sym] + " ");
+                    if (two.sym == sym.RIGHT_PAREN) {
+                        print(literals[one.sym] + literals[two.sym]);
+                        two = lex.next_token();
+                    } else {
+                        print(literals[one.sym] + " ");
+                    }
                     break;
                 case sym.RIGHT_PAREN:
                     print(" " + literals[one.sym]);
@@ -69,6 +74,7 @@ public class PrettyPrinter {
                     }
                 case sym.COMMA:
                 case sym.CLASS:
+                case sym.RETURN:
                 case sym.PUBLIC:
                 case sym.PRIVATE:
                 case sym.STATIC:
