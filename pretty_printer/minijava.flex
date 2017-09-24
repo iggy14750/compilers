@@ -36,6 +36,7 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     {LineBreak}              {}
     "public"                 { return symbol(sym.PUBLIC); }
     "private"                { return symbol(sym.PRIVATE); }
+    "import"                 { return symbol(sym.IMPORT); }
     "true"                   { return symbol(sym.TRUE); }
     "false"                  { return symbol(sym.FALSE); }
     "this"                   { return symbol(sym.THIS); }
@@ -50,6 +51,8 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     "while"                  { return symbol(sym.WHILE); }
     "for"                    { return symbol(sym.FOR); }
     "do"                     { return symbol(sym.DO); }
+    "switch"                 { return symbol(sym.SWITCH); }
+    "case"                   { return symbol(sym.CASE); }
     "class"                  { return symbol(sym.CLASS); }
     "extends"                { return symbol(sym.EXTENDS); }
     "static"                 { return symbol(sym.STATIC); }
@@ -68,6 +71,8 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     "="                      { return symbol(sym.EQ); }
     "=="                     { return symbol(sym.EQEQ); }
     "!"                      { return symbol(sym.BANG); }
+    "++"                     { return symbol(sym.PLUSPLUS); }
+    "--"                     { return symbol(sym.MINUSMINUS); }
     "&"                      { return symbol(sym.AND); }
     "&&"                     { return symbol(sym.ANDAND); }
     "|"                      { return symbol(sym.OR); }

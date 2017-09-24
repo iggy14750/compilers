@@ -7,14 +7,18 @@ import java_cup.runtime.Symbol;
 
 public class PrettyPrinter {
 
-    private static final String[] literals = { "public", "private", "true", "false", "this", "new", "int", "boolean", "String", "void", "return", "if", "else", "while", "for", "do", "class", "extends", "static", "[", "]", "(", ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!", "&", "&&", "|", "||", "<", ">", "+", "-", "*", "/"};
+    private static final String[] literals = { "public", "private", "import", 
+        "true", "false", "this", "new", "int", "boolean", "String", "void", 
+        "return", "if", "else", "while", "for", "do", "switch", "case", "class",
+         "extends", "static", "[", "]", "(", ")", "{", "}", ";", ",", ".", "?", 
+         ":", "=", "==", "!", "++", "--", "&", "&&", "|", "||", "<", ">", "+", 
+         "-", "*", "/"};
 
     public static void main(String[] args) throws IOException {
         MJLexer lex = new MJLexer(new FileReader(args[0]));
         int indentLevel = 0;
         Symbol one;
         Symbol two;
-        boolean arrayType = false;
 
         for (one = lex.next_token(); one.sym != sym.EOF; one = two) {
             two = lex.next_token();
@@ -68,10 +72,7 @@ public class PrettyPrinter {
                     break;
                 case sym.LEFT_SQUARE_BRACKET:
                     if (two.sym == sym.RIGHT_SQUARE_BRACKET) {
-                        print(literals[one.sym] + literals[two.sym]);
-                        if (arrayType) {
-                            print(" ");
-                        }
+                        print(literals[one.sym] + literals[two.sym] + " ");
                         two = lex.next_token();
                     } else {
                         print(literals[one.sym] + " ");
@@ -85,7 +86,6 @@ public class PrettyPrinter {
                 case sym.BOOLEAN_TYPE:
                     if (two.sym == sym.LEFT_SQUARE_BRACKET) {
                         print(literals[one.sym]);
-                        arrayType = true;
                         break;
                     } // Note this can fall through - intentional!
                 case sym.COMMA:

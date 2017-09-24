@@ -1,5 +1,6 @@
 PUBLIC,public
 PRIVATE,private
+IMPORT,import
 TRUE,true
 FALSE,false
 THIS,this
@@ -14,6 +15,8 @@ ELSE,else
 WHILE,while
 FOR,for
 DO,do
+SWITCH,switch
+CASE,case
 CLASS,class
 EXTENDS,extends
 STATIC,static
@@ -31,6 +34,8 @@ COLON,:
 EQ,=
 EQEQ,==
 BANG,!
+PLUSPLUS,++
+MINUSMINUS,--
 AND,&
 ANDAND,&&
 OR,|
