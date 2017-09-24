@@ -54,6 +54,12 @@ public class PrettyPrinter {
                     print(literals[one.sym]);
                     printNewLine(indentLevel);
                     break;
+                case sym.LEFT_PAREN:
+                    print(literals[one.sym] + " ");
+                    break;
+                case sym.RIGHT_PAREN:
+                    print(" " + literals[one.sym]);
+                    break;
                 case sym.INT_TYPE:
                 case sym.STRING_TYPE:
                 case sym.BOOLEAN_TYPE:
