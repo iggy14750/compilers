@@ -1,11 +1,20 @@
 
 
-CLASSPATH = ../java_cup/runtime:bin
+CLASSPATH = .#./:./#java_cup/runtime
 
 run: build
-	java -cp $(CLASSPATH) bin/PrettyPrinter
+	java -cp $(CLASSPATH) PrettyPrinter examples/main.java
 
-build: bin/PrettyPrinter.class
+build: PrettyPrinter.class sym.class MJLexer.class
 
-bin/PrettyPrinter.class: src/PrettyPrinter.java
-	javac -cp $(CLASSPATH) src/PrettyPrinter.java -d bin
+sym.class: sym.java
+	javac sym.java
+
+PrettyPrinter.class: PrettyPrinter.java
+	javac -cp $(CLASSPATH) PrettyPrinter.java
+
+MJLexer.class: MJLexer.java
+	javac -cp $(CLASSPATH) MJLexer.java
+
+MJLexer.java: minijava.flex
+	jflex --nobak minijava.flex
