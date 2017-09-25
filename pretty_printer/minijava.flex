@@ -101,13 +101,8 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
                                 yybegin(YYINITIAL);
                                 return symbol(sym.STRING_LITERAL, string.toString());
                             }
+    \\.                     { string.append( yytext() ); }
     [^\n\r\"\\]+            { string.append( yytext() ); }
-    \\t                     { string.append('\t'); }
-    \\n                     { string.append('\n'); }
-
-    \\r                     { string.append('\r'); }
-    \\\"                    { string.append('\"'); }
-    \\                      { string.append('\\'); }
-    }
+}
 
 [^] { throw new Error("Invalid character: <" + yytext() + ">"); }
