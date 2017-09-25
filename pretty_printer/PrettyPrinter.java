@@ -7,7 +7,7 @@ import java_cup.runtime.Symbol;
 
 public class PrettyPrinter {
 
-    private static final String[] literals = { 
+    private static final String[] literals = {
         "public", "private", "import", "true", "false", "this", "new", "int", 
         "boolean", "String", "void", "return", "if", "else", "while", "for", 
         "do", "switch", "case", "class", "extends", "static", "[", "]", "(", 
@@ -47,6 +47,8 @@ public class PrettyPrinter {
                 case sym.COMMENT:
                     printComment(indentLevel, one.value.toString());
                     break;
+                case sym.STRING_LITERAL:
+                    print("\"" + one.value.toString() + "\"");
                 case sym.SEMICOLON:
                     print(literals[one.sym]);
                     if (two.sym != sym.RIGHT_CURLY) 
@@ -103,11 +105,7 @@ public class PrettyPrinter {
                 case sym.STATIC:
                 case sym.VOID_TYPE:
                 case sym.NEW:
-                case sym.IF:
                 case sym.ELSE:
-                case sym.WHILE:
-                case sym.DO:
-                case sym.FOR:
                     print(literals[one.sym] + " ");
                     break;
                 default:

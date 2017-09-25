@@ -51,4 +51,5 @@ public class sym {
     public static final int INT = 48;
     public static final int ID = 49;
     public static final int COMMENT = 50;
+    public static final int STRING_LITERAL = 51;
 }
