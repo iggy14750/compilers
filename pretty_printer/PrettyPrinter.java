@@ -49,6 +49,7 @@ public class PrettyPrinter {
                     break;
                 case sym.STRING_LITERAL:
                     print("\"" + one.value.toString() + "\"");
+                    break;
                 case sym.SEMICOLON:
                     print(literals[one.sym]);
                     if (two.sym != sym.RIGHT_CURLY) 
