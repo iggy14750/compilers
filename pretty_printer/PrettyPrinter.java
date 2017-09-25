@@ -103,6 +103,7 @@ public class PrettyPrinter {
                 case sym.VOID_TYPE:
                 case sym.NEW:
                 case sym.IF:
+                case sym.ELSE:
                 case sym.WHILE:
                 case sym.DO:
                 case sym.FOR:

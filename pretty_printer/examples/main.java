@@ -11,7 +11,7 @@ public class main {
         }
 
         do {
-            x++;!stuff;
-        } while(!stuff && (5 || 7 + 3));
+            x++;p[x] = 33;
+        } while(!stuff && (true || stuff));
     }
 }
