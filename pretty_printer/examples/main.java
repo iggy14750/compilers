@@ -7,5 +7,12 @@ public class main {
         if it's possible to make it do that. Actually, it should be easy if I
         keep testing it like this. */
         String s = new String("A string literal with \n \r \\ \"" );
+        if (5 == x) {
+            int i = 0;
+            while ( s.charAt(i) != something) {
+                System.out.println(s);
+                i++;
+            }
+        }
     }
 }

@@ -26,6 +26,7 @@ public class PrettyPrinter {
             switch (one.sym) {
                 case sym.EQ:
                 case sym.EQEQ:
+                case sym.BANGEQ:
                 case sym.AND:
                 case sym.ANDAND:
                 case sym.OR:
