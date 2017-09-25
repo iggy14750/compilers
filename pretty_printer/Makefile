@@ -12,7 +12,7 @@ force: touch build
 touch:
 	touch gen_sym.py minijava.flex keywords.txt PrettyPrinter.java examples/main.java
 
-build: sym.class PrettyPrinter.class MJLexer.class
+build: sym.class MJLexer.class PrettyPrinter.class
 
 sym.class: sym.java
 	javac sym.java

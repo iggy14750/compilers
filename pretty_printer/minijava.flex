@@ -75,6 +75,7 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     ":"                     { return symbol(sym.COLON); }
     "="                     { return symbol(sym.EQ); }
     "=="                    { return symbol(sym.EQEQ); }
+    "!="                    { return symbol(sym.BANGEQ); }
     "!"                     { return symbol(sym.BANG); }
     "++"                    { return symbol(sym.PLUSPLUS); }
     "--"                    { return symbol(sym.MINUSMINUS); }

@@ -11,8 +11,8 @@ public class PrettyPrinter {
         "public", "private", "import", "true", "false", "this", "new", "int", 
         "boolean", "String", "void", "return", "if", "else", "while", "for", 
         "do", "switch", "case", "class", "extends", "static", "[", "]", "(", 
-        ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!", "++", "--", 
-        "&", "&&", "|", "||", "<", ">", "+", "-", "*", "/"
+        ")", "{", "}", ";", ",", ".", "?", ":", "=", "==", "!=", "!", "++", 
+        "--", "&", "&&", "|", "||", "<", ">", "+", "-", "*", "/"
     };
 
     public static void main(String[] args) throws IOException {
@@ -91,7 +91,7 @@ public class PrettyPrinter {
                 case sym.INT_TYPE:
                 case sym.STRING_TYPE:
                 case sym.BOOLEAN_TYPE:
-                    if (two.sym == sym.LEFT_SQUARE_BRACKET) {
+                    if (two.sym != sym.ID) {
                         print(literals[one.sym]);
                         break;
                     } // Note this can fall through - intentional!
