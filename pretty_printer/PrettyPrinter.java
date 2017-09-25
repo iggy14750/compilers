@@ -137,7 +137,7 @@ public class PrettyPrinter {
     /** Does all the work of pretty-printing comments. */
     private static void printComment(int indentLevel, String comment) {
         String[] words = parseComment(comment);
-        int column = 8*indentLevel;
+        int column = indentLevel;
         final int colLimit = 80;
 
         print("/*");
@@ -146,7 +146,7 @@ public class PrettyPrinter {
                 print(" " + word);
                 column += 1 + word.length();
             } else {
-                column = 8*indentLevel;
+                column = indentLevel;
                 printNewLine(indentLevel);
                 print(word);
                 column += word.length();
