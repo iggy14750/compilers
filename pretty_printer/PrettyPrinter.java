@@ -49,7 +49,8 @@ public class PrettyPrinter {
                     break;
                 case sym.SEMICOLON:
                     print(literals[one.sym]);
-                    printNewLine(indentLevel);
+                    if (two.sym != sym.RIGHT_CURLY) 
+                        printNewLine(indentLevel);
                     break;
                 case sym.LEFT_CURLY:
                     indentLevel++;

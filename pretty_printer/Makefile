@@ -5,7 +5,7 @@ CLASSPATH = .#./:./#java_cup/runtime
 default: build run
 
 run:
-	java -cp $(CLASSPATH) PrettyPrinter examples/Factorial.java
+	java -cp $(CLASSPATH) PrettyPrinter examples/main.java
 
 force: touch build
 
