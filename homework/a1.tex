@@ -1,0 +1,85 @@
+\documentclass{article}
+\author{Isaac B Goss}
+\title{Assignment 1}
+\date{}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{graphicx}
+
+% ============ USED FOR OUR FORMAT ============
+\newtheorem{thm}{Claim}
+\providecommand{\prob}[1]{\section*{Problem #1}}
+\providecommand{\soln}{\textbf{Solution: }}
+\providecommand{\image}[1]{
+    \begin{center}
+        \includegraphics%[width=0.95\textwidth]
+            {#1}
+    \end{center}
+}
+\providecommand{\tightlist}{
+    \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
+% ============ USED FOR CODE LISTINGS ============
+\usepackage{listings}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35}
+\lstset{
+    basicstyle   = \footnotesize,
+    commentstyle = \color{javagreen},
+    frame        = single,
+    language     = C,
+    stringstyle  = \color{orange},
+    numbers      = left,
+    showstringspaces=false,
+    deletekeywords = {len, max, format, min},
+    morekeywords = {yield, function, then, do, to},
+    keywordstyle = \color{blue},
+}
+\providecommand{\code}[1]{
+\begin{verbatim} #1 \end{verbatim}
+}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item Write a regular expression for to match the following things.
+    \begin{enumerate}
+        \item A power of 2.\\ \soln 0*10*%\lstinline{0*10*}
+        \item Valid C/Java integer constants which can be positive or negative, in decimal or hexidecimal.\\
+        \soln -? 0 \textbar{} [1-9][0-9]* \textbar{} 0x[0-9A-Fa-f]* \textbar{} 0[0-9]*
+        \item A block comment without nesting.
+        \begin{verbatim}/* [^*]* */\end{verbatim}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
