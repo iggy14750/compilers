@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+cd homework
+sed -r "s/title\{\}/title\{Assignment $1\}/" template.tex > a${1}.tex
+git add a$1.tex
+cd ..
+#sed -r -i "s/A_NUM: [[:digit:]]+$/A_NUM: $1/" .travis.yml
