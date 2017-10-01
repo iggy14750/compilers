@@ -15,7 +15,7 @@
 \providecommand{\soln}{\textbf{Solution: }}
 \providecommand{\image}[1]{
     \begin{center}
-        \includegraphics%[width=0.95\textwidth]
+        \includegraphics[width=0.95\textwidth]
             {#1}
     \end{center}
 }
@@ -27,20 +27,22 @@
 \usepackage{listings}
 \usepackage[usenames,dvipsnames,svgnames]{xcolor}
 \definecolor{javagreen}{rgb}{0.25,0.5,0.35}
-\lstset{
-    basicstyle   = \footnotesize,
-    commentstyle = \color{javagreen},
-    frame        = single,
-    language     = C,
-    stringstyle  = \color{orange},
-    numbers      = left,
-    showstringspaces=false,
-    deletekeywords = {len, max, format, min},
-    morekeywords = {yield, function, then, do, to},
-    keywordstyle = \color{blue},
-}
-\providecommand{\code}[1]{
-\begin{verbatim} #1 \end{verbatim}
+% \lstset{
+%     basicstyle   = \footnotesize,
+%     commentstyle = \color{javagreen},
+%     frame        = single,
+%     language     = C,
+%     stringstyle  = \color{orange},
+%     numbers      = left,
+%     showstringspaces=false,
+%     deletekeywords = {len, max, format, min},
+%     morekeywords = {yield, function, then, do, to},
+%     keywordstyle = \color{blue},
+% }
+\providecommand{\coder}[1]{
+\begin{lstlisting}[escapeinside={(*}{*)}]
+#1
+\end{lstlisting}
 }
 
 \begin{document}
@@ -49,12 +51,25 @@
 \begin{enumerate}
     \item Write a regular expression for to match the following things.
     \begin{enumerate}
-        \item A power of 2.\\ \soln 0*10*%\lstinline{0*10*}
-        \item Valid C/Java integer constants which can be positive or negative, in decimal or hexidecimal.\\
-        \soln -? 0 \textbar{} [1-9][0-9]* \textbar{} 0x[0-9A-Fa-f]* \textbar{} 0[0-9]*
+        \item A power of 2.
+        \begin{verbatim}0*10*\end{verbatim}
+        \item Valid C/Java integer constants which can be positive or negative, in decimal or hexidecimal.
+        \begin{verbatim}-?(0|[1-9][0-9]*|0x[0-9A-Fa-f]*|0[0-9]*)\end{verbatim}
         \item A block comment without nesting.
-        \begin{verbatim}/* [^*]* */\end{verbatim}
+
+        \texttt{/\textbackslash*[\^{}*]*\textbackslash*/}
     \end{enumerate}
+
+    \item Using Thompson's Algorithm to convert the following regular expression to an NFA.
+    
+    \texttt{b?(ab)*bb+}
+
+    Let's normalize the regular expression first.
+    
+    \texttt{(b|$\epsilon$)(ab)*bbb*}
+    
+    \image{nfa-first}
+
 \end{enumerate}
 
 \end{document}
