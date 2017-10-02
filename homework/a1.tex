@@ -13,9 +13,9 @@
 \newtheorem{thm}{Claim}
 \providecommand{\prob}[1]{\section*{Problem #1}}
 \providecommand{\soln}{\textbf{Solution: }}
-\providecommand{\image}[1]{
+\providecommand{\image}[2]{
     \begin{center}
-        \includegraphics[width=0.95\textwidth]
+        \includegraphics[width=#2\textwidth]
             {#1}
     \end{center}
 }
@@ -68,7 +68,7 @@
     
     \texttt{(b|$\epsilon$)(ab)*bbb*}
     
-    \image{nfa-first}
+    \image{nfa-first}{0.8}
     \item Using the algorithm described in class, turn the earlier NFA to a DFA.
 
     We can use the method described in class (with the $\epsilon$-closure) to construct the DFA states,
@@ -90,6 +90,8 @@
         I & 12,13,14      & -     & 12,13,14 (I)    \\
     \end{tabular}
     \end{center}
+
+    \image{dfa-first}{0.7}
 
     \pagebreak
     \item Give a grammar for the language defined by the regular expression in question 2.
