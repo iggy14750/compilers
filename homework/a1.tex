@@ -1,7 +1,7 @@
 \documentclass{article}
 \author{Isaac B Goss}
 \title{Assignment 1}
-\date{}
+\date{Monday, October 2, 2017}
 
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -60,7 +60,7 @@
         \texttt{/\textbackslash*[\^{}*]*\textbackslash*/}
     \end{enumerate}
 
-    \item Using Thompson's Algorithm to convert the following regular expression to an NFA.
+    \item Using Thompson's Algorithm, convert the following regular expression to an NFA.
     
     \texttt{b?(ab)*bb+}
 
@@ -87,11 +87,11 @@
         F & 10            & -     & 11,12,14 (H)    \\
         G & 11,12,13,14   & -     & 12,13,14 (I)    \\
         H & 11,12,14      & -     & 12,13,14 (I)    \\
-        I & 12,13,14      & -     & 12,13,14 (I)    \\
+        I & 12,13,14      & -     & 12,13,14 (I)    \\ 
     \end{tabular}
     \end{center}
 
-    \image{dfa-first}{0.7}
+    \image{dfa-first}{0.6}
 
     \pagebreak
     \item Give a grammar for the language defined by the regular expression in question 2.
