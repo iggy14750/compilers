@@ -68,8 +68,7 @@
     
     \texttt{(b|$\epsilon$)(ab)*bbb*}
     
-    %\image{nfa-first}
-    \vspace{4cm}
+    \image{nfa-first}
     \item Using the algorithm described in class, turn the earlier NFA to a DFA.
 
     We can use the method described in class (with the $\epsilon$-closure) to construct the DFA states,
@@ -90,6 +89,38 @@
         H & 11,12,14      & -     & 12,13,14 (I)    \\
         I & 12,13,14      & -     & 12,13,14 (I)    \\
     \end{tabular}
+    \end{center}
+
+    \pagebreak
+    \item Give a grammar for the language defined by the regular expression in question 2.
+
+    \begin{center}
+        \texttt{
+            \begin{tabular}{ll}
+                A $\to$ & aB | aC \\
+                B $\to$ & aC | bE \\
+                C $\to$ & bD      \\
+                D $\to$ & aC | bE \\
+                E $\to$ & bF      \\
+                F $\to$ & bG      \\
+                G $\to$ & bG | $\epsilon$
+            \end{tabular}
+        }
+    \end{center}
+
+    \item Give a grammar for the language of Boolean expressions.
+
+    \begin{center}
+        \texttt{
+            \begin{tabular}{ll}
+                Expr $\to$ & (Expr)\\
+                Expr $\to$ & Expr "\&\&" Expr \\
+                Expr $\to$ & Expr "||" Expr   \\
+                Expr $\to$ & "!" Expr         \\
+                Expr $\to$ & "true"           \\
+                Expr $\to$ & "false"
+            \end{tabular}
+        }
     \end{center}
 
 \end{enumerate}
