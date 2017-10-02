@@ -68,7 +68,29 @@
     
     \texttt{(b|$\epsilon$)(ab)*bbb*}
     
-    \image{nfa-first}
+    %\image{nfa-first}
+    \vspace{4cm}
+    \item Using the algorithm described in class, turn the earlier NFA to a DFA.
+
+    We can use the method described in class (with the $\epsilon$-closure) to construct the DFA states,
+    where any of these states which include 14 in their NFA states is an accept state.
+
+    \begin{center}
+    \begin{tabular}{c|c|c|c}
+        %DFA State & NFA States & a & b \\
+        \textbf{DFA State} & \textbf{NFA States} & \textbf{a Transition} & \textbf{b Transition}\\
+        \hline\hline
+        A & 0,1,3,4,5,6,9 & 7 (B) & 2,5,6,9,10 (C)  \\
+        B & 7             & -     & 6,8,9 (D)       \\
+        C & 2,5,6,9,10    & 7 (B) & 10,11,12,14 (E) \\
+        D & 6,8,9         & 7 (B) & 10 (F)          \\
+        E & 10,11,12,14   & -     & 11,12,13,14 (G) \\
+        F & 10            & -     & 11,12,14 (H)    \\
+        G & 11,12,13,14   & -     & 12,13,14 (I)    \\
+        H & 11,12,14      & -     & 12,13,14 (I)    \\
+        I & 12,13,14      & -     & 12,13,14 (I)    \\
+    \end{tabular}
+    \end{center}
 
 \end{enumerate}
 
