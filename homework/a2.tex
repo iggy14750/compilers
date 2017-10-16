@@ -116,6 +116,36 @@
             H  & H $\to$ true & H $\to$ false &                    &                    &              &                   \\ \hline
         \end{tabular}
     \end{center}
+
+    \pagebreak
+    \prob{3}
+    The following chart contains information on the parse of the given input string.
+    \begin{center}
+        \begin{tabular}{l|l|l}
+            \textbf{Stack} & \textbf{Input} & \textbf{Production/Action} \\ \hline
+            \$ E            & ! false $||$ true \&\& false & E $\to$ F E'      \\
+            \$ E' F'        & ! false $||$ true \&\& false & F $\to$ G F'      \\
+            \$ E' F' G      & ! false $||$ true \&\& false & G $\to$ ! H       \\
+            \$ E' F' H !    & ! false $||$ true \&\& false & pop !             \\
+            \$ E' F' H      & false $||$ true \&\& false   & H $\to$ false     \\
+            \$ E' F' false  & false $||$ true \&\& false   & pop false         \\
+            \$ E' F'        & $||$ true \&\& false         & F' $\to \epsilon$ \\
+            \$ E'           & $||$ true \&\& false         & E' $\to$ $||$ F E'\\
+            \$ E' F $||$    & $||$ true \&\& false         & pop $||$          \\
+            \$ E' F         & true \&\& false              & F $\to$ G F'      \\
+            \$ E' F' G      & true \&\& false              & G $\to$ H         \\
+            \$ E' F' H      & true \&\& false              & H $\to$ true      \\
+            \$ E' F' true   & true \&\& false              & pop true          \\
+            \$ E' F'        & \&\& false                   & F' $\to$ \&\& G F'\\
+            \$ E' F' G \&\& & \&\& false                   & pop \&\&          \\
+            \$ E' F' G      & false                        & G $\to$ H         \\
+            \$ E' F' H      & false                        & H $\to$ false     \\
+            \$ E' F' false  & false                        & pop false         \\
+            \$ E' F'        & \$                           & F' $\to \epsilon$ \\
+            \$ E'           & \$                           & E' $\to \epsilon$ \\
+            \$              & \$                           & Accept            \\
+        \end{tabular}
+    \end{center}
 \end{document}
 
 
