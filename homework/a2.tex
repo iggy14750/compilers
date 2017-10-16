@@ -103,6 +103,19 @@
     \end{center}
 
     Then used the given algorithm to build the parse table.
+    \begin{center}
+        \begin{tabular}{|l||l|l|l|l|l|l|}
+            \hline
+            & true & false & \&\& & $||$ & ! & \$ \\
+            \hline \hline
+            E  & E $\to$ F E' & E $\to$ F E'  &                    &                    & E $\to$ F E' &                   \\ \hline
+            E' &              &               &                    & E' $\to$ $||$ F E' &              & E' $\to \epsilon$ \\ \hline
+            F  & F $\to$ G F' & F $\to$ G F'  &                    &                    & F $\to$ G F' &                   \\ \hline
+            F' &              &               & F' $\to$ \&\& G F' & F' $\to \epsilon$  &              & F' $\to \epsilon$ \\ \hline
+            G  & G $\to$ H    & G $\to$ H     &                    &                    & G $\to$ ! H  &                   \\ \hline
+            H  & H $\to$ true & H $\to$ false &                    &                    &              &                   \\ \hline
+        \end{tabular}
+    \end{center}
 \end{document}
 
 
