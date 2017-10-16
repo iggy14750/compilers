@@ -8,6 +8,13 @@
 \usepackage[margin=0.8in]{geometry}
 \usepackage{graphicx}
 
+% =========== USED FOR METAUML ==============
+% \usepackage[shellescape]{gmp}
+% \usepackage{ifpdf}
+% \ifpdf
+% \DeclareGraphicsRule{*}{mps}{*}{}
+% \fi
+
 % ============ USED FOR OUR FORMAT ============
 \newtheorem{thm}{Claim}
 \providecommand{\prob}[1]{\section*{Problem #1}}
@@ -144,6 +151,35 @@
             \$ E' F'        & \$                           & F' $\to \epsilon$ \\
             \$ E'           & \$                           & E' $\to \epsilon$ \\
             \$              & \$                           & Accept            \\
+        \end{tabular}
+    \end{center}
+
+    \prob{4}
+    \pagebreak
+    
+    \prob{5}
+    Note that I added a non-terminal \texttt{S $\to$ A \$}.
+    \begin{center}
+        \begin{tabular}{l|l|l}
+            \textbf{Symbol} & \textbf{First Set} & \textbf{Follow Set}\\ \hline
+            S & a             & \$ \\
+            A & a             & \$ \\
+            B & b             & \$ \\
+            C & e, $\epsilon$ & b \\
+            D & d             & a \\
+        \end{tabular}
+    \end{center}
+
+    The following is the reduction table.
+    \begin{center}
+        \begin{tabular}{l|l|l}
+            \textbf{State} & \textbf{Symbol Out} & \textbf{Production} \\ \hline
+            4  & b  & C $\to \epsilon$ \\
+            5  & b  & C $\to$ e        \\
+            7  & a  & D $\to$ d        \\
+            9  & \$ & A $\to$ a B      \\
+            10 & \$ & A $\to$ a D a    \\
+            11 & \$ & B $\to$ b C b    \\
         \end{tabular}
     \end{center}
 \end{document}
