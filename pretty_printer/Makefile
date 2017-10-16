@@ -1,16 +1,17 @@
 
 
 CLASSPATH = .#./:./#java_cup/runtime
+INPUT_FILE = examples/long.java
 
 default: build run
 
 run:
-	java -cp $(CLASSPATH) PrettyPrinter examples/main.java
+	java -cp $(CLASSPATH) PrettyPrinter $(INPUT_FILE)
 
 force: touch build
 
 touch:
-	touch gen_sym.py minijava.flex keywords.txt PrettyPrinter.java examples/main.java
+	touch gen_sym.py minijava.flex keywords.txt PrettyPrinter.java $(INPUT_FILE)
 
 build: sym.class MJLexer.class PrettyPrinter.class
 
