@@ -86,8 +86,23 @@
         }
     \end{center}
 
-    
+    \prob{2}
+    First, I found the First and Follow sets of the non-terminals.
 
+    \begin{center}
+        \begin{tabular}{l | l | l}
+            \textbf{Non-Terminal} & \textbf{First Set} & \textbf{Follow Set}\\
+            \hline
+            E  & !, true, false   & \$             \\
+            E' & $\epsilon$, $||$ & \$             \\
+            F  & !, true, false   & $||$, \$       \\
+            F' & $\epsilon$, \&\& & $||$, \$       \\
+            G  & !, true, false   & \&\&, $||$, \$ \\
+            H  & true, false      & \&\&, $||$, \$ \\
+        \end{tabular}
+    \end{center}
+
+    Then used the given algorithm to build the parse table.
 \end{document}
 
 
