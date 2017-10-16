@@ -40,11 +40,53 @@
     escapeinside = {(*} {*)}
 }
 
+% ========== TEMPLATE FOR GRAMMARS ===========
+% \begin{center}
+%     \texttt{
+%         \begin{tabular}{ll}
+%             A $\to$ & aB | aC \\
+%             B $\to$ & aC | bE \\
+%             C $\to$ & bD      \\
+%             D $\to$ & aC | bE \\
+%             E $\to$ & bF      \\
+%             F $\to$ & bG      \\
+%             G $\to$ & bG | $\epsilon$
+%         \end{tabular}
+%     }
+% \end{center}
+
 
 \begin{document}
 \maketitle
 
+    \prob{1}
+    Let's begin with encoding precedence.
+    \begin{center}
+        \texttt{
+            \begin{tabular}{ll}
+                E $\to$ & E `$||$' F \textbar{} F   \\
+                F $\to$ & F `\&\&' G \textbar{} G   \\
+                G $\to$ & `!' H \textbar{} H        \\
+                H $\to$ & `true' \textbar{} `false' \\
+            \end{tabular}
+        }
+    \end{center}
 
+    And then left factoring that.
+    \begin{center}
+        \texttt{
+            \begin{tabular}{ll}
+                E  & $\to$ F E' \\
+                E' & $\to$ `$||$' F E' \textbar{} $\epsilon$ \\
+                F  & $\to$ G F' \\
+                F' & $\to$ `\&\&' G F' \textbar{} $\epsilon$ \\
+                G  & $\to$ `!' H \textbar{} H \\
+                H  & $\to$ `true' \textbar{} `false' 
+            \end{tabular}
+        }
+    \end{center}
+
+    
 
 \end{document}
 
