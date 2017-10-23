@@ -11,7 +11,7 @@ public class JType implements Instruction {
 
     public String toString() {
         return String.format("%s %d", 
-        MipsLex.operators[this.opcode], this.imm);
+        Opcode.name[this.opcode], this.imm);
     }
 
     public String pack() {

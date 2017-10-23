@@ -19,7 +19,7 @@ public class IType implements Instruction {
 
     public String toString() {
         return String.format("%s $r%d, $r%d, %d", 
-        MipsLex.operators[opcode], rs, rt, imm);
+        Opcode.name[opcode], rs, rt, imm);
     }
 
     public String pack() {

@@ -19,10 +19,11 @@ public class RType implements Instruction {
     }
 
     public String toString() {
-        if (type == MipsLex.SYSCALL) {
-            return MipsLex.operators[type];
+        if (type == Opcode.SYSCALL) {
+            return Opcode.name[type];
         }
-        return String.format("%s $r%d, $r%d, $r%d", MipsLex.operators[type], rd, rs, rt);
+        return String.format("%s $r%d, $r%d, $r%d", 
+        Opcode.name[type], rd, rs, rt);
     }
 
     public String pack() {
