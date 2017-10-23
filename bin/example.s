@@ -1,8 +1,8 @@
 add $r1, $r2, $r3
 sub $r3, $r2, $r2
-j $r65, $r22, $r99
-alabel: ori $r1,$r43,$r2
-ori $r3,$r2,-23
+xor $r65, $r22, $r99
+alabel: ori $r1,$r43,-23
+slt $r3,$r2,$r23
 syscall
 lbu $r2, 12341 ( $r54 )
 j 2342343
