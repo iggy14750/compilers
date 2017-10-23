@@ -18,25 +18,45 @@ scan with {: return s.next_token(); :};
 /* Terminals (tokens returned by the scanner). */
 terminal COMMA;
 terminal Integer OPCODE;
+// terminal Integer SYSCALL;
 terminal Integer REGISTER;
+terminal String LABEL;
 
 /* Non terminals */
 non terminal List<Instruction> inst_list;
 non terminal Instruction inst;
+non terminal Instruction lbl_inst;
 
 start with inst_list;
 /* Precedences */
 
 /* The grammar rules */
-inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
+inst_list ::= 
+    inst_list:il inst:e {: 
+        il.add(e);
+        RESULT = il;
+    :}
     | inst:e {: 
         List<Instruction> il = new ArrayList<Instruction>();
         il.add(e);
         RESULT = il;
     :}
+    | inst_list:il lbl_inst:lbl {:
+        il.add(lbl);
+        RESULT = il;
+    :}
 ;
 
-inst ::= OPCODE:op REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
+lbl_inst ::= LABEL:lbl inst:i {:
+        RESULT = new LabeledInstruction(lbl, i);
+    :}
+;
+
+inst ::= 
+    OPCODE:op REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
         RESULT = new RType(op, rd, rs, rt); 
     :}
+    // | SYSCALL:op NEWLINE {:
+    //     RESULT = new RType(op, 0, 0, 0);
+    // :}
 ;

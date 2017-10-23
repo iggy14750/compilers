@@ -54,7 +54,7 @@ WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
 IntegerLiteral = 0 | [1-9][0-9]*
-Identifier = [:jletter:] [:jletterdigit:]*
+Label = [:jletter:] [:jletterdigit:]* ":"
 Register = "$r" \d+
 
 LineComment = "#" {InputCharacter}* {LineBreak}?
@@ -68,7 +68,7 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
 "slt"               { return new Symbol(sym.OPCODE, yyline, yycolumn, SLT); }
 "beq"               { return new Symbol(sym.OPCODE, yyline, yycolumn, BEQ); }
 "bne"               { return new Symbol(sym.OPCODE, yyline, yycolumn, BNE); }
-"syscall"           { return new Symbol(sym.OPCODE, yyline, yycolumn, SYSCALL); }
+// "syscall"           { return new Symbol(sym.SYSCALL, yyline, yycolumn, SYSCALL); }
 "lbu"               { return new Symbol(sym.OPCODE, yyline, yycolumn, LBU); }
 "sb"                { return new Symbol(sym.OPCODE, yyline, yycolumn, SB); }
 "j"                 { return new Symbol(sym.OPCODE, yyline, yycolumn, J); }
@@ -82,10 +82,10 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
     int num = Integer.parseInt(s.substring(2));
     return new Symbol(sym.REGISTER, yyline, yycolumn, num); 
 }
-{LineBreak}         { print("linebreak"); }
-{IntegerLiteral}    { print("integer literal"); }
-{Identifier}        { print("identifier"); }
-{LineComment}       { print("Line comment"); }
-{WhiteSpace}        { print("whitespace"); }
+{Label}             { return new Symbol(sym.LABEL, yyline, yycolumn, yytext()); }
+{LineBreak}         { }//return new Symbol(sym.NEWLINE, yyline, yycolumn); }
+{IntegerLiteral}    { }
+{LineComment}       { }
+{WhiteSpace}        { }
 
 [^] {System.err.println("Invalid input character");}
