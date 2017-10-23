@@ -35,7 +35,7 @@ inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
     :}
 ;
 
-inst ::= ADD REGISTER:rs COMMA REGISTER:rt COMMA REGISTER:rd {: 
-        RESULT = new Instruction(sym.ADD, rs, rt, rd); 
+inst ::= ADD REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
+        RESULT = new Instruction(sym.ADD, rd, rs, rt); 
     :}
 ;

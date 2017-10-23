@@ -6,7 +6,7 @@ public class Instruction {
     private final int rt;
     private final int rd;
 
-    public Instruction(int type, int rs, int rt, int rd) {
+    public Instruction(int type, int rd, int rs, int rt) {
         this.type = type;
         this.rs = rs;
         this.rt = rt;
@@ -14,6 +14,6 @@ public class Instruction {
     }
 
     public String toString() {
-        return String.format("add $r%d, $r%d, $r%d", rs, rt, rd);
+        return String.format("add $r%d, $r%d, $r%d", rd, rs, rt);
     }
 }
