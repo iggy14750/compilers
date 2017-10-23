@@ -16,7 +16,8 @@ parser code {:
 scan with {: return s.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal ADD, COMMA;
+terminal COMMA;
+terminal Integer OPCODE;
 terminal Integer REGISTER;
 
 /* Non terminals */
@@ -35,7 +36,7 @@ inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
     :}
 ;
 
-inst ::= ADD REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
-        RESULT = new RType(sym.ADD, rd, rs, rt); 
+inst ::= OPCODE:op REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
+        RESULT = new RType(op, rd, rs, rt); 
     :}
 ;
