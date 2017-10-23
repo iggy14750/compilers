@@ -62,6 +62,8 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
 %%
 
 ","                 { return new Symbol(sym.COMMA, yyline, yycolumn); }
+"("                 { return new Symbol(sym.LPAREN, yyline, yycolumn); }
+")"                 { return new Symbol(sym.RPAREN, yyline, yycolumn); }
 "add"               { return new Symbol(sym.OPCODE, yyline, yycolumn, ADD); }
 "addi"              { return new Symbol(sym.OPCODE, yyline, yycolumn, ADDI); }
 "sub"               { return new Symbol(sym.OPCODE, yyline, yycolumn, SUB); }

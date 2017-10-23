@@ -12,7 +12,7 @@ public class Assembler {
         "alabel: ori $r1,$r43,$r2\n" + 
         "ori $r3,$r2,-23\n" +
         "syscall\n" +
-        "lbu $r2, $r643, 12341\n";
+        "lbu $r2, 12341 ( $r54 )\n";
 
     public static void main(String[] args) throws Exception {
         MipsParse p = new MipsParse(new MipsLex(new StringReader(example)));

@@ -16,7 +16,7 @@ parser code {:
 scan with {: return s.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal COMMA;
+terminal COMMA, LPAREN, RPAREN;
 terminal Integer OPCODE;
 terminal Integer SYSCALL;
 terminal Integer REGISTER;
@@ -58,6 +58,9 @@ inst ::=
         RESULT = new RType(op, rd, rs, rt); 
     :}
     | OPCODE:op REGISTER:rs COMMA REGISTER:rt COMMA INT:imm {:
+        RESULT = new IType(op, rs, rt, imm);
+    :}
+    | OPCODE:op REGISTER:rt COMMA INT:imm LPAREN REGISTER:rs RPAREN {:
         RESULT = new IType(op, rs, rt, imm);
     :}
     | SYSCALL:op {:
