@@ -36,6 +36,6 @@ inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
 ;
 
 inst ::= ADD REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
-        RESULT = new Instruction(sym.ADD, rd, rs, rt); 
+        RESULT = new RType(sym.ADD, rd, rs, rt); 
     :}
 ;
