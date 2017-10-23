@@ -6,11 +6,14 @@ public class IType implements Instruction {
     private final int rt;
     private final int imm;
 
-    public IType(int op, int rs, int rt, int imm) {
+    public IType(int op, int rs, int rt, int imm) throws SyntaxException {
         this.opcode = op;
         this.rs = rs;
         this.rt = rt;
         this.imm = imm;
+        if (Opcode.type[opcode] != OpType.IMMEDIATE) {
+            throw new SyntaxException("Invalid use of pnemonic <" + Opcode.name[opcode] + "> as I-Type instruction");
+        }
     }
 
     public int opCode() {
