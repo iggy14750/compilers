@@ -63,6 +63,9 @@ inst ::=
     | OPCODE:op REGISTER:rt COMMA INT:imm LPAREN REGISTER:rs RPAREN {:
         RESULT = new IType(op, rs, rt, imm);
     :}
+    | OPCODE:op INT:imm {:
+        RESULT = new JType(op, imm);
+    :}
     | SYSCALL:op {:
         RESULT = new RType(op, 0, 0, 0);
     :}

@@ -13,7 +13,7 @@ src/main/java/MipsParse.java: src/main/cup/mips.cup
 
 lex: src/main/java/MipsLex.java
 
-src/main/java/MipsLex.java: src/main/jflex/mips.flex
+src/main/java/MipsLex.java: src/main/cup/mips.cup src/main/jflex/mips.flex
 	jflex --nobak -d src/main/java/ src/main/jflex/mips.flex
 
 run:
