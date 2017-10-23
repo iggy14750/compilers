@@ -1,3 +1,7 @@
+.data
+
+
+.text
 add $r1, $r2, $r3
 sub $r3, $r2, $r2
 xor $r65, $r22, $r99
