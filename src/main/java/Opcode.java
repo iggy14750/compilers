@@ -18,11 +18,11 @@ public class Opcode {
     public static final int ORI = 14;
     public static final int XOR = 15;
 
-    public static final boolean[] rtype = {
-        true, false, true, true, 
-        false, false, true, false, 
-        false, false, false, true, 
-        false, true, false, true
+    public static final OpType[] type = new OpType[] {
+        OpType.REGISTER, OpType.IMMEDIATE, OpType.REGISTER, OpType.REGISTER, 
+        OpType.IMMEDIATE, OpType.IMMEDIATE, OpType.REGISTER, OpType.IMMEDIATE, 
+        OpType.IMMEDIATE, OpType.JUMP, OpType.JUMP, OpType.REGISTER, 
+        OpType.IMMEDIATE, OpType.REGISTER, OpType.IMMEDIATE, OpType.REGISTER
     };
 
     public static final int[] value = new int[] {
