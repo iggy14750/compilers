@@ -1,24 +1,12 @@
 import java.io.IOException;
-import java.io.StringReader;
+import java.io.FileReader;
 import java.util.List;
 import java_cup.runtime.Symbol;
 
 public class Assembler {
 
-    private static final String example = 
-        "add $r1, $r2, $r3\n" +
-        "sub $r3, $r2, $r2\n" +
-        "j $r65, $r22, $r99\n" +
-        "alabel: ori $r1,$r43,$r2\n" + 
-        "ori $r3,$r2,-23\n" +
-        "syscall\n" +
-        "lbu $r2, 12341 ( $r54 )\n" +
-        "j 2342343\n" + 
-        "sb $r23, 0x1234($r232)\n" +
-        "jal -0x23bfeed2\n";
-
     public static void main(String[] args) throws Exception {
-        MipsParse p = new MipsParse(new MipsLex(new StringReader(example)));
+        MipsParse p = new MipsParse(new MipsLex(new FileReader("example.s")));
         List<Instruction> prog = (List<Instruction>) p.parse().value;
         for (Instruction inst: prog) {
             String type = "";
