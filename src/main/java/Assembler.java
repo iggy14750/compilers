@@ -23,5 +23,12 @@ public class Assembler {
             }
             System.out.println(type + ": " + inst);
         }
+
+        System.out.println("\n\n================================");
+        System.out.println("========= REAL OUTPUT ==========");
+        System.out.println("================================");
+        for (Instruction inst: prog) {
+            System.out.println(inst.pack());
+        }
     }
 }
