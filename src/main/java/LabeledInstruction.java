@@ -20,4 +20,8 @@ public class LabeledInstruction implements Instruction {
     public int opCode() {
         return inst.opCode();
     }
+
+    public String getLabel() {
+        return this.label;
+    }
 }
