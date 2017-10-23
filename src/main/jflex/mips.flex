@@ -68,7 +68,7 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
 "slt"               { return new Symbol(sym.OPCODE, yyline, yycolumn, SLT); }
 "beq"               { return new Symbol(sym.OPCODE, yyline, yycolumn, BEQ); }
 "bne"               { return new Symbol(sym.OPCODE, yyline, yycolumn, BNE); }
-// "syscall"           { return new Symbol(sym.SYSCALL, yyline, yycolumn, SYSCALL); }
+"syscall"           { return new Symbol(sym.SYSCALL, yyline, yycolumn, SYSCALL); }
 "lbu"               { return new Symbol(sym.OPCODE, yyline, yycolumn, LBU); }
 "sb"                { return new Symbol(sym.OPCODE, yyline, yycolumn, SB); }
 "j"                 { return new Symbol(sym.OPCODE, yyline, yycolumn, J); }
