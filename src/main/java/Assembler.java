@@ -13,7 +13,9 @@ public class Assembler {
         "ori $r3,$r2,-23\n" +
         "syscall\n" +
         "lbu $r2, 12341 ( $r54 )\n" +
-        "j 2342343";
+        "j 2342343\n" + 
+        "sb $r23, 0x1234($r232)\n" +
+        "jal -0x23bfeed2\n";
 
     public static void main(String[] args) throws Exception {
         MipsParse p = new MipsParse(new MipsLex(new StringReader(example)));

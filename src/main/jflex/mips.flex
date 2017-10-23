@@ -53,7 +53,8 @@ LineBreak  = \n|\r|\r\n
 WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
-IntegerLiteral = [+-]? (0 | [1-9][0-9]*)
+DecIntegerLiteral = [+-]? (0 | [1-9][0-9]*)
+HexIntegerLiteral = [+-]? 0[xX][0-9a-zA-Z]+
 Label = [:jletter:] [:jletterdigit:]* ":"
 Register = "$r" \d+
 
@@ -84,9 +85,20 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
     int num = Integer.parseInt(s.substring(2));
     return new Symbol(sym.REGISTER, yyline, yycolumn, num); 
 }
-{IntegerLiteral}    {
+{DecIntegerLiteral}     {
     int imm = Integer.parseInt(yytext());
     return new Symbol(sym.INT, yyline, yycolumn, imm); 
+}
+{HexIntegerLiteral}     {
+    String s = yytext();
+    // Getting rid of the 0x in the literal
+    if (s.charAt(0) == '-' || s.charAt(0) == '+') {
+        s = s.charAt(0) + s.substring(3); // want to include the sign for parseInt
+    } else {
+        s = s.substring(2);
+    }
+    int imm = Integer.parseInt(s, 16);
+    return new Symbol(sym.INT, yyline, yycolumn, imm);
 }
 {Label}             { return new Symbol(sym.LABEL, yyline, yycolumn, yytext()); }
 
