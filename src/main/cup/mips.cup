@@ -21,6 +21,7 @@ terminal Integer OPCODE;
 terminal Integer SYSCALL;
 terminal Integer REGISTER;
 terminal String LABEL;
+terminal Integer INT;
 
 /* Non terminals */
 non terminal List<Instruction> inst_list;
@@ -55,6 +56,9 @@ lbl_inst ::= LABEL:lbl inst:i {:
 inst ::= 
     OPCODE:op REGISTER:rd COMMA REGISTER:rs COMMA REGISTER:rt {: 
         RESULT = new RType(op, rd, rs, rt); 
+    :}
+    | OPCODE:op REGISTER:rs COMMA REGISTER:rt COMMA INT:imm {:
+        RESULT = new IType(op, rs, rt, imm);
     :}
     | SYSCALL:op {:
         RESULT = new RType(op, 0, 0, 0);

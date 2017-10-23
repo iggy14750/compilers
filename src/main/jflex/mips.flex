@@ -53,7 +53,7 @@ LineBreak  = \n|\r|\r\n
 WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
-IntegerLiteral = 0 | [1-9][0-9]*
+IntegerLiteral = [+-]? (0 | [1-9][0-9]*)
 Label = [:jletter:] [:jletterdigit:]* ":"
 Register = "$r" \d+
 
@@ -82,10 +82,14 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
     int num = Integer.parseInt(s.substring(2));
     return new Symbol(sym.REGISTER, yyline, yycolumn, num); 
 }
+{IntegerLiteral}    {
+    int imm = Integer.parseInt(yytext());
+    return new Symbol(sym.INT, yyline, yycolumn, imm); 
+}
 {Label}             { return new Symbol(sym.LABEL, yyline, yycolumn, yytext()); }
+
 {LineBreak}         { }//return new Symbol(sym.NEWLINE, yyline, yycolumn); }
-{IntegerLiteral}    { }
 {LineComment}       { }
 {WhiteSpace}        { }
 
-[^] {System.err.println("Invalid input character");}
+[^] {System.err.println("Invalid input character: " + yytext());}

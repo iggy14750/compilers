@@ -10,11 +10,15 @@ public class Assembler {
         "sub $r3, $r2, $r2\n" +
         "j $r65, $r22, $r99\n" +
         "alabel: ori $r1,$r43,$r2\n" + 
-        "syscall";
+        "ori $r3,$r2,-23\n" +
+        "syscall\n" +
+        "lbu $r2, $r643, 12341\n";
 
     public static void main(String[] args) throws Exception {
         MipsParse p = new MipsParse(new MipsLex(new StringReader(example)));
         List<Instruction> prog = (List<Instruction>) p.parse().value;
-        System.out.println(prog);
+        for (Instruction inst: prog) {
+            System.out.println(inst);
+        }
     }
 }
