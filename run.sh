@@ -1,3 +1,3 @@
 cd bin
-java Assembler
+java Assembler example.s
 cd ..

@@ -6,7 +6,7 @@ import java_cup.runtime.Symbol;
 public class Assembler {
 
     public static void main(String[] args) throws Exception {
-        MipsParse p = new MipsParse(new MipsLex(new FileReader("example.s")));
+        MipsParse p = new MipsParse(new MipsLex(new FileReader(args[0])));
         List<Instruction> prog = (List<Instruction>) p.parse().value;
         for (Instruction inst: prog) {
             String type = "";
