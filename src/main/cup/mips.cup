@@ -1,0 +1,41 @@
+/* Simple +/-/* expression language; parser evaluates constant expressions on the fly*/
+import java_cup.runtime.*;
+import java.util.List;
+import java.util.ArrayList;
+
+parser code {:
+    // Connect this parser to a scanner!
+    Scanner s;
+    public MipsParse(MipsLex s) {
+        this.s = s;
+    }
+:}
+
+/* define how to connect to the scanner! */
+//init with {: il = new ArrayList<Instruction>(); :};
+scan with {: return s.next_token(); :};
+
+/* Terminals (tokens returned by the scanner). */
+terminal ADD;
+terminal Integer REGISTER;
+
+/* Non terminals */
+non terminal List<Instruction> inst_list;
+non terminal Instruction inst;
+
+start with inst_list;
+/* Precedences */
+
+/* The grammar rules */
+inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
+    | inst:e {: 
+        List<Instruction> il = new ArrayList<Instruction>();
+        il.add(e);
+        RESULT = il;
+    :}
+;
+
+inst ::= ADD REGISTER:rs REGISTER:rt REGISTER:rd {: 
+        RESULT = new Instruction(sym.ADD, rs, rt, rd); 
+    :}
+;
