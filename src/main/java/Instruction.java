@@ -14,6 +14,6 @@ public class Instruction {
     }
 
     public String toString() {
-        return "add $r0, $r1, $r2";
+        return String.format("add $r%d, $r%d, $r%d", rs, rt, rd);
     }
 }

@@ -29,7 +29,11 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
 
 ","                 { return new Symbol(sym.COMMA, yyline, yycolumn); }
 "add"               { return new Symbol(sym.ADD, yyline, yycolumn); }
-{Register}          { return new Symbol(sym.REGISTER, yyline, yycolumn, 0); }
+{Register}          { 
+    String s = yytext();
+    int num = Integer.parseInt(s.substring(2));
+    return new Symbol(sym.REGISTER, yyline, yycolumn, num); 
+}
 {LineBreak}         { print("linebreak"); }
 {IntegerLiteral}    { print("integer literal"); }
 {Identifier}        { print("identifier"); }
