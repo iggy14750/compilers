@@ -16,7 +16,7 @@ parser code {:
 scan with {: return s.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal ADD;
+terminal ADD, COMMA;
 terminal Integer REGISTER;
 
 /* Non terminals */
@@ -35,7 +35,7 @@ inst_list ::= inst_list:il inst:e {: il.add(e); RESULT = il; :}
     :}
 ;
 
-inst ::= ADD REGISTER:rs REGISTER:rt REGISTER:rd {: 
+inst ::= ADD REGISTER:rs COMMA REGISTER:rt COMMA REGISTER:rd {: 
         RESULT = new Instruction(sym.ADD, rs, rt, rd); 
     :}
 ;

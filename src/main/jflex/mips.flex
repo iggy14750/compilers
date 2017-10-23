@@ -27,6 +27,7 @@ LineComment = "#" {InputCharacter}* {LineBreak}?
 
 %%
 
+","                 { return new Symbol(sym.COMMA, yyline, yycolumn); }
 "add"               { return new Symbol(sym.ADD, yyline, yycolumn); }
 {Register}          { return new Symbol(sym.REGISTER, yyline, yycolumn, 0); }
 {LineBreak}         { print("linebreak"); }
