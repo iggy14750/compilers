@@ -18,7 +18,10 @@ public class JType implements Instruction {
     }
 
     public String pack() {
-        return "0xFACEBEEF";
+        // opcode 6 | jumpaddr 26
+        int o = (Opcode.value[this.opcode] & 0x3f) << 26;
+        int result = o | (this.imm & 0x3ffffff);
+        return String.format("0x%08x", result);
     }
 
     public int opCode() {

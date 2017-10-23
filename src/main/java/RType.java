@@ -30,6 +30,13 @@ public class RType implements Instruction {
     }
 
     public String pack() {
-        return "0xFACEBEEF";
+        // opcode 6 | rs 5 | rt 5 | rd 5 | shamt 5 | funct 6
+        int o = (Opcode.value[this.opcode] & 0x3f) << 26;
+        int rs = (this.rs & 0x1f) << 20;
+        int rt = (this.rt & 0x1f) << 15;
+        int rd = (this.rd & 0x1f) << 10;
+        int funct = (Opcode.func[this.opcode] & 0x3f);
+        int result = o | rs | rt | rd | funct;
+        return String.format("0x%08x", result);
     }
 }

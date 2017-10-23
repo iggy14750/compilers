@@ -27,7 +27,7 @@ public class IType implements Instruction {
 
     public String pack() {
         // opcode 6 | rs 5 | rt 5 | immediate 16
-        int o = this.opcode & 0x3f;
+        int o = Opcode.value[this.opcode] & 0x3f;
         o <<= 26;
         int rs = this.rs & 0x1f;
         rs <<= 20;
@@ -35,6 +35,6 @@ public class IType implements Instruction {
         rt <<= 15;
         int imm = this.imm & 0xff;
         int result = o | rs | rt | imm;
-        return "0x" + Integer.toHexString(result);
+        return String.format("0x%08x", result);
     }
 }
