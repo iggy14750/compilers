@@ -1,0 +1,22 @@
+
+package frontend;
+
+import java_cup.runtime.*;
+
+parser code {:
+    Scanner s;
+    public Parser(Lexer l) {
+        s = l;
+    }
+:}
+
+scan with {: return s.next_token(); :};
+
+terminal CLASS, PUBLIC, STATIC, VOID, MAIN, EXTENDS;
+terminal RETURN, IF, WHILE, ELSE, SYSOUT, LENGTH, INT_T, BOOLEAN_T, STRING_T;
+terminal LBRACKET, RBRACKET, LPAREN, RPAREN, LSQUARE, RSQUARE;
+terminal COMMA, SEMICOLON, DOT, BANG, AND, OR, EQ, EQEQ, LESSTHAN, PLUS, MINUS, TIMES;
+terminal THIS, NEW;
+terminal Boolean BOOL;
+terminal Integer INT;
+terminal String STRING;
