@@ -3,11 +3,22 @@ package frontend;
 
 import java_cup.runtime.*;
 import syntaxtree.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.StringReader;
 
 parser code {:
     Scanner s;
     public Parser(Lexer l) {
         s = l;
+    }
+
+    public static Object parse(String s) throws Exception {
+        return new Parser(new Lexer(new StringReader(s))).parse().value;
+    }
+
+    public static Object parse(File f) throws Exception {
+        return new Parser(new Lexer(new FileReader(f))).parse().value;
     }
 :}
 
