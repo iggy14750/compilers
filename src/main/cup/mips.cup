@@ -33,7 +33,7 @@ start with inst_list;
 
 /* The grammar rules */
 inst_list ::= 
-    inst_list:il inst:e {: 
+    inst_list:il inst:e {:
         il.add(e);
         RESULT = il;
     :}
@@ -45,7 +45,7 @@ inst_list ::=
     | inst_list:il lbl_inst:lbl {:
         il.add(lbl);
         RESULT = il;
-    :}
+    :} 
 ;
 
 lbl_inst ::= LABEL:lbl inst:i {:

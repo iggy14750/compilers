@@ -42,24 +42,18 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     {LineBreak}             {}
     \"                      { string.setLength(0); yybegin(STRING); }
     "public"                { return symbol(sym.PUBLIC); }
-    "private"               { return symbol(sym.PRIVATE); }
-    "import"                { return symbol(sym.IMPORT); }
     "true"                  { return symbol(sym.TRUE); }
     "false"                 { return symbol(sym.FALSE); }
     "this"                  { return symbol(sym.THIS); }
     "new"                   { return symbol(sym.NEW); }
-    "int"                   { return symbol(sym.INT_TYPE); }
-    "boolean"               { return symbol(sym.BOOLEAN_TYPE); }
-    "String"                { return symbol(sym.STRING_TYPE); }
-    "void"                  { return symbol(sym.VOID_TYPE); }
+    "int"                   { return symbol(sym.INT_T); }
+    "boolean"               { return symbol(sym.BOOLEAN_T); }
+    "String"                { return symbol(sym.STRING_T); }
+    "void"                  { return symbol(sym.VOID); }
     "return"                { return symbol(sym.RETURN); }
     "if"                    { return symbol(sym.IF); }
     "else"                  { return symbol(sym.ELSE); }
     "while"                 { return symbol(sym.WHILE); }
-    "for"                   { return symbol(sym.FOR); }
-    "do"                    { return symbol(sym.DO); }
-    "switch"                { return symbol(sym.SWITCH); }
-    "case"                  { return symbol(sym.CASE); }
     "class"                 { return symbol(sym.CLASS); }
     "extends"               { return symbol(sym.EXTENDS); }
     "static"                { return symbol(sym.STATIC); }
@@ -73,20 +67,12 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     ";"                     { return symbol(sym.SEMICOLON); }
     ","                     { return symbol(sym.COMMA); }
     "."                     { return symbol(sym.DOT); }
-    "?"                     { return symbol(sym.QUESTION_MARK); }
-    ":"                     { return symbol(sym.COLON); }
     "="                     { return symbol(sym.EQ); }
     "=="                    { return symbol(sym.EQEQ); }
-    "!="                    { return symbol(sym.BANGEQ); }
     "!"                     { return symbol(sym.BANG); }
-    "++"                    { return symbol(sym.PLUSPLUS); }
-    "--"                    { return symbol(sym.MINUSMINUS); }
     "&"                     { return symbol(sym.AND); }
-    "&&"                    { return symbol(sym.ANDAND); }
     "|"                     { return symbol(sym.OR); }
-    "||"                    { return symbol(sym.OROR); }
     "<"                     { return symbol(sym.LESS_THAN); }
-    ">"                     { return symbol(sym.GREATER_THAN); }
     "+"                     { return symbol(sym.PLUS); }
     "-"                     { return symbol(sym.MINUS); }
     "*"                     { return symbol(sym.TIMES); }
@@ -102,7 +88,7 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
 <STRING> {
     \"                      {
                                 yybegin(YYINITIAL);
-                                return symbol(sym.STRING_LITERAL, string.toString());
+                                return symbol(sym.STRING, string.toString());
                             }
     \\.                     { string.append( yytext() ); }
     [^\n\r\"\\]+            { string.append( yytext() ); }

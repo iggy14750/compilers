@@ -2,6 +2,7 @@
 package frontend;
 
 import java_cup.runtime.*;
+import syntaxtree.*;
 
 parser code {:
     Scanner s;
@@ -14,9 +15,22 @@ scan with {: return s.next_token(); :};
 
 terminal CLASS, PUBLIC, STATIC, VOID, MAIN, EXTENDS;
 terminal RETURN, IF, WHILE, ELSE, SYSOUT, LENGTH, INT_T, BOOLEAN_T, STRING_T;
-terminal LBRACKET, RBRACKET, LPAREN, RPAREN, LSQUARE, RSQUARE;
-terminal COMMA, SEMICOLON, DOT, BANG, AND, OR, EQ, EQEQ, LESSTHAN, PLUS, MINUS, TIMES;
-terminal THIS, NEW;
-terminal Boolean BOOL;
+terminal LEFT_CURLY, RIGHT_CURLY, LEFT_PAREN, RIGHT_PAREN, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET;
+terminal COMMA, SEMICOLON, DOT, BANG, AND, OR, EQ, EQEQ, LESS_THAN, PLUS, MINUS, TIMES, DIVIDE;
+terminal THIS, NEW, FALSE, TRUE;
 terminal Integer INT;
 terminal String STRING;
+terminal String ID;
+
+non terminal Exp expr;
+
+start with expr;
+
+expr ::= 
+    TRUE {:
+        RESULT = new True();
+    :}
+    | FALSE {:
+        RESULT = new False();
+    :}
+;
