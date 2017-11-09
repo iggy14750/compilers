@@ -1,9 +1,7 @@
 
-default: cup lex build
+default: build testr
 
-build: frontend
-
-test: default testr
+build: cup lex frontend
 
 testr: testc
 	java -ea -cp bin TestRunner

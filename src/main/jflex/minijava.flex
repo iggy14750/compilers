@@ -27,7 +27,8 @@ LineBreak  = \n|\r|\r\n
 WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
-IntegerLiteral = 0 | [1-9][0-9]*
+DecIntegerLiteral = [+-]? 0 | [1-9][0-9]*
+HexIntegerLiteral = [+-]? 0x [0-9a-zA-Z]+
 Identifier = [:jletter:] [:jletterdigit:]*
 
 LineComment = "//" {InputCharacter}* {LineBreak}?
@@ -81,7 +82,11 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
 
     {LineComment}           { /* ignore */ }
     {BlockComment}          { /* ignore */ }
-    {IntegerLiteral}        { return symbol(sym.INT, Integer.parseInt(yytext())); }
+    {DecIntegerLiteral}     { return symbol(sym.INT, Integer.parseInt(yytext())); }
+    {HexIntegerLiteral}     { 
+        String n = String.join("", yytext().split("0x"));
+        return symbol(sym.INT, Integer.parseInt(n, 16)); 
+    }
     {Identifier}            { return symbol(sym.ID, yytext()); }
 
 }
