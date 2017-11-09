@@ -24,7 +24,13 @@ class TestMethod {
         construct();
         getter();
         justReturn();
+        binSearch();
     }
+
+    private static void binSearch() throws Exception {
+        TestRunner.assertInstance(Parser.parse(new File("src/test/etc/bin_search_Start.java")), MethodDecl.class);
+    }
+
 
     private static void justReturn() throws Exception {
         TestRunner.assertInstance(Parser.parse(new File("src/test/etc/justReturn.java")), MethodDecl.class);
