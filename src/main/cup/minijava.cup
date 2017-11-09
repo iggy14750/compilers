@@ -49,7 +49,19 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with var_decl;
+start with var_decl_list;
+
+var_decl_list ::=
+    var_decl_list:list var_decl:var {:
+        list.addElement(var);
+        RESULT = list;
+    :}
+    | var_decl:var {:
+        VarDeclList list = new VarDeclList();
+        list.addElement(var);
+        RESULT = list;
+    :}
+;
 
 var_decl ::=
     type:t id:i SEMICOLON {:
