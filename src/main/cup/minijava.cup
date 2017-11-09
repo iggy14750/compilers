@@ -76,6 +76,13 @@ method ::=
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, new FormalList(), decls, stmts, ret_val);
     :}
+    | 
+    | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY
+        stmt_list:stmts
+        RETURN expr:ret_val SEMICOLON 
+    RIGHT_CURLY {:
+        RESULT = new MethodDecl(ret_type, name, new FormalList(), new VarDeclList(), stmts, ret_val);
+    :}
 ;
 
 formal_list ::=
