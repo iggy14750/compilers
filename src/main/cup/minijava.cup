@@ -34,7 +34,7 @@ terminal Integer INT;
 terminal String STRING;
 terminal String ID;
 
-
+non terminal Statement stmt;
 non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
@@ -45,7 +45,13 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with expr;
+start with stmt;
+
+stmt ::=
+    id:i LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET EQ expr:value SEMICOLON {:
+        RESULT = new ArrayAssign(i, index, value);
+    :}
+;
 
 expr ::=
     expr:e1 AND expr:e2 {:
