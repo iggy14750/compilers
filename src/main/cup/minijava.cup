@@ -45,7 +45,10 @@ precedence left DOT;
 start with expr;
 
 expr ::=
-    expr:i DOT LENGTH {:
+    expr:array LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET {:
+        RESULT = new ArrayLookup(array, index);
+    :}
+    | expr:i DOT LENGTH {:
         RESULT = new ArrayLength(i);
     :}
     | expr:e DOT id:i LEFT_PAREN exp_list:l RIGHT_PAREN {:
