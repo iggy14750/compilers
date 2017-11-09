@@ -35,6 +35,7 @@ terminal String STRING;
 terminal String ID;
 
 non terminal Statement stmt;
+non terminal StatementList stmt_list;
 non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
@@ -48,7 +49,10 @@ precedence right DOT, LEFT_SQUARE_BRACKET;
 start with stmt;
 
 stmt ::=
-    IF LEFT_PAREN expr:cond RIGHT_PAREN stmt:given ELSE stmt:other {:
+    LEFT_CURLY stmt_list:l RIGHT_CURLY {:
+        RESULT = new Block(l);
+    :}
+    | IF LEFT_PAREN expr:cond RIGHT_PAREN stmt:given ELSE stmt:other {:
         RESULT = new If(cond, given, other);
     :}
     | WHILE LEFT_PAREN expr:cond RIGHT_PAREN stmt:body {:
@@ -116,6 +120,18 @@ expr ::=
     :}
     | LEFT_PAREN expr:e RIGHT_PAREN {:
         RESULT = e;
+    :}
+;
+
+stmt_list ::=
+    stmt_list:l stmt:s {:
+        l.addElement(s);
+        RESULT = l;
+    :}
+    | stmt:s {:
+        StatementList l = new StatementList();
+        l.addElement(s);
+        RESULT = l;
     :}
 ;
 
