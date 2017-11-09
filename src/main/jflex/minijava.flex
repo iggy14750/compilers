@@ -49,7 +49,6 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     "new"                   { return symbol(sym.NEW); }
     "int"                   { return symbol(sym.INT_T); }
     "boolean"               { return symbol(sym.BOOLEAN_T); }
-    "String"                { return symbol(sym.STRING_T); }
     "void"                  { return symbol(sym.VOID); }
     "return"                { return symbol(sym.RETURN); }
     "if"                    { return symbol(sym.IF); }
