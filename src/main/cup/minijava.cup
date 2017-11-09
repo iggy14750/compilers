@@ -39,7 +39,7 @@ non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
 
-precedence left LESS_THAN;
+precedence left LESS_THAN, PLUS;
 precedence left BANG, AND;
 precedence left DOT, LEFT_SQUARE_BRACKET;
 
@@ -51,6 +51,9 @@ expr ::=
     :}
     | expr:e1 LESS_THAN expr:e2 {:
         RESULT = new LessThan(e1, e2);
+    :}
+    | expr:e1 PLUS expr:e2 {:
+        RESULT = new Plus(e1, e2);
     :}
     | expr:array LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET {:
         RESULT = new ArrayLookup(array, index);
