@@ -13,26 +13,26 @@ public boolean Delete(int v_key) {
     found = false ;
     is_root = true ;
     while (cont){
-        key_aux = current_node.GetKey(e);
+        key_aux = current_node.GetKey();
         if (v_key < key_aux)
-        	if (current_node.GetHas_Left(e)){
+        	if (current_node.GetHas_Left()){
             	parent_node = current_node ;
-            	current_node = current_node.GetLeft(e) ;
+            	current_node = current_node.GetLeft() ;
         	}
         	else 
 				cont = false ;
         else 
         	if (key_aux < v_key)
-            	if (current_node.GetHas_Right(e)){
+            	if (current_node.GetHas_Right()){
             	parent_node = current_node ;
-            	current_node = current_node.GetRight(e) ;
+            	current_node = current_node.GetRight() ;
             	}
             	else 
 					cont = false ;
         	else { 
             	if (is_root) 
-            		if (!current_node.GetHas_Right(e) && 
-                		!current_node.GetHas_Left(e) )
+            		if (!current_node.GetHas_Right() && 
+                		!current_node.GetHas_Left() )
                 		ntb = true ;
             		else 
                 		ntb = this.Remove(parent_node,current_node); 
