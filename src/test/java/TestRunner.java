@@ -21,6 +21,11 @@ class TestMethod {
         simple();
         factorial();
         qsort();
+        construct();
+    }
+
+    private static void construct() throws Exception {
+        TestRunner.assertInstance(Parser.parse(new File("src/test/etc/constructor.java")), MethodDecl.class);
     }
 
     private static void qsort() throws Exception {
