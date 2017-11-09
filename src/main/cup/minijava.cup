@@ -42,6 +42,8 @@ non terminal ExpList exp_list;
 non terminal Type type;
 non terminal VarDecl var_decl;
 non terminal VarDeclList var_decl_list;
+non terminal Formal formal;
+non terminal FormalList formal_list;
 
 precedence left AND;
 precedence left LESS_THAN;
@@ -49,7 +51,21 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with var_decl_list;
+start with formal_list;
+
+formal_list ::=
+    formal:f {:
+        FormalList list = new FormalList();
+        list.addElement(f);
+        RESULT = list;
+    :}
+;
+
+formal ::=
+    type:t id:i {:
+        RESULT = new Formal(t, i);
+    :}
+;
 
 var_decl_list ::=
     var_decl_list:list var_decl:var {:
