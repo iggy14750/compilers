@@ -43,7 +43,7 @@ precedence left AND;
 precedence left LESS_THAN;
 precedence left PLUS;
 precedence left BANG;
-precedence left DOT, LEFT_SQUARE_BRACKET;
+precedence right DOT, LEFT_SQUARE_BRACKET;
 
 start with expr;
 
