@@ -15,9 +15,6 @@ buildscript {
             url "http://xbib.org/repository"
         }
     }
-    dependencies {
-        classpath 'org.xbib.gradle.plugin:gradle-plugin-jflex:1.1.0'
-    }
 }
 // apply plugin: 'org.xbib.gradle.plugin.jflex'
 apply plugin: 'java'
@@ -44,5 +41,33 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
+
+    compile files('bin')
 }
+
+task buildLex() {
+    // workingDir '$projectDir'
+    // if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+    //     commandLine 'cmd', '/c', 'jflex', '--nobak', '-d', 'src/main/java/frontend/', 'src/main/jflex/minijava.flex'
+    // } else {
+    //     commandLine 'sh', '-c', 'jflex', '--nobak', '-d', 'src/main/java/frontend/', 'src/main/jflex/minijava.flex'
+    // }
+    doLast {
+        exec {
+            executable 'cd'
+        }
+    }
+}
+
+task echo(type: Exec) {
+    workingDir '$projectDir'
+    commandLine 'echo', 'worked!'
+}
+
+//assemble.dependsOn buildLex
+// task buildCup(type: Exec) {
+//     workingDir '$projectDir'
+//     commandLine 'java', '-jar', 'storage/java-cup-11b.jar', '-destdir', 'src/main/java/frontend', '-parser', 'Parser', 'src/main/cup/minijava.cup'
+// }
+// assemble.dependsOn buildCup
 //*/

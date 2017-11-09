@@ -26,9 +26,7 @@ frontend: src/main/java/frontend/*
 cup: src/main/java/frontend/Parser.java
 
 src/main/java/frontend/Parser.java: src/main/cup/minijava.cup
-	java -jar storage/java-cup-11b.jar -parser Parser src/main/cup/minijava.cup
-	mv sym.java src/main/java/frontend
-	mv Parser.java src/main/java/frontend
+	java -jar storage/java-cup-11b.jar -destdir src/main/java/frontend -parser Parser src/main/cup/minijava.cup 
 
 lex: src/main/java/frontend/Lexer.java
 

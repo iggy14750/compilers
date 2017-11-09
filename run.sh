@@ -1,3 +1,1 @@
-cd bin
-java Assembler example.s
-cd ..
+echo "it worked!"
