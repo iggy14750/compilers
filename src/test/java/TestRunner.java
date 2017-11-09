@@ -23,6 +23,11 @@ class TestMethod {
         qsort();
         construct();
         getter();
+        justReturn();
+    }
+
+    private static void justReturn() throws Exception {
+        TestRunner.assertInstance(Parser.parse(new File("src/test/etc/justReturn.java")), MethodDecl.class);
     }
 
     private static void getter() throws Exception {
