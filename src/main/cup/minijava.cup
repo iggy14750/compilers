@@ -51,8 +51,9 @@ precedence left LESS_THAN;
 precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
+precedence left ID;
 
-start with stmt_list;
+start with method;
 
 method ::=
     PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
@@ -65,13 +66,17 @@ method ::=
 ;
 
 formal_list ::=
-    formal_list:list COMMA formal:f {:
+    formal:f COMMA formal_list:list {:
         list.addElement(f);
         RESULT = list;
     :}
     | formal:f {:
         FormalList list = new FormalList();
         list.addElement(f);
+        RESULT = list;
+    :}
+    | {:
+        FormalList list = new FormalList();
         RESULT = list;
     :}
 ;
@@ -83,7 +88,7 @@ formal ::=
 ;
 
 var_decl_list ::=
-    var_decl_list:list var_decl:var {:
+    var_decl:var var_decl_list:list {:
         list.addElement(var);
         RESULT = list;
     :}
@@ -91,6 +96,9 @@ var_decl_list ::=
         VarDeclList list = new VarDeclList();
         list.addElement(var);
         RESULT = list;
+    :}
+    | {:
+        RESULT = new VarDeclList();
     :}
 ;
 
@@ -191,13 +199,17 @@ expr ::=
 ;
 
 stmt_list ::=
-    stmt_list:l stmt:s {:
+    stmt:s stmt_list:l {:
+        l.addElement(s);
+        RESULT = l;
+    :}
+    | stmt:s {:
+        StatementList l = new StatementList();
         l.addElement(s);
         RESULT = l;
     :}
     | {:
-        StatementList l = new StatementList();
-        RESULT = l;
+        RESULT = new StatementList();
     :}
 ;
 
@@ -208,7 +220,6 @@ exp_list ::=
     :}
     | expr:e {:
         ExpList l = new ExpList();
-        l.addElement(e);
         RESULT = l;
     :}
 ;
