@@ -59,6 +59,7 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     "extends"               { return symbol(sym.EXTENDS); }
     "static"                { return symbol(sym.STATIC); }
     "System.out.println"    { return symbol(sym.SYSOUT); }
+    "length"                { return symbol(sym.LENGTH); }
 
     "["                     { return symbol(sym.LEFT_SQUARE_BRACKET); }
     "]"                     { return symbol(sym.RIGHT_SQUARE_BRACKET); }

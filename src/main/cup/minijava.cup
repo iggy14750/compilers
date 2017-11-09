@@ -45,7 +45,10 @@ precedence left DOT;
 start with expr;
 
 expr ::=
-    expr:e DOT id:i LEFT_PAREN exp_list:l RIGHT_PAREN {:
+    expr:i DOT LENGTH {:
+        RESULT = new ArrayLength(i);
+    :}
+    | expr:e DOT id:i LEFT_PAREN exp_list:l RIGHT_PAREN {:
         RESULT = new Call(e, i, l);
     :}
     | INT:i {:
