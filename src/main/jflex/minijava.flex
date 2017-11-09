@@ -27,8 +27,8 @@ LineBreak  = \n|\r|\r\n
 WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
-DecIntegerLiteral = [+-]? (0 | [1-9][0-9]*)
-HexIntegerLiteral = [+-]? 0x [0-9a-zA-Z]+
+DecIntegerLiteral = (0 | [1-9][0-9]*)
+HexIntegerLiteral = 0x [0-9a-zA-Z]+
 Identifier = [:jletter:] [:jletterdigit:]*
 
 LineComment = "//" {InputCharacter}* {LineBreak}?
