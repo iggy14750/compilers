@@ -28,8 +28,8 @@ WhiteSpace = [ \n\r\t]+
 InputCharacter = [^\r\n]
 
 DecIntegerLiteral = (0 | [1-9][0-9]*)
-HexIntegerLiteral = 0x [0-9a-zA-Z]+
-Identifier = [:jletter:] [:jletterdigit:]*
+HexIntegerLiteral = 0x [0-9a-fA-F]+
+Identifier = [a-zA-Z_] [a-zA-Z0-9_]*
 
 LineComment = "//" {InputCharacter}* {LineBreak}?
 BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments

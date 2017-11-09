@@ -51,7 +51,7 @@ precedence left LESS_THAN;
 precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
-precedence left ID;
+precedence left ID, INT_T, BOOLEAN_T;
 
 start with method;
 
@@ -62,6 +62,12 @@ method ::=
         RETURN expr:ret_val SEMICOLON 
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, params, decls, stmts, ret_val);
+    :}
+    | PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
+        stmt_list:stmts
+        RETURN expr:ret_val SEMICOLON 
+    RIGHT_CURLY {:
+        RESULT = new MethodDecl(ret_type, name, params, new VarDeclList(), stmts, ret_val);
     :}
 ;
 
