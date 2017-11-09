@@ -39,8 +39,10 @@ non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
 
-precedence left LESS_THAN, PLUS;
-precedence left BANG, AND;
+precedence left AND;
+precedence left LESS_THAN;
+precedence left PLUS;
+precedence left BANG;
 precedence left DOT, LEFT_SQUARE_BRACKET;
 
 start with expr;
