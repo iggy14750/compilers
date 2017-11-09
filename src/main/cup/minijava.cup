@@ -50,7 +50,10 @@ precedence right DOT, LEFT_SQUARE_BRACKET;
 start with type;
 
 type ::=
-    BOOLEAN_T {:
+    INT_T LEFT_SQUARE_BRACKET RIGHT_SQUARE_BRACKET {:
+        RESULT = new IntArrayType();
+    :}
+    | BOOLEAN_T {:
         RESULT = new BooleanType();
     :}
     | INT_T {:
