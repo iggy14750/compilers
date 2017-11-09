@@ -40,6 +40,8 @@ non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
 non terminal Type type;
+non terminal VarDecl var_decl;
+non terminal VarDeclList var_decl_list;
 
 precedence left AND;
 precedence left LESS_THAN;
@@ -47,7 +49,13 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with type;
+start with var_decl;
+
+var_decl ::=
+    type:t id:i SEMICOLON {:
+        RESULT = new VarDecl(t, i);
+    :}
+;
 
 type ::=
     INT_T LEFT_SQUARE_BRACKET RIGHT_SQUARE_BRACKET {:
