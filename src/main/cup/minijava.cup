@@ -212,6 +212,9 @@ exp_list ::=
         ExpList l = new ExpList();
         RESULT = l;
     :}
+    | {:
+        RESULT = new ExpList();
+    :}
 ;
 
 id ::=
