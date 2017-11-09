@@ -44,6 +44,7 @@ non terminal VarDecl var_decl;
 non terminal VarDeclList var_decl_list;
 non terminal Formal formal;
 non terminal FormalList formal_list;
+non terminal MethodDecl method;
 
 precedence left AND;
 precedence left LESS_THAN;
@@ -51,7 +52,17 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with formal_list;
+start with method;
+
+method ::=
+    PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
+        var_decl_list:decls
+        stmt_list:stmts
+        RETURN expr:ret_val SEMICOLON 
+    RIGHT_CURLY {:
+        RESULT = new MethodDecl(ret_type, name, params, decls, stmts, ret_val);
+    :}
+;
 
 formal_list ::=
     formal_list:list COMMA formal:f {:
