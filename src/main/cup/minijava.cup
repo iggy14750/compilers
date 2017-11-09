@@ -39,6 +39,7 @@ non terminal StatementList stmt_list;
 non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
+non terminal Type type;
 
 precedence left AND;
 precedence left LESS_THAN;
@@ -46,7 +47,13 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with stmt;
+start with type;
+
+type ::=
+    id:i {:
+        RESULT = new IdentifierType(i.toString());
+    :}
+;
 
 stmt ::=
     LEFT_CURLY stmt_list:l RIGHT_CURLY {:
