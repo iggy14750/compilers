@@ -20,6 +20,11 @@ class TestMethod {
     public TestMethod() throws Exception {
         simple();
         factorial();
+        qsort();
+    }
+
+    private static void qsort() throws Exception {
+        TestRunner.assertInstance(Parser.parse(new File("src/test/etc/qsort_method.txt")), MethodDecl.class);
     }
 
     private static void factorial() throws Exception {
