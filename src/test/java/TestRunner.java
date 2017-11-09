@@ -26,8 +26,11 @@ class TestMethod {
         String method = 
         "public int fact(int n) {\n" + 
             "int temp;int ret;\n" +
-            "temp = this.fact(n-1);\n" + 
-            "ret = n * temp;\n"+
+            "if (n < 2) ret = 1;\n" +
+            "else {\n" +
+                "temp = this.fact(n-1);\n" + 
+                "ret = n * temp;\n"+
+            "}\n" +
             "return ret;\n" +
         "}\n";
         TestRunner.assertInstance(Parser.parse(method), MethodDecl.class);
