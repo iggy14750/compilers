@@ -39,13 +39,16 @@ non terminal Exp expr;
 non terminal Identifier id;
 non terminal ExpList exp_list;
 
-precedence left BANG;
-precedence left DOT;
+precedence left BANG, AND;
+precedence left DOT, LEFT_SQUARE_BRACKET;
 
 start with expr;
 
 expr ::=
-    expr:array LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET {:
+    expr:e1 AND expr:e2 {:
+        RESULT = new And(e1, e2);
+    :}
+    | expr:array LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET {:
         RESULT = new ArrayLookup(array, index);
     :}
     | expr:i DOT LENGTH {:
