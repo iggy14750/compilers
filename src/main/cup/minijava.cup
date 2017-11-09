@@ -54,7 +54,11 @@ precedence right DOT, LEFT_SQUARE_BRACKET;
 start with formal_list;
 
 formal_list ::=
-    formal:f {:
+    formal_list:list COMMA formal:f {:
+        list.addElement(f);
+        RESULT = list;
+    :}
+    | formal:f {:
         FormalList list = new FormalList();
         list.addElement(f);
         RESULT = list;
