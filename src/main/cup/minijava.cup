@@ -52,7 +52,7 @@ precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 
-start with method;
+start with stmt_list;
 
 method ::=
     PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
@@ -195,9 +195,8 @@ stmt_list ::=
         l.addElement(s);
         RESULT = l;
     :}
-    | stmt:s {:
+    | {:
         StatementList l = new StatementList();
-        l.addElement(s);
         RESULT = l;
     :}
 ;
