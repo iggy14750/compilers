@@ -25,6 +25,7 @@ class TestMethod {
 
     private static void qsort() throws Exception {
         TestRunner.assertInstance(Parser.parse(new File("src/test/etc/qsort_method.txt")), MethodDecl.class);
+        TestRunner.assertInstance(Parser.parse(new File("src/test/etc/tree_del.java")), MethodDecl.class);
     }
 
     private static void factorial() throws Exception {
