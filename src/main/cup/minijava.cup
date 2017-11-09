@@ -48,7 +48,10 @@ precedence right DOT, LEFT_SQUARE_BRACKET;
 start with stmt;
 
 stmt ::=
-    SYSOUT LEFT_PAREN expr:e RIGHT_PAREN SEMICOLON {:
+    WHILE LEFT_PAREN expr:cond RIGHT_PAREN stmt:body {:
+        RESULT = new While(cond, body);
+    :}
+    | SYSOUT LEFT_PAREN expr:e RIGHT_PAREN SEMICOLON {:
         RESULT = new Print(e);
     :}
     | id:i EQ expr:e SEMICOLON {:
