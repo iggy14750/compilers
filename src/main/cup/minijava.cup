@@ -50,7 +50,10 @@ precedence right DOT, LEFT_SQUARE_BRACKET;
 start with type;
 
 type ::=
-    id:i {:
+    INT_T {:
+        RESULT = new IntegerType();
+    :}
+    | id:i {:
         RESULT = new IdentifierType(i.toString());
     :}
 ;
