@@ -24,6 +24,7 @@ parser code {:
 
 scan with {: return s.next_token(); :};
 
+
 terminal CLASS, PUBLIC, STATIC, VOID, MAIN, EXTENDS;
 terminal RETURN, IF, WHILE, ELSE, SYSOUT, LENGTH, INT_T, BOOLEAN_T, STRING_T;
 terminal LEFT_CURLY, RIGHT_CURLY, LEFT_PAREN, RIGHT_PAREN, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET;
@@ -33,15 +34,63 @@ terminal Integer INT;
 terminal String STRING;
 terminal String ID;
 
+
 non terminal Exp expr;
+non terminal Identifier id;
+non terminal ExpList exp_list;
+
+precedence left BANG;
+precedence left DOT;
 
 start with expr;
 
-expr ::= 
-    TRUE {:
+expr ::=
+    expr:e DOT id:i LEFT_PAREN exp_list:l RIGHT_PAREN {:
+        RESULT = new Call(e, i, l);
+    :}
+    | INT:i {:
+        RESULT = new IntegerLiteral(i);
+    :}
+    | TRUE {:
         RESULT = new True();
     :}
     | FALSE {:
         RESULT = new False();
+    :}
+    | id:i {:
+        RESULT = new IdentifierExp(i.toString());
+    :}
+    | THIS {:
+        RESULT = new This();
+    :}
+    | NEW INT_T LEFT_SQUARE_BRACKET expr:e RIGHT_SQUARE_BRACKET {:
+        RESULT = new NewArray(e);
+    :}
+    | NEW id:i LEFT_PAREN RIGHT_PAREN {:
+        RESULT = new NewObject(i);
+    :}
+    | BANG expr:e {:
+        RESULT = new Not(e);
+    :}
+    | LEFT_PAREN expr:e RIGHT_PAREN {:
+        RESULT = e;
+    :}
+;
+
+exp_list ::=
+    exp_list:l COMMA expr:e {:
+        l.addElement(e);
+        RESULT = l;
+    :}
+    | expr:e {:
+        ExpList l = new ExpList();
+        l.addElement(e);
+        RESULT = l;
+    :}
+;
+
+id ::=
+    ID:i {:
+        RESULT = new Identifier(i);
     :}
 ;
