@@ -46,7 +46,7 @@ non terminal Formal formal;
 non terminal FormalList formal_list;
 non terminal MethodDecl method;
 non terminal MethodDeclList method_list;
-non terminal ClassDeclSimple clss;
+non terminal ClassDecl clss;
 non terminal ClassDeclList class_list;
 non terminal MainClass main_class;
 non terminal Program goal;
@@ -102,6 +102,27 @@ clss ::=
         method_list:methods
     RIGHT_CURLY {:
         RESULT = new ClassDeclSimple(name, new VarDeclList(), methods);
+    :}
+    | CLASS id:name LEFT_CURLY
+        var_decl_list:vars
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclSimple(name, vars, new MethodDeclList());
+    :}
+    | CLASS id:name EXTENDS id:base LEFT_CURLY
+        var_decl_list:vars
+        method_list:methods
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclExtends(name, base, vars, methods);
+    :}
+    | CLASS id:name EXTENDS id:base LEFT_CURLY
+        method_list:methods
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclExtends(name, base, new VarDeclList(), methods);
+    :}
+    | CLASS id:name EXTENDS id:base LEFT_CURLY
+        var_decl_list:vars
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclExtends(name, base, vars, new MethodDeclList());
     :}
 ;
 
