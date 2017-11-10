@@ -42,6 +42,48 @@ class TestMain {
     public TestMain() throws Exception {
         basic();
         fact();
+        binsearch();
+        bubble();
+        visit();
+        qsort();
+        linear();
+        linked();
+        bintree();
+    }
+
+    private static void bintree() throws Exception {
+        File f = new File("src/test/etc/BinaryTree.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void linked() throws Exception {
+        File f = new File("src/test/etc/LinkedList.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void linear() throws Exception {
+        File f = new File("src/test/etc/LinearSearch.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void qsort() throws Exception {
+        File f = new File("src/test/etc/QuickSort.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void visit() throws Exception {
+        File f = new File("src/test/etc/TreeVisitor.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void bubble() throws Exception {
+        File f = new File("src/test/etc/BubbleSort.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
+    }
+
+    private static void binsearch() throws Exception {
+        File f = new File("src/test/etc/BinarySearch.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
     }
 
     private static void fact() throws Exception {
