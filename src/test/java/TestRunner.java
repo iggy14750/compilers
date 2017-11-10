@@ -2,18 +2,54 @@
 import frontend.Lexer;
 import frontend.Parser;
 import java.io.File;
+import java.io.FileReader;
+import java.io.StringReader;
 import syntaxtree.*;
+import java_cup.runtime.Symbol;
+import frontend.sym;
 
 public class TestRunner {
 
     public static void main(String[] args) throws Exception {
-        new TestMethod();
+        new TestMain();
     }
 
     public static void assertInstance(Object o, Class c) {
         assert c.isAssignableFrom(o.getClass()): o.getClass().getName();
     }
 
+    public static void printTokens(String str) throws Exception {
+        Lexer l = new Lexer(new StringReader(str));
+        Symbol t = l.next_token();
+        while (t.sym != sym.EOF) {
+            System.out.println(sym.terminalNames[t.sym]);
+            t = l.next_token();
+        }
+    }
+
+    public static void printTokens(File file) throws Exception {
+        Lexer l = new Lexer(new FileReader(file));
+        Symbol t = l.next_token();
+        while (t.sym != sym.EOF) {
+            System.out.println(sym.terminalNames[t.sym]);
+            t = l.next_token();
+        }
+    }
+
+}
+
+class TestMain {
+    public TestMain() throws Exception {
+        basic();
+    }
+
+    private static void basic() throws Exception {
+        String basic = "class Main {" +
+            "public static void main(String[] args) {" +
+            "System.out.println(helloworld);" +
+        "}}";
+        TestRunner.assertInstance(Parser.parse(basic), Program.class);
+    }
 }
 
 class TestMethod {

@@ -26,7 +26,7 @@ scan with {: return s.next_token(); :};
 
 
 terminal CLASS, PUBLIC, STATIC, VOID, MAIN, EXTENDS;
-terminal RETURN, IF, WHILE, ELSE, SYSOUT, LENGTH, INT_T, BOOLEAN_T;
+terminal RETURN, IF, WHILE, ELSE, SYSOUT, LENGTH, INT_T, BOOLEAN_T, STRING_T;
 terminal LEFT_CURLY, RIGHT_CURLY, LEFT_PAREN, RIGHT_PAREN, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET;
 terminal COMMA, SEMICOLON, DOT, BANG, AND, OR, EQ, EQEQ, LESS_THAN, PLUS, MINUS, TIMES, DIVIDE;
 terminal THIS, NEW, FALSE, TRUE;
@@ -46,6 +46,9 @@ non terminal Formal formal;
 non terminal FormalList formal_list;
 non terminal MethodDecl method;
 
+non terminal MainClass main_class;
+non terminal Program goal;
+
 precedence left AND;
 precedence left LESS_THAN;
 precedence left PLUS, MINUS;
@@ -53,7 +56,23 @@ precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
 precedence left ID, INT_T, BOOLEAN_T;
 
-start with method;
+start with goal;
+
+goal ::=
+    main_class:mc {:
+        RESULT = new Program(mc, new ClassDeclList());
+    :}
+;
+
+main_class ::=
+    CLASS id:name LEFT_CURLY
+        PUBLIC STATIC VOID MAIN LEFT_PAREN STRING_T LEFT_SQUARE_BRACKET RIGHT_SQUARE_BRACKET id:args RIGHT_PAREN LEFT_CURLY
+            stmt:s
+        RIGHT_CURLY
+    RIGHT_CURLY {:
+        RESULT = new MainClass(name, args, s);
+    :}
+;
 
 method ::=
     PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
