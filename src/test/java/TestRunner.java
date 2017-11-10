@@ -7,7 +7,7 @@ import java.io.StringReader;
 import syntaxtree.*;
 import java_cup.runtime.Symbol;
 import frontend.sym;
-import visitor.PrettyPrintVisitor;
+import visitor.DepthFirstVisitor;
 
 public class TestRunner {
 
@@ -57,43 +57,71 @@ class TestMain {
         Object o = Parser.parse(f);
         TestRunner.assertInstance(o, Program.class);
         Program p = (Program) o;
-        PrettyPrintVisitor v = new PrettyPrintVisitor();
+        DepthFirstVisitor v = new DepthFirstVisitor();
         v.visit(p);
     }
 
     private static void linked() throws Exception {
         File f = new File("src/test/etc/LinkedList.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void linear() throws Exception {
         File f = new File("src/test/etc/LinearSearch.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void qsort() throws Exception {
         File f = new File("src/test/etc/QuickSort.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void visit() throws Exception {
         File f = new File("src/test/etc/TreeVisitor.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void bubble() throws Exception {
         File f = new File("src/test/etc/BubbleSort.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void binsearch() throws Exception {
         File f = new File("src/test/etc/BinarySearch.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void fact() throws Exception {
         File f = new File("src/test/etc/Factorial.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 
     private static void basic() throws Exception {
@@ -101,7 +129,11 @@ class TestMain {
             "public static void main(String[] args) {" +
             "System.out.println(helloworld);" +
         "}}";
-        TestRunner.assertInstance(Parser.parse(basic), Program.class);
+        Object o = Parser.parse(basic);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        DepthFirstVisitor v = new DepthFirstVisitor();
+        v.visit(p);
     }
 }
 
