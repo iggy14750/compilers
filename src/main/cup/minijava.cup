@@ -322,6 +322,7 @@ exp_list ::=
     :}
     | expr:e {:
         ExpList l = new ExpList();
+        l.addElement(e);
         RESULT = l;
     :}
     | {:

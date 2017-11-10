@@ -7,6 +7,7 @@ import java.io.StringReader;
 import syntaxtree.*;
 import java_cup.runtime.Symbol;
 import frontend.sym;
+import visitor.PrettyPrintVisitor;
 
 public class TestRunner {
 
@@ -53,7 +54,11 @@ class TestMain {
 
     private static void bintree() throws Exception {
         File f = new File("src/test/etc/BinaryTree.java");
-        TestRunner.assertInstance(Parser.parse(f), Program.class);
+        Object o = Parser.parse(f);
+        TestRunner.assertInstance(o, Program.class);
+        Program p = (Program) o;
+        PrettyPrintVisitor v = new PrettyPrintVisitor();
+        v.visit(p);
     }
 
     private static void linked() throws Exception {
