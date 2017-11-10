@@ -45,7 +45,9 @@ non terminal VarDeclList var_decl_list;
 non terminal Formal formal;
 non terminal FormalList formal_list;
 non terminal MethodDecl method;
-
+non terminal MethodDeclList method_list;
+non terminal ClassDeclSimple clss;
+non terminal ClassDeclList class_list;
 non terminal MainClass main_class;
 non terminal Program goal;
 
@@ -54,13 +56,16 @@ precedence left LESS_THAN;
 precedence left PLUS, MINUS;
 precedence left BANG, TIMES;
 precedence right DOT, LEFT_SQUARE_BRACKET;
-precedence left ID, INT_T, BOOLEAN_T;
+precedence left ID, INT_T, BOOLEAN_T, NEW;
 
 start with goal;
 
 goal ::=
     main_class:mc {:
         RESULT = new Program(mc, new ClassDeclList());
+    :}
+    | main_class:mc class_list:cls {:
+        RESULT = new Program(mc, cls);
     :}
 ;
 
@@ -71,6 +76,44 @@ main_class ::=
         RIGHT_CURLY
     RIGHT_CURLY {:
         RESULT = new MainClass(name, args, s);
+    :}
+;
+
+class_list ::=
+    class_list:list clss:c {:
+        list.addElement(c);
+        RESULT = list;
+    :}
+    | clss:c {:
+        ClassDeclList list = new ClassDeclList();
+        list.addElement(c);
+        RESULT = list;
+    :}
+;
+
+clss ::=
+    CLASS id:name LEFT_CURLY
+        var_decl_list:vars
+        method_list:methods
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclSimple(name, vars, methods);
+    :}
+    | CLASS id:name LEFT_CURLY
+        method_list:methods
+    RIGHT_CURLY {:
+        RESULT = new ClassDeclSimple(name, new VarDeclList(), methods);
+    :}
+;
+
+method_list ::=
+    method_list:list method:m {:
+        list.addElement(m);
+        RESULT = list;
+    :}
+    | method:m {:
+        MethodDeclList list = new MethodDeclList();
+        list.addElement(m);
+        RESULT = list;
     :}
 ;
 

@@ -41,6 +41,12 @@ public class TestRunner {
 class TestMain {
     public TestMain() throws Exception {
         basic();
+        fact();
+    }
+
+    private static void fact() throws Exception {
+        File f = new File("src/test/etc/Factorial.java");
+        TestRunner.assertInstance(Parser.parse(f), Program.class);
     }
 
     private static void basic() throws Exception {
