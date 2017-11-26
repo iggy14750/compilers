@@ -72,15 +72,12 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
     ","                     { return symbol(sym.COMMA); }
     "."                     { return symbol(sym.DOT); }
     "="                     { return symbol(sym.EQ); }
-    "=="                    { return symbol(sym.EQEQ); }
     "!"                     { return symbol(sym.BANG); }
     "&&"                    { return symbol(sym.AND); }
-    "|"                     { return symbol(sym.OR); }
     "<"                     { return symbol(sym.LESS_THAN); }
     "+"                     { return symbol(sym.PLUS); }
     "-"                     { return symbol(sym.MINUS); }
     "*"                     { return symbol(sym.TIMES); }
-    "/"                     { return symbol(sym.DIVIDE); }
 
     {LineComment}           { /* ignore */ }
     {BlockComment}          { /* ignore */ }
@@ -93,11 +90,8 @@ BlockComment = "/*" \*? [^*]* "*/" // Includes doc comments
 
 }
 
-<STRING> {
-    \"                      {
-                                yybegin(YYINITIAL);
-                                return symbol(sym.STRING, string.toString());
-                            }
+<STRING> { // We don't need string literals to be preserved, so they are now discarded.
+    \"                      { yybegin(YYINITIAL); }
     \\.                     { string.append( yytext() ); }
     [^\n\r\"\\]+            { string.append( yytext() ); }
 }
