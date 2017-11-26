@@ -33,4 +33,9 @@ public class TestBinarySearch {
     public void testBubbleSort() {
         TestRunner.parseFile("BubbleSort.java");
     }
+
+    @Test
+    public void testLinkedList() {
+        TestRunner.parseFile("LinkedList.java");
+    }
 }
