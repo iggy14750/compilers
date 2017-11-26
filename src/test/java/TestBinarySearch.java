@@ -22,4 +22,15 @@ public class TestBinarySearch {
     public void exists() {
         Assert.assertTrue(true);
     }
+
+    // Should move these out to their own files
+    @Test
+    public void testBinaryTree() {
+        TestRunner.parseFile("BinaryTree.java");
+    }
+
+    @Test
+    public void testBubbleSort() {
+        TestRunner.parseFile("BubbleSort.java");
+    }
 }
