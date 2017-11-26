@@ -12,12 +12,25 @@ import java.util.Iterator;
 import java_cup.runtime.Symbol;
 import syntaxtree.*;
 import visitor.DepthFirstVisitor;
-
+import org.junit.Assert;
 
 public class TestRunner {
 
     public static void main(String[] args) throws Exception {
         new TestMain();
+    }
+
+    public static Program parseFile(String name) throws Exception {
+        TestRunner.printTokens(new File("src/test/etc/" + name));
+        Object temp = null;
+        try {
+            temp = Parser.parse(new File("src/test/etc/" + name));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.toString());
+        }
+        assertInstance(temp, Program.class);
+        return (Program) temp;
     }
 
     public static void assertInstance(Object o, Class c) {
