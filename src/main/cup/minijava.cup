@@ -46,6 +46,7 @@ non terminal VarDeclList nonempty_var_decl_list;
 non terminal VarDeclList var_decl_list;
 non terminal Formal formal;
 non terminal FormalList formal_list;
+non terminal FormalList nonempty_formal_list;
 non terminal MethodDecl method;
 non terminal MethodDeclList method_list;
 non terminal ClassDecl clss;
@@ -138,17 +139,19 @@ method ::=
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, params, decls, stmts, ret_val);
     :}
-    | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY 
-        var_decl_list:decls
-        stmt_list:stmts
-        RETURN expr:ret_val SEMICOLON 
-    RIGHT_CURLY {:
-        RESULT = new MethodDecl(ret_type, name, new FormalList(), decls, stmts, ret_val);
-    :}
 ;
 
 formal_list ::=
-    formal_list:list COMMA formal:f {:
+    nonempty_formal_list:list {:
+        RESULT = list;
+    :}
+    | {:
+        RESULT = new FormalList();
+    :}
+;
+
+nonempty_formal_list ::=
+    nonempty_formal_list:list COMMA formal:f {:
         list.addElement(f);
         RESULT = list;
     :}
