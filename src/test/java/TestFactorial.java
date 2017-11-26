@@ -26,6 +26,14 @@ public class TestFactorial {
         prog = (Program) temp;
     }
 
+    public static void assertInstance(Object o, Class c) {
+        assert c.isAssignableFrom(o.getClass()): String.format(
+            "Incorrect class: expected <%s>, found <%s>", 
+            c.getName(), 
+            o.getClass().getName()
+        );
+    }
+
     @Test
     public void mainClassName() {
         Assert.assertEquals("Factorial", prog.m.i1.s);
@@ -50,13 +58,5 @@ public class TestFactorial {
     public void classFacMethodComputeFacReturns_num_aux() {
         Assert.assertEquals("num_aux", 
             ((IdentifierExp) ((ClassDeclSimple) prog.cl.elementAt(0)).ml.elementAt(0).e).s);
-    }
-
-    public static void assertInstance(Object o, Class c) {
-        assert c.isAssignableFrom(o.getClass()): String.format(
-            "Incorrect class: expected <%s>, found <%s>", 
-            c.getName(), 
-            o.getClass().getName()
-        );
     }
 }

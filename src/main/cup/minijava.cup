@@ -226,11 +226,11 @@ stmt ::=
     | WHILE LEFT_PAREN expr:cond RIGHT_PAREN stmt:body {:
         RESULT = new While(cond, body);
     :}
-    | SYSOUT LEFT_PAREN expr:e RIGHT_PAREN SEMICOLON {:
-        RESULT = new Print(e);
-    :}
     | id:i EQ expr:e SEMICOLON {:
         RESULT = new Assign(i, e);
+    :}
+    | SYSOUT LEFT_PAREN expr:e RIGHT_PAREN SEMICOLON {:
+        RESULT = new Print(e);
     :}
     | id:i LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET EQ expr:value SEMICOLON {:
         RESULT = new ArrayAssign(i, index, value);
