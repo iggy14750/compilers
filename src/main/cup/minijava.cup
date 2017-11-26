@@ -49,6 +49,7 @@ non terminal FormalList formal_list;
 non terminal FormalList nonempty_formal_list;
 non terminal MethodDecl method;
 non terminal MethodDeclList method_list;
+non terminal MethodDeclList nonempty_method_list;
 non terminal ClassDecl clss;
 non terminal ClassDeclList class_list;
 non terminal MainClass main_class;
@@ -101,26 +102,25 @@ clss ::=
     RIGHT_CURLY {:
         RESULT = new ClassDeclSimple(name, vars, methods);
     :}
-    | CLASS id:name LEFT_CURLY
-        var_decl_list:vars
-    RIGHT_CURLY {:
-        RESULT = new ClassDeclSimple(name, vars, new MethodDeclList());
-    :}
     | CLASS id:name EXTENDS id:base LEFT_CURLY
         var_decl_list:vars
         method_list:methods
     RIGHT_CURLY {:
         RESULT = new ClassDeclExtends(name, base, vars, methods);
     :}
-    | CLASS id:name EXTENDS id:base LEFT_CURLY
-        var_decl_list:vars
-    RIGHT_CURLY {:
-        RESULT = new ClassDeclExtends(name, base, vars, new MethodDeclList());
-    :}
 ;
 
 method_list ::=
-    method_list:list method:m {:
+    nonempty_method_list:list {:
+        RESULT = list;
+    :}
+    | {:
+        RESULT = new MethodDeclList();
+    :}
+;
+
+nonempty_method_list ::=
+    nonempty_method_list:list method:m {:
         list.addElement(m);
         RESULT = list;
     :}
