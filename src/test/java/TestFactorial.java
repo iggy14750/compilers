@@ -1,4 +1,5 @@
 
+import java.io.File;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -16,9 +17,10 @@ public class TestFactorial {
     public TestFactorial() {
         Object temp = null;
         try {
-            temp = Parser.parse("src/test/etc/Factorial.java");
+            temp = Parser.parse(new File("src/test/etc/Factorial.java"));
         } catch (Exception e) {
-            Assert.fail(e.getMessage());
+            e.printStackTrace();
+            Assert.fail(e.toString());
         }
         assertInstance(temp, Program.class);
         syntaxTree = (Program) temp;
