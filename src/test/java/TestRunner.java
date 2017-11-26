@@ -32,7 +32,7 @@ public class TestRunner {
 
     public static void printTokens(File file) throws Exception {
         for (Symbol s: new SymbolIterator(new Lexer(new FileReader(file)))) {
-            System.out.println(sym.terminalNames[t.sym]);
+            System.out.println(sym.terminalNames[s.sym]);
         }
     }
 }
