@@ -20,8 +20,7 @@ public class TestRunner {
         new TestMain();
     }
 
-    public static Program parseFile(String name) throws Exception {
-        TestRunner.printTokens(new File("src/test/etc/" + name));
+    public static Program parseFile(String name) {
         Object temp = null;
         try {
             temp = Parser.parse(new File("src/test/etc/" + name));
