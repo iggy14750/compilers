@@ -1,13 +1,45 @@
 
 import frontend.Lexer;
 import frontend.Parser;
+import frontend.sym;
+
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
-import syntaxtree.*;
+import java.util.Iterator;
+
 import java_cup.runtime.Symbol;
-import frontend.sym;
+import syntaxtree.*;
 import visitor.DepthFirstVisitor;
+
+
+class SymbolIterator implements Iterator<Symbol>, Iterable<Symbol> {
+    private Lexer l;
+    private Symbol next;
+    public SymbolIterator(Lexer lexer) throws IOException {
+        l = lexer;
+        next = l.next_token();
+    }
+
+    public Iterator<Symbol> iterator() {
+        return this;
+    }
+
+    public boolean hasNext() {
+        return next.sym != sym.EOF;
+    }
+
+    public Symbol next() {
+        Symbol ret = next;
+        try {
+            next = l.next_token();
+        } catch (IOException e) {
+            return null;
+        }
+        return ret;
+    }
+}
 
 public class TestRunner {
 
@@ -20,11 +52,9 @@ public class TestRunner {
     }
 
     public static void printTokens(String str) throws Exception {
-        Lexer l = new Lexer(new StringReader(str));
-        Symbol t = l.next_token();
-        while (t.sym != sym.EOF) {
+        SymbolIterator i = new SymbolIterator(new Lexer(new StringReader(str)));
+        for (Symbol t: i) {
             System.out.println(sym.terminalNames[t.sym]);
-            t = l.next_token();
         }
     }
 
