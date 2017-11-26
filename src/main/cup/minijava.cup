@@ -42,6 +42,7 @@ non terminal Identifier id;
 non terminal ExpList exp_list;
 non terminal Type type;
 non terminal VarDecl var_decl;
+non terminal VarDeclList nonempty_var_decl_list;
 non terminal VarDeclList var_decl_list;
 non terminal Formal formal;
 non terminal FormalList formal_list;
@@ -100,11 +101,6 @@ clss ::=
         RESULT = new ClassDeclSimple(name, vars, methods);
     :}
     | CLASS id:name LEFT_CURLY
-        method_list:methods
-    RIGHT_CURLY {:
-        RESULT = new ClassDeclSimple(name, new VarDeclList(), methods);
-    :}
-    | CLASS id:name LEFT_CURLY
         var_decl_list:vars
     RIGHT_CURLY {:
         RESULT = new ClassDeclSimple(name, vars, new MethodDeclList());
@@ -114,11 +110,6 @@ clss ::=
         method_list:methods
     RIGHT_CURLY {:
         RESULT = new ClassDeclExtends(name, base, vars, methods);
-    :}
-    | CLASS id:name EXTENDS id:base LEFT_CURLY
-        method_list:methods
-    RIGHT_CURLY {:
-        RESULT = new ClassDeclExtends(name, base, new VarDeclList(), methods);
     :}
     | CLASS id:name EXTENDS id:base LEFT_CURLY
         var_decl_list:vars
@@ -147,24 +138,12 @@ method ::=
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, params, decls, stmts, ret_val);
     :}
-    | PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY 
-        stmt_list:stmts
-        RETURN expr:ret_val SEMICOLON 
-    RIGHT_CURLY {:
-        RESULT = new MethodDecl(ret_type, name, params, new VarDeclList(), stmts, ret_val);
-    :}
     | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY 
         var_decl_list:decls
         stmt_list:stmts
         RETURN expr:ret_val SEMICOLON 
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, new FormalList(), decls, stmts, ret_val);
-    :}
-    | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY
-        stmt_list:stmts
-        RETURN expr:ret_val SEMICOLON 
-    RIGHT_CURLY {:
-        RESULT = new MethodDecl(ret_type, name, new FormalList(), new VarDeclList(), stmts, ret_val);
     :}
 ;
 
@@ -187,7 +166,16 @@ formal ::=
 ;
 
 var_decl_list ::=
-    var_decl_list:list var_decl:var {:
+    nonempty_var_decl_list:list {:
+        RESULT = list;
+    :}
+    | {:
+        RESULT = new VarDeclList();
+    :}
+;
+
+nonempty_var_decl_list ::=
+    nonempty_var_decl_list:list var_decl:var {:
         list.addElement(var);
         RESULT = list;
     :}
