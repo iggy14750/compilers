@@ -14,6 +14,29 @@ import syntaxtree.*;
 import visitor.DepthFirstVisitor;
 
 
+public class TestRunner {
+
+    public static void main(String[] args) throws Exception {
+        new TestMain();
+    }
+
+    public static void assertInstance(Object o, Class c) {
+        assert c.isAssignableFrom(o.getClass()): o.getClass().getName();
+    }
+
+    public static void printTokens(String str) throws Exception {
+        for (Symbol t: new SymbolIterator(new Lexer(new StringReader(str)))) {
+            System.out.println(sym.terminalNames[t.sym]);
+        }
+    }
+
+    public static void printTokens(File file) throws Exception {
+        for (Symbol s: new SymbolIterator(new Lexer(new FileReader(file)))) {
+            System.out.println(sym.terminalNames[t.sym]);
+        }
+    }
+}
+
 class SymbolIterator implements Iterator<Symbol>, Iterable<Symbol> {
     private Lexer l;
     private Symbol next;
@@ -39,33 +62,6 @@ class SymbolIterator implements Iterator<Symbol>, Iterable<Symbol> {
         }
         return ret;
     }
-}
-
-public class TestRunner {
-
-    public static void main(String[] args) throws Exception {
-        new TestMain();
-    }
-
-    public static void assertInstance(Object o, Class c) {
-        assert c.isAssignableFrom(o.getClass()): o.getClass().getName();
-    }
-
-    public static void printTokens(String str) throws Exception {
-        for (Symbol t: new SymbolIterator(new Lexer(new StringReader(str)))) {
-            System.out.println(sym.terminalNames[t.sym]);
-        }
-    }
-
-    public static void printTokens(File file) throws Exception {
-        Lexer l = new Lexer(new FileReader(file));
-        Symbol t = l.next_token();
-        while (t.sym != sym.EOF) {
-            System.out.println(sym.terminalNames[t.sym]);
-            t = l.next_token();
-        }
-    }
-
 }
 
 class TestMain {
