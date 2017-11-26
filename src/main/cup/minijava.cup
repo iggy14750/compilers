@@ -35,6 +35,7 @@ terminal String STRING;
 terminal String ID;
 
 non terminal Statement stmt;
+non terminal StatementList nonempty_stmt_list;
 non terminal StatementList stmt_list;
 non terminal Exp expr;
 non terminal Identifier id;
@@ -152,11 +153,6 @@ method ::=
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, params, new VarDeclList(), stmts, ret_val);
     :}
-    | PUBLIC type:ret_type id:name LEFT_PAREN formal_list:params RIGHT_PAREN LEFT_CURLY
-        RETURN expr:ret_val SEMICOLON 
-    RIGHT_CURLY {:
-        RESULT = new MethodDecl(ret_type, name, params, new VarDeclList(), new StatementList(), ret_val);
-    :}
     | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY 
         var_decl_list:decls
         stmt_list:stmts
@@ -169,11 +165,6 @@ method ::=
         RETURN expr:ret_val SEMICOLON 
     RIGHT_CURLY {:
         RESULT = new MethodDecl(ret_type, name, new FormalList(), new VarDeclList(), stmts, ret_val);
-    :}
-    | PUBLIC type:ret_type id:name LEFT_PAREN RIGHT_PAREN LEFT_CURLY
-        RETURN expr:ret_val SEMICOLON 
-    RIGHT_CURLY {:
-        RESULT = new MethodDecl(ret_type, name, new FormalList(), new VarDeclList(), new StatementList(), ret_val);
     :}
 ;
 
@@ -304,7 +295,16 @@ expr ::=
 ;
 
 stmt_list ::=
-    stmt_list:l stmt:s {:
+    nonempty_stmt_list:list {:
+        RESULT = list;
+    :}
+    | {:
+        RESULT = new StatementList();
+    :}
+;
+
+nonempty_stmt_list ::=
+    nonempty_stmt_list:l stmt:s {:
         l.addElement(s);
         RESULT = l;
     :}

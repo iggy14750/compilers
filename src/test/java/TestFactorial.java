@@ -12,7 +12,7 @@ import frontend.Parser;
 
 public class TestFactorial {
 
-    private Program syntaxTree;
+    private Program prog;
 
     public TestFactorial() {
         Object temp = null;
@@ -23,10 +23,40 @@ public class TestFactorial {
             Assert.fail(e.toString());
         }
         assertInstance(temp, Program.class);
-        syntaxTree = (Program) temp;
+        prog = (Program) temp;
+    }
+
+    @Test
+    public void mainClassName() {
+        Assert.assertEquals("Factorial", prog.m.i1.s);
+    }
+
+    @Test
+    public void mainClassStatement() {
+        assertInstance(prog.m.s, Print.class);
+    }
+
+    @Test
+    public void callsComputeFac() {
+        Assert.assertEquals("ComputeFac", ((Call) ((Print) prog.m.s).e).i.s);
+    }
+
+    @Test
+    public void classFacIsFirstInList() {
+        Assert.assertEquals("Fac", ((ClassDeclSimple) prog.cl.elementAt(0)).i.s);
+    }
+
+    @Test
+    public void classFacMethodComputeFacReturns_num_aux() {
+        Assert.assertEquals("num_aux", 
+            ((IdentifierExp) ((ClassDeclSimple) prog.cl.elementAt(0)).ml.elementAt(0).e).s);
     }
 
     public static void assertInstance(Object o, Class c) {
-        assert c.isAssignableFrom(o.getClass()): o.getClass().getName();
+        assert c.isAssignableFrom(o.getClass()): String.format(
+            "Incorrect class: expected <%s>, found <%s>", 
+            c.getName(), 
+            o.getClass().getName()
+        );
     }
 }
