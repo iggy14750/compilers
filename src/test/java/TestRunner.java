@@ -52,8 +52,7 @@ public class TestRunner {
     }
 
     public static void printTokens(String str) throws Exception {
-        SymbolIterator i = new SymbolIterator(new Lexer(new StringReader(str)));
-        for (Symbol t: i) {
+        for (Symbol t: new SymbolIterator(new Lexer(new StringReader(str)))) {
             System.out.println(sym.terminalNames[t.sym]);
         }
     }
