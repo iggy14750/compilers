@@ -246,6 +246,12 @@ stmt ::=
     | id:i LEFT_SQUARE_BRACKET expr:index RIGHT_SQUARE_BRACKET EQ expr:value SEMICOLON {:
         RESULT = new ArrayAssign(i, index, value);
     :}
+    | error:err_ SEMICOLON {:
+        System.out.println(String.format(
+            "Parse error at line %d, column %d", 
+            err_left+1, err_right+1 // Counted from 0
+        ));
+    :}
 ;
 
 expr ::=
