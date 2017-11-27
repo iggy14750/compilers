@@ -130,6 +130,9 @@ clss ::=
     RIGHT_CURLY {:
         RESULT = new ClassDeclExtends(name, base, vars, new MethodDeclList());
     :}
+    | CLASS error:e_ RIGHT_CURLY {:
+        System.out.println(errorMessage(e_left, e_right));
+    :}
 ;
 
 method_list ::=
