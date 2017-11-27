@@ -20,6 +20,13 @@ parser code {:
     public static Object parse(File f) throws Exception {
         return new Parser(new Lexer(new FileReader(f))).parse().value;
     }
+
+    private static String errorMessage(int line, int col) {
+        return String.format(
+            "Parse error at line %d, column %d",
+            line + 1, col + 1 // Line and column numbered starting at 0.
+        );
+    }
 :}
 
 scan with {: return s.next_token(); :};
@@ -175,10 +182,7 @@ method ::=
         RESULT = new MethodDecl(ret_type, name, new FormalList(), new VarDeclList(), new StatementList(), ret_val);
     :}
     | error:e_ RIGHT_CURLY {:
-        System.out.println(String.format(
-            "Parse error on line %d, column %d",
-            e_left + 1, e_right + 1
-        ));
+        System.out.println(errorMessage(e_left, e_right));
     :}
 ;
 
@@ -253,10 +257,7 @@ stmt ::=
         RESULT = new ArrayAssign(i, index, value);
     :}
     | error:err_ SEMICOLON {:
-        System.out.println(String.format(
-            "Parse error at line %d, column %d", 
-            err_left+1, err_right+1 // Counted from 0
-        ));
+        System.out.println(errorMessage(err_left, err_right));
     :}
 ;
 
