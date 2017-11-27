@@ -5,6 +5,10 @@ class Main {
 }
 
 class Tracking {
+
+    int y;
+    boolean iAmLegend;
+
     public int Start() {
         // if (x < 4) 
         x = 4;
