@@ -1,4 +1,6 @@
 
+package semantic;
+
 import syntaxtree.*;
 import vistor.Visitor;
 
