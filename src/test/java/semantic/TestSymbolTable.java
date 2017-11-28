@@ -29,4 +29,14 @@ public class TestSymbolTable {
         Assert.assertEquals(Type.IDENTIFIER, s.getVariableType());
         Assert.assertEquals("id", s.getVariableType().getIdentifier());
     }
+
+    @Test
+    public void twoLevels() {
+        SymbolTable table = st.newScope();
+        st.put("zero", Symbol.VARIABLE);
+        table.put("one", Symbol.CLASS);
+        
+        Assert.assertEquals(Symbol.CLASS, table.get("one"));
+        Assert.assertEquals(Symbol.VARIABLE, table.get("zero"));
+    }
 }
