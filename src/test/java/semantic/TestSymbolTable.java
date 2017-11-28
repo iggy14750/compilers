@@ -48,4 +48,13 @@ public class TestSymbolTable {
         left.put("left", Symbol.METHOD);
         Assert.assertNull(right.get("left"));
     }
+
+    @Test
+    public void treeBothChildrenSeeParentsSymbols() {
+        st.put("root", Symbol.CLASS);
+        SymbolTable left = st.newScope();
+        SymbolTable right = st.newScope();
+        Assert.assertNotNull(left.get("root"));
+        Assert.assertNotNull(right.get("root"));
+    }
 }
