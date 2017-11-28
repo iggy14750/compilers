@@ -15,6 +15,7 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
+        Assert.assertEquals(Type.INT, t);
     }
 
     @Test
@@ -27,6 +28,7 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
+        Assert.assertEquals(Type.INT_ARRAY, t);
     }
 
     @Test
@@ -39,6 +41,7 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
+        Assert.assertEquals(Type.BOOLEAN, t);
     }
 
     @Test
@@ -46,5 +49,28 @@ public class SumTypes {
         Type t = Type.IDENTIFIER;
         t.setIdentifier("example");
         Assert.assertEquals("example", t.getIdentifier());
+        Assert.assertEquals(Type.IDENTIFIER, t);
+    }
+
+    @Test
+    public void symbol_CLASS() {
+        Symbol s = Symbol.CLASS;
+        try {
+            s.setVariableType(null);
+            Assert.fail("Cannot set variable type to Symbol CLASS");
+        } catch (RuntimeException re) {}
+        try {
+            s.getVariableType();
+            Assert.fail("Cannot get variable type from Symbol CLASS");
+        } catch (RuntimeException re) {}
+        try {
+            s.setMethodSignature(null);
+            Assert.fail("Cannot get method signature to Symbol CLASS");
+        } catch (RuntimeException re) {}
+        try {
+            s.getMethodSignature();
+            Assert.fail("Cannot get method signature from Symbol CLASS");
+        } catch (RuntimeException re) {}
+        Assert.assertEquals(Symbol.CLASS, s);
     }
 }
