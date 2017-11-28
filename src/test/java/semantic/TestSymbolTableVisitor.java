@@ -72,7 +72,17 @@ public class TestSymbolTableVisitor {
 
     @Test
     public void normalClass() {
-        // TODO
+        clss.accept(v);
+
+        Symbol method = v.table.getSymbol("fact");
+        Assert.assertEquals(Symbol.METHOD, method);
+        Assert.assertEquals(SymbolType.INT, method.getMethodSignature().returnType);
+        Assert.assertArrayEquals(
+            new SymbolType[] {SymbolType.INT},
+            method.getMethodSignature().params
+        );
+        Assert.assertNotNull(v.table.getChildScope("fact"));
+        // Check some things about the method
     }
 
     @Test
