@@ -6,7 +6,20 @@ import visitor.Visitor;
 
 public class SymbolTableVisitor implements Visitor {
     
-    public SymbolTable table = new SymbolTable();
+    private SymbolTable table;
+
+    /**
+     * Accepts a SymbolTable for two reasons:
+     * <ol>
+     *      <li> Ease of Testing. A mock can be thrown in.
+     *      <li> When we enter a new scope, we can create a new SymbolTableVisitor
+     *          to do the work with that scope, instead of having to keep track of the tree of scopes.
+     * </ol>
+     * @param global the SymbolTable which this will build, for reasons above.
+     */
+    public SymbolTableVisitor(SymbolTable global) {
+        table = global;
+    }
 
     public void visit(Program n) {}
     public void visit(MainClass n) {}
