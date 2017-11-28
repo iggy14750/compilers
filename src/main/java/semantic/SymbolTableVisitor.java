@@ -29,14 +29,22 @@ public class SymbolTableVisitor implements Visitor {
     public void visit(Program n) {
         if (n == null) return;
         SymbolTable mainClass = table.put(n.m.i1.toString(), Symbol.MAIN_CLASS);
-        SymbolTable mainMethod = mainClass.put(
-            "main", Symbol.METHOD.setMethodSignature(
-                new MethodSignature(SymbolType.VOID, new SymbolType[] {SymbolType.STRING_ARRAY})));
-        mainMethod.put(n.m.i2.toString(), Symbol.VARIABLE.setVariableType(SymbolType.STRING_ARRAY));
+        new SymbolTableVisitor(mainClass).visit(n.m);
         // Followed by the class list....
     }
 
-    public void visit(MainClass n) {}
+    public void visit(MainClass mc) {
+        SymbolTable mainMethod = table.put(
+            "main",
+            Symbol.METHOD.setMethodSignature(
+                new MethodSignature(
+                    SymbolType.VOID, new SymbolType[] {SymbolType.STRING_ARRAY}
+                )
+            )
+        );
+        mainMethod.put(mc.i2.toString(), Symbol.VARIABLE.setVariableType(SymbolType.STRING_ARRAY));
+    }
+
     public void visit(ClassDeclSimple n) {}
     public void visit(ClassDeclExtends n) {}
     public void visit(VarDecl n) {}
