@@ -5,7 +5,9 @@ import syntaxtree.*;
 import visitor.Visitor;
 
 public class SymbolTableVisitor implements Visitor {
-    // TODO
+    
+    public SymbolTable table = new SymbolTable();
+
     public void visit(Program n) {}
     public void visit(MainClass n) {}
     public void visit(ClassDeclSimple n) {}
