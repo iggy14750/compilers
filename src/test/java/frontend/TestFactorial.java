@@ -1,4 +1,6 @@
 
+package frontend;
+
 import java.io.File;
 
 import org.junit.Test;

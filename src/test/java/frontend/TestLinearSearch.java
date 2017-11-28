@@ -1,3 +1,6 @@
+
+package frontend;
+
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.Assert;
@@ -9,11 +12,11 @@ import frontend.Parser;
 
 import java.io.*;
 
-public class TestQuickSort {
+public class TestLinearSearch {
     private Program prog;
 
-    public TestQuickSort() {
-        prog = TestRunner.parseFile("QuickSort.java");
+    public TestLinearSearch() {
+        prog = TestRunner.parseFile("LinearSearch.java");
     }
 
     @Test

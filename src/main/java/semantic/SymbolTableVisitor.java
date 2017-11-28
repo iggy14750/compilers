@@ -2,7 +2,7 @@
 package semantic;
 
 import syntaxtree.*;
-import vistor.Visitor;
+import visitor.Visitor;
 
 public class SymbolTableVisitor implements Visitor {
     // TODO

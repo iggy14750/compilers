@@ -1,3 +1,6 @@
+
+package frontend;
+
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.Assert;
