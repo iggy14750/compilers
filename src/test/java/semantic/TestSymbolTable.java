@@ -9,4 +9,9 @@ import syntaxtree.*;
 public class TestSymbolTable {
 
     SymbolTable st = new SymbolTable();
+
+    @Test
+    public void insertNothing() {
+        Assert.assertNull(st.get("example"));
+    }
 }
