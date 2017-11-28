@@ -35,4 +35,13 @@ public class TestQuickSort {
         Assert.assertEquals(11, pos.line);
         Assert.assertEquals(7, pos.column);
     }
+
+    @Test
+    public void findMethodName() {
+        Identifier name = ((ClassDeclSimple) prog.cl.elementAt(0)).ml.elementAt(1).i;
+        Position pos = parser.getPosition(name);
+        Assert.assertNotNull(pos);
+        Assert.assertEquals(31, pos.line);
+        Assert.assertEquals(16, pos.column);
+    }
 }
