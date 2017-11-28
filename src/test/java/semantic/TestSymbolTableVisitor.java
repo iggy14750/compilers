@@ -14,8 +14,43 @@ public class TestSymbolTableVisitor {
     );
 
     private ClassDeclSimple clss = new ClassDeclSimple(
-        null, null, null // TODO
+        new Identifier("MyClass"),
+        varDecls2(),
+        myMethodList()
     );
+
+    private VarDeclList varDecls2() {
+        VarDeclList vdl = new VarDeclList();
+        vdl.addElement(
+            new VarDecl(new IntegerType(), new Identifier("n"))
+        );
+        return vdl;
+    }
+
+    private MethodDeclList myMethodList() {
+        MethodDeclList mdl = new MethodDeclList();
+        mdl.addElement(new MethodDecl(
+            new IntegerType(),
+            new Identifier("fact"),
+            getFormalList(),
+            getVarDecls(),
+            null,
+            null
+        ));
+        return mdl;
+    }
+
+    private FormalList getFormalList() {
+        FormalList fl = new FormalList();
+        fl.addElement(new Formal(new IntegerType(), new Identifier("n")));
+        return fl;
+    }
+
+    private VarDeclList getVarDecls() {
+        VarDeclList vdl = new VarDeclList();
+        vdl.addElement(new VarDecl(new BooleanType(), new Identifier("isTrue")));
+        return vdl;
+    }
 
     @Test
     public void callWithNullThenStop() {
