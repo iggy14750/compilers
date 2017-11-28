@@ -7,9 +7,9 @@ import java.util.List;
 
 public class SymbolTable {
     
+    private HashMap<String, SymbolTable> children;
     private HashMap<String, Symbol> table;
     private SymbolTable parent;
-    private List<SymbolTable> children;
 
     /** Constructs an empty table, with no parent scopes. */
     public SymbolTable() {
@@ -17,11 +17,10 @@ public class SymbolTable {
     }
 
     private SymbolTable(SymbolTable parent) {
+        children = new HashMap<String, SymbolTable>();
         table = new HashMap<String, Symbol>();
-        children = new ArrayList<SymbolTable>();
         this.parent = parent;
     }
-
 
     /**
      * Get the abstract symbol which was associated with the given String.
@@ -50,7 +49,12 @@ public class SymbolTable {
      */
     public SymbolTable put(String name, Symbol symbol) {
         table.put(name, symbol);
-        return null;
+        SymbolTable child = null;
+        if (symbol != Symbol.VARIABLE) {
+            child = new SymbolTable(this);
+            children.put(name, child);
+        }
+        return child;
     }
 
     /**
@@ -60,6 +64,6 @@ public class SymbolTable {
      * @return the child scope in question, if it exists.
      */
     public SymbolTable getChildScope(String name) {
-        return null;
+        return children.get(name);
     }
 }

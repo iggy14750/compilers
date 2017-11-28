@@ -27,4 +27,12 @@ public class TestSymbolTable {
         Assert.assertEquals(Symbol.VARIABLE, st.getSymbol("first"));
         Assert.assertEquals(Type.INT, st.getSymbol("first").getVariableType());
     }
+
+    @Test
+    public void insertMethodGetNewScope() {
+        SymbolTable child = st.put("fact", Symbol.METHOD);
+        Assert.assertNotNull(child);
+        Assert.assertEquals(Symbol.METHOD, child.getSymbol("fact"));
+        Assert.assertEquals(child, st.getChildScope("fact"));
+    }
 }
