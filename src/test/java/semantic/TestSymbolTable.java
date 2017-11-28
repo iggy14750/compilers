@@ -57,4 +57,10 @@ public class TestSymbolTable {
         left.put("findMe", Symbol.VARIABLE);
         Assert.assertNull(right.getSymbol("findMe"));
     }
+
+    @Test
+    public void mainClassMakesChildScope() {
+        SymbolTable mainClass = st.put("Main", Symbol.MAIN_CLASS);
+        Assert.assertNotNull(mainClass);
+    }
 }

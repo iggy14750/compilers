@@ -5,6 +5,8 @@ public enum SymbolType {
     INT,
     INT_ARRAY,
     BOOLEAN,
+    STRING_ARRAY,
+    VOID,
     IDENTIFIER;
 
     private String id;

@@ -6,7 +6,7 @@ import visitor.Visitor;
 
 public class SymbolTableVisitor implements Visitor {
     
-    private SymbolTable table;
+    public SymbolTable table;
 
     /** The public constructor constructs a default SymbolTable. */
     public SymbolTableVisitor() {
@@ -26,7 +26,16 @@ public class SymbolTableVisitor implements Visitor {
         table = global;
     }
 
-    public void visit(Program n) {}
+    public void visit(Program n) {
+        if (n == null) return;
+        SymbolTable mainClass = table.put(n.m.i1.toString(), Symbol.MAIN_CLASS);
+        SymbolTable mainMethod = mainClass.put(
+            "main", Symbol.METHOD.setMethodSignature(
+                new MethodSignature(SymbolType.VOID, new SymbolType[] {SymbolType.STRING_ARRAY})));
+        mainMethod.put(n.m.i2.toString(), Symbol.VARIABLE.setVariableType(SymbolType.STRING_ARRAY));
+        // Followed by the class list....
+    }
+
     public void visit(MainClass n) {}
     public void visit(ClassDeclSimple n) {}
     public void visit(ClassDeclExtends n) {}

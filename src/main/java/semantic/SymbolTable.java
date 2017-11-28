@@ -50,9 +50,12 @@ public class SymbolTable {
     public SymbolTable put(String name, Symbol symbol) {
         table.put(name, symbol);
         SymbolTable child = null;
-        if (symbol == Symbol.METHOD || symbol == Symbol.CLASS) {
-            child = new SymbolTable(this);
-            children.put(name, child);
+        switch (symbol) {
+            case MAIN_CLASS:
+            case CLASS:
+            case METHOD:
+                child = new SymbolTable(this);
+                children.put(name, child);
         }
         return child;
     }
