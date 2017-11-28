@@ -13,6 +13,10 @@ public class TestSymbolTableVisitor {
         new ClassDeclList()
     );
 
+    private ClassDeclSimple clss = new ClassDeclSimple(
+        null, null, null // TODO
+    );
+
     @Test
     public void callWithNullThenStop() {
         v.visit((Program) null);
@@ -29,6 +33,16 @@ public class TestSymbolTableVisitor {
             new SymbolType[] {SymbolType.STRING_ARRAY},
             clss.getSymbol("main").getMethodSignature().params
         );
+    }
+
+    @Test
+    public void normalClass() {
+        // TODO
+    }
+
+    @Test
+    public void progWithNormalClass() {
+        // TODO
     }
 
 }
