@@ -35,4 +35,26 @@ public class TestSymbolTable {
         Assert.assertEquals(Symbol.METHOD, child.getSymbol("fact"));
         Assert.assertEquals(child, st.getChildScope("fact"));
     }
+
+    @Test
+    public void findSymbolInParent() {
+        st.put("find", Symbol.VARIABLE);
+        SymbolTable child = st.put("func", Symbol.METHOD);
+        Assert.assertEquals(Symbol.VARIABLE, child.getSymbol("find"));
+    }
+
+    @Test
+    public void cantFindSymbolInParent() {
+        st.put("find", Symbol.VARIABLE);
+        SymbolTable child = st.put("func", Symbol.METHOD);
+        Assert.assertNull(child.getSymbol("quick"));
+    }
+
+    @Test
+    public void cantSeeSiblingsSymbol() {
+        SymbolTable left = st.put("left", Symbol.CLASS);
+        SymbolTable right = st.put("right", Symbol.CLASS);
+        left.put("findMe", Symbol.VARIABLE);
+        Assert.assertNull(right.getSymbol("findMe"));
+    }
 }
