@@ -8,6 +8,11 @@ public class SymbolTableVisitor implements Visitor {
     
     private SymbolTable table;
 
+    /** The public constructor constructs a default SymbolTable. */
+    public SymbolTableVisitor() {
+        this(new SymbolTable());
+    }
+
     /**
      * Accepts a SymbolTable for two reasons:
      * <ol>
@@ -17,7 +22,7 @@ public class SymbolTableVisitor implements Visitor {
      * </ol>
      * @param global the SymbolTable which this will build, for reasons above.
      */
-    public SymbolTableVisitor(SymbolTable global) {
+    SymbolTableVisitor(SymbolTable global) {
         table = global;
     }
 
