@@ -22,22 +22,44 @@ public class SymbolTable {
         this.parent = parent;
     }
 
-    public Symbol get(String name) {
+
+    /**
+     * Get the abstract symbol which was associated with the given String.
+     * If the requested symbol is not found in this scope, 
+     * it will search in its parent's scope.
+     * @param name the String which denotes this symbol.
+     * @return the abstract Symbol which the String signifies.
+     */
+    public Symbol getSymbol(String name) {
         Symbol temp = table.get(name);
         if (temp != null) {
             return temp;
         } else if (parent != null) {
-            return parent.get(name);
+            return parent.getSymbol(name);
         }
         return null;
     }
 
-    public boolean put(String name, Symbol symbol) {
-        return table.put(name, symbol) != null;
+    /**
+     * Register a new Symbol with this ST.
+     * If this symbol is a CLASS or METHOD, a child scope will be created.
+     * This child scope can be accessed at any time with the <pre>getChild()</pre> method.
+     * @param name the String which denotes this symbol.
+     * @param symbol kind of abstract symbol which the string signifies.
+     * @return the child scope which was created, if it was.
+     */
+    public SymbolTable put(String name, Symbol symbol) {
+        table.put(name, symbol);
+        return null;
     }
 
-    public SymbolTable newScope() {
-        children.add(new SymbolTable(this));
-        return children.get(children.size() - 1);
+    /**
+     * Get the child scope associated with the given String.
+     * Null if no such scope exists; does not check parents.
+     * @param name String with which this scope was registered.
+     * @return the child scope in question, if it exists.
+     */
+    public SymbolTable getChildScope(String name) {
+        return null;
     }
 }

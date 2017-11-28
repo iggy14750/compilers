@@ -12,49 +12,19 @@ public class TestSymbolTable {
 
     @Test
     public void insertNothing() {
-        Assert.assertNull(st.get("example"));
+        Assert.assertNull(st.getSymbol("example"));
     }
 
     @Test
-    public void insertSomething() {
-        st.put("example", Symbol.CLASS);
-        Assert.assertEquals(Symbol.CLASS, st.get("example"));
+    public void insertVariableNoNewScope() {
+        st.put("first", Symbol.VARIABLE);
+        Assert.assertNull(st.getChildScope("first"));
     }
 
     @Test
-    public void insertVariable() {
-        st.put("example", Symbol.VARIABLE.setVariableType(Type.IDENTIFIER.setIdentifier("id")));
-        Symbol s = st.get("example");
-        Assert.assertEquals(Symbol.VARIABLE, s);
-        Assert.assertEquals(Type.IDENTIFIER, s.getVariableType());
-        Assert.assertEquals("id", s.getVariableType().getIdentifier());
-    }
-
-    @Test
-    public void twoLevels() {
-        SymbolTable table = st.newScope();
-        st.put("zero", Symbol.VARIABLE);
-        table.put("one", Symbol.CLASS);
-        
-        Assert.assertEquals(Symbol.CLASS, table.get("one"));
-        Assert.assertEquals(Symbol.VARIABLE, table.get("zero"));
-        Assert.assertNull(table.get("two"));
-    }
-
-    @Test
-    public void treeCantSeeSiblingsSymbols() {
-        SymbolTable left = st.newScope();
-        SymbolTable right = st.newScope();
-        left.put("left", Symbol.METHOD);
-        Assert.assertNull(right.get("left"));
-    }
-
-    @Test
-    public void treeBothChildrenSeeParentsSymbols() {
-        st.put("root", Symbol.CLASS);
-        SymbolTable left = st.newScope();
-        SymbolTable right = st.newScope();
-        Assert.assertEquals(Symbol.CLASS, left.get("root"));
-        Assert.assertEquals(Symbol.CLASS, right.get("root"));
+    public void insertVariableGetItBack() {
+        st.put("first", Symbol.VARIABLE.setVariableType(Type.INT));
+        Assert.assertEquals(Symbol.VARIABLE, st.getSymbol("first"));
+        Assert.assertEquals(Type.INT, st.getSymbol("first").getVariableType());
     }
 }
