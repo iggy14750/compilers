@@ -23,9 +23,9 @@ public class TestSymbolTable {
 
     @Test
     public void insertVariableGetItBack() {
-        st.put("first", Symbol.VARIABLE.setVariableType(Type.INT));
+        st.put("first", Symbol.VARIABLE.setVariableType(SymbolType.INT));
         Assert.assertEquals(Symbol.VARIABLE, st.getSymbol("first"));
-        Assert.assertEquals(Type.INT, st.getSymbol("first").getVariableType());
+        Assert.assertEquals(SymbolType.INT, st.getSymbol("first").getVariableType());
     }
 
     @Test

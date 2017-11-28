@@ -2,10 +2,10 @@
 package semantic;
 
 public class MethodSignature {
-    public final Type returnType;
-    public final Type[] params;
+    public final SymbolType returnType;
+    public final SymbolType[] params;
 
-    public MethodSignature(Type r, Type[] p) {
+    public MethodSignature(SymbolType r, SymbolType[] p) {
         returnType = r;
         params = p;
     }

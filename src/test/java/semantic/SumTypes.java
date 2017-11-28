@@ -7,7 +7,7 @@ public class SumTypes {
 
     @Test
     public void type_INT() {
-        Type t = Type.INT;
+        SymbolType t = SymbolType.INT;
         try {
             t.setIdentifier("example");
             t.getIdentifier();
@@ -15,12 +15,12 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
-        Assert.assertEquals(Type.INT, t);
+        Assert.assertEquals(SymbolType.INT, t);
     }
 
     @Test
     public void type_INT_ARRAY() {
-        Type t = Type.INT_ARRAY;
+        SymbolType t = SymbolType.INT_ARRAY;
         try {
             t.setIdentifier("example");
             t.getIdentifier();
@@ -28,12 +28,12 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
-        Assert.assertEquals(Type.INT_ARRAY, t);
+        Assert.assertEquals(SymbolType.INT_ARRAY, t);
     }
 
     @Test
     public void type_BOOLEAN() {
-        Type t = Type.BOOLEAN;
+        SymbolType t = SymbolType.BOOLEAN;
         try {
             t.setIdentifier("example");
             t.getIdentifier();
@@ -41,15 +41,15 @@ public class SumTypes {
         } catch (RuntimeException re) {
             Assert.assertTrue(true);
         }
-        Assert.assertEquals(Type.BOOLEAN, t);
+        Assert.assertEquals(SymbolType.BOOLEAN, t);
     }
 
     @Test
     public void type_ID() {
-        Type t = Type.IDENTIFIER;
+        SymbolType t = SymbolType.IDENTIFIER;
         t.setIdentifier("example");
         Assert.assertEquals("example", t.getIdentifier());
-        Assert.assertEquals(Type.IDENTIFIER, t);
+        Assert.assertEquals(SymbolType.IDENTIFIER, t);
     }
 
     @Test
@@ -79,9 +79,9 @@ public class SumTypes {
         Symbol s = Symbol.METHOD;
         Assert.assertEquals(Symbol.METHOD, s);
 
-        s.setMethodSignature(new MethodSignature(Type.INT, new Type[] {}));
-        Assert.assertEquals(Type.INT, s.getMethodSignature().returnType);
-        Assert.assertArrayEquals(new Type[] {}, s.getMethodSignature().params);
+        s.setMethodSignature(new MethodSignature(SymbolType.INT, new SymbolType[] {}));
+        Assert.assertEquals(SymbolType.INT, s.getMethodSignature().returnType);
+        Assert.assertArrayEquals(new SymbolType[] {}, s.getMethodSignature().params);
         
         try {
             s.setVariableType(null);
@@ -98,8 +98,8 @@ public class SumTypes {
         Symbol s = Symbol.VARIABLE;
         Assert.assertEquals(Symbol.VARIABLE, s);
         
-        s.setVariableType(Type.BOOLEAN);
-        Assert.assertEquals(Type.BOOLEAN, s.getVariableType());
+        s.setVariableType(SymbolType.BOOLEAN);
+        Assert.assertEquals(SymbolType.BOOLEAN, s.getVariableType());
         
         try {
             s.setMethodSignature(null);

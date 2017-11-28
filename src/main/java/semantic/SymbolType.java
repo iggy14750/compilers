@@ -1,7 +1,7 @@
 
 package semantic;
 
-public enum Type {
+public enum SymbolType {
     INT,
     INT_ARRAY,
     BOOLEAN,
@@ -9,10 +9,10 @@ public enum Type {
 
     private String id;
 
-    public Type setIdentifier(String s) {
-        if (this != Type.IDENTIFIER) {
+    public SymbolType setIdentifier(String s) {
+        if (this != SymbolType.IDENTIFIER) {
             throw new RuntimeException(
-                "Cannot assign identifier to Type " + this
+                "Cannot assign identifier to SymbolType " + this
             );
         }
         id = s;
@@ -20,9 +20,9 @@ public enum Type {
     }
 
     public String getIdentifier() {
-        if (this != Type.IDENTIFIER) {
+        if (this != SymbolType.IDENTIFIER) {
             throw new RuntimeException(
-                "Cannot get identifier from Type " + this
+                "Cannot get identifier from SymbolType " + this
             );
         }
         return id;

@@ -8,9 +8,9 @@ public enum Symbol {
     VARIABLE;
 
     private MethodSignature sig;
-    private Type type;
+    private SymbolType type;
 
-    public Symbol setVariableType(Type t) {
+    public Symbol setVariableType(SymbolType t) {
         if (this != Symbol.VARIABLE) {
             throw new RuntimeException(
                 "Cannot assign varible type to Symbol " + this
@@ -20,7 +20,7 @@ public enum Symbol {
         return this;
     }
 
-    public Type getVariableType() {
+    public SymbolType getVariableType() {
         if (this != Symbol.VARIABLE) {
             throw new RuntimeException(
                 "Cannot get Variable type from Symbol " + this
