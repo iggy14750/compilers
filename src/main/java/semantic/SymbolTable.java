@@ -50,7 +50,7 @@ public class SymbolTable {
     public SymbolTable put(String name, Symbol symbol) {
         table.put(name, symbol);
         SymbolTable child = null;
-        if (symbol != Symbol.VARIABLE) {
+        if (symbol == Symbol.METHOD || symbol == Symbol.CLASS) {
             child = new SymbolTable(this);
             children.put(name, child);
         }

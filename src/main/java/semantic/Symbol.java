@@ -2,6 +2,7 @@
 package semantic;
 
 public enum Symbol {
+    MAIN_CLASS,
     CLASS,
     METHOD,
     VARIABLE;
