@@ -78,9 +78,11 @@ public class SumTypes {
     public void symbol_METHOD() {
         Symbol s = Symbol.METHOD;
         Assert.assertEquals(Symbol.METHOD, s);
+
         s.setMethodSignature(new MethodSignature(Type.INT, new Type[] {}));
         Assert.assertEquals(Type.INT, s.getMethodSignature().returnType);
         Assert.assertArrayEquals(new Type[] {}, s.getMethodSignature().params);
+        
         try {
             s.setVariableType(null);
             Assert.fail("Cannot set varible type to Symbol METHOD");
@@ -88,6 +90,24 @@ public class SumTypes {
         try {
             s.getVariableType();
             Assert.fail("Cannot get variable type from Symbol METHOD");
+        } catch (RuntimeException re) {}
+    }
+
+    @Test
+    public void symbol_VARIABLE() {
+        Symbol s = Symbol.VARIABLE;
+        Assert.assertEquals(Symbol.VARIABLE, s);
+        
+        s.setVariableType(Type.BOOLEAN);
+        Assert.assertEquals(Type.BOOLEAN, s.getVariableType());
+        
+        try {
+            s.setMethodSignature(null);
+            Assert.fail("Cannot set method signature to Symbol VARIABLE");
+        } catch (RuntimeException re) {}
+        try {
+            s.getMethodSignature();
+            Assert.fail("Cannot get method signature from Symbol VARIABLE");
         } catch (RuntimeException re) {}
     }
 }
