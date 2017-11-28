@@ -38,5 +38,6 @@ public class TestSymbolTable {
         
         Assert.assertEquals(Symbol.CLASS, table.get("one"));
         Assert.assertEquals(Symbol.VARIABLE, table.get("zero"));
+        Assert.assertNull(table.get("two"));
     }
 }
