@@ -40,4 +40,12 @@ public class TestSymbolTable {
         Assert.assertEquals(Symbol.VARIABLE, table.get("zero"));
         Assert.assertNull(table.get("two"));
     }
+
+    @Test
+    public void treeCantSeeSiblingsSymbols() {
+        SymbolTable left = st.newScope();
+        SymbolTable right = st.newScope();
+        left.put("left", Symbol.METHOD);
+        Assert.assertNull(right.get("left"));
+    }
 }
