@@ -9,13 +9,14 @@ public enum Type {
 
     private String id;
 
-    public void setIdentifier(String s) {
+    public Type setIdentifier(String s) {
         if (this != Type.IDENTIFIER) {
             throw new RuntimeException(
                 "Cannot assign identifier to Type " + this
             );
         }
         id = s;
+        return this;
     }
 
     public String getIdentifier() {

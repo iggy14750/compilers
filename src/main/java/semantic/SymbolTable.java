@@ -17,10 +17,10 @@ public class SymbolTable {
     }
 
     public Symbol get(String name) {
-        return null;
+        return table.get(name);
     }
 
     public boolean put(String name, Symbol symbol) {
-        return false;
+        return table.put(name, symbol) != null;
     }
 }

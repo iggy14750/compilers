@@ -9,13 +9,14 @@ public enum Symbol {
     private MethodSignature sig;
     private Type type;
 
-    public void setVariableType(Type t) {
+    public Symbol setVariableType(Type t) {
         if (this != Symbol.VARIABLE) {
             throw new RuntimeException(
                 "Cannot assign varible type to Symbol " + this
             );
         }
         type = t;
+        return this;
     }
 
     public Type getVariableType() {
@@ -27,13 +28,14 @@ public enum Symbol {
         return type;
     }
 
-    public void setMethodSignature(MethodSignature s) {
+    public Symbol setMethodSignature(MethodSignature s) {
         if (this != Symbol.METHOD) {
             throw new RuntimeException(
                 "Cannot assign method signature to Symbol " + this
             );
         }
         sig = s;
+        return this;
     }
 
     public MethodSignature getMethodSignature() {
