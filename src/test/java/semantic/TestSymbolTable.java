@@ -54,7 +54,7 @@ public class TestSymbolTable {
         st.put("root", Symbol.CLASS);
         SymbolTable left = st.newScope();
         SymbolTable right = st.newScope();
-        Assert.assertNotNull(left.get("root"));
-        Assert.assertNotNull(right.get("root"));
+        Assert.assertEquals(Symbol.CLASS, left.get("root"));
+        Assert.assertEquals(Symbol.CLASS, right.get("root"));
     }
 }
