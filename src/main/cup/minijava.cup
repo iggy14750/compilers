@@ -5,20 +5,37 @@ import java_cup.runtime.*;
 import syntaxtree.*;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
 
 parser code {:
-    Scanner s;
-    public Parser(Lexer l) {
-        s = l;
+    
+    private Scanner s;
+    private HashMap<Object, Position> lineNumbers = new HashMap<Object, Position>();
+
+    public Position getPosition(Object node) {
+        return lineNumbers.get(node);
+    }
+
+    public Parser(String s) {
+        this.s = new Lexer(new StringReader(s));
+    }
+
+    public Parser(File f) throws IOException {
+        s = new Lexer(new FileReader(f));
+    }
+
+    public Program getProgram() throws Exception {
+        return (Program) parse().value;
     }
 
     public static Object parse(String s) throws Exception {
-        return new Parser(new Lexer(new StringReader(s))).parse().value;
+        return new Parser(s).parse().value;
     }
 
     public static Object parse(File f) throws Exception {
-        return new Parser(new Lexer(new FileReader(f))).parse().value;
+        return new Parser(f).parse().value;
     }
 
     private static String errorMessage(int line, int col) {
@@ -302,6 +319,7 @@ expr ::=
     :}
     | id:i {:
         RESULT = new IdentifierExp(i.toString());
+        lineNumbers.put(RESULT, new Position(ileft+1, iright+1));
     :}
     | THIS {:
         RESULT = new This();
@@ -350,5 +368,6 @@ exp_list ::=
 id ::=
     ID:i {:
         RESULT = new Identifier(i);
+        lineNumbers.put(RESULT, new Position(ileft+1, iright+1));
     :}
 ;

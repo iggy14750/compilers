@@ -1,16 +1,8 @@
 
 package frontend;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.Assert;
-
+import org.junit.*;
 import syntaxtree.*;
-
-import frontend.Lexer;
-import frontend.Parser;
-
-import java.io.*;
 
 public class TestTracking {
 
