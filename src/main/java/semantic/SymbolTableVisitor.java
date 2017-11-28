@@ -29,7 +29,7 @@ public class SymbolTableVisitor implements Visitor {
     public void visit(Program n) {
         if (n == null) return;
         SymbolTable mainClass = table.put(n.m.i1.toString(), Symbol.MAIN_CLASS);
-        new SymbolTableVisitor(mainClass).visit(n.m);
+        n.m.accept(new SymbolTableVisitor(mainClass));
         // Followed by the class list....
     }
 
@@ -45,7 +45,49 @@ public class SymbolTableVisitor implements Visitor {
         mainMethod.put(mc.i2.toString(), Symbol.VARIABLE.setVariableType(SymbolType.STRING_ARRAY));
     }
 
-    public void visit(ClassDeclSimple n) {}
+    private static SymbolType getType(Type t) {
+        if (t instanceof BooleanType) {
+            return SymbolType.BOOLEAN;
+        }
+        if (t instanceof IntArrayType) {
+            return SymbolType.INT_ARRAY;
+        }
+        if (t instanceof IntegerType) {
+            return SymbolType.INT;
+        }
+        if (t instanceof IdentifierType) {
+            return SymbolType.IDENTIFIER.setIdentifier( ((IdentifierType) t).s );
+        }
+        return null;
+    }
+
+    private static SymbolType[] getFormalTypes(FormalList fl) {
+        SymbolType[] arr = new SymbolType[fl.size()];
+        for (int i = 0; i < fl.size(); i++) {
+            arr[i] = getType( fl.elementAt(i).t );
+        }
+        return arr;
+    }
+
+    public void visit(ClassDeclSimple n) {
+        // Variable declarations
+        for (int i = 0; i < n.vl.size(); i++) {
+            VarDecl var = n.vl.elementAt(i);
+            table.put(var.i.s, Symbol.VARIABLE.setVariableType(getType(var.t)));
+        }
+        // Method declarations
+        for (int i = 0; i < n.ml.size(); i++) {
+            MethodDecl meth = n.ml.elementAt(i);
+            SymbolTable methodScope = table.put(
+                meth.i.s,
+                Symbol.METHOD.setMethodSignature(new MethodSignature(
+                    getType(meth.t), getFormalTypes(meth.fl)
+                ))
+            );
+            meth.accept(new SymbolTableVisitor(methodScope));
+        }
+    }
+
     public void visit(ClassDeclExtends n) {}
     public void visit(VarDecl n) {}
     public void visit(MethodDecl n) {}
