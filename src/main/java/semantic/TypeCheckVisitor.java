@@ -9,15 +9,28 @@ import visitor.Visitor;
 
 public class TypeCheckVisitor implements Visitor {
 
-    private Parser parser; // For line numbers.
     private SymbolTable table;
-    private HashMap<Object, SymbolType> typeCheck;
-    private boolean compileError = false;
+    private static Parser parser; // For line numbers.
+    private static boolean compileError = false;
+    public static HashMap<Object, SymbolType> typeCheck;
 
-    public TypeCheckVisitor(Parser parser, SymbolTable table, Program prog) {
-        this.parser = parser;
-        this.table = table;
+    public TypeCheckVisitor(Parser parse, SymbolTable table, Program prog) {
+        this(parse, table);
         prog.accept(this);
+    }
+
+    public TypeCheckVisitor(Parser parse, SymbolTable table) {
+        typeCheck = new HashMap<Object, SymbolType>();
+        this.table = table;
+        parser = parse;
+    }
+
+    private TypeCheckVisitor(SymbolTable table) {
+        this.table = table;
+    }
+
+    public boolean compileError() {
+        return compileError;
     }
 
     public void visit(Program n) {}
@@ -53,5 +66,18 @@ public class TypeCheckVisitor implements Visitor {
     public void visit(NewArray n) {}
     public void visit(NewObject n) {}
     public void visit(Not n) {}
-    public void visit(Identifier n) {}
+
+    public void visit(Identifier n) {
+        Symbol sym = table.getSymbol(n.s);
+        if (sym == null) {
+            Position pos = parser.getPosition(n);
+            System.err.printf(
+                "Use of undefined identifier %s at line %d, character %d",
+                n.s, pos.line, pos.column
+            );
+            compileError = true;
+        } else if (sym == Symbol.VARIABLE) {
+            typeCheck.put(n, sym.getVariableType());
+        }
+    }
 }
