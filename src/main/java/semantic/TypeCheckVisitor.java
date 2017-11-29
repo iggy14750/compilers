@@ -63,16 +63,44 @@ public class TypeCheckVisitor implements Visitor {
     public void visit(False n) {}
     public void visit(IdentifierExp n) {}
     public void visit(This n) {}
-    public void visit(NewArray n) {}
-    public void visit(NewObject n) {}
-    public void visit(Not n) {}
+
+    public void visit(NewArray n) {
+        n.e.accept(this);
+        // TODO
+    }
+
+    public void visit(NewObject n) {
+        n.i.accept(this);
+        if (table.getSymbol(n.i.s) != Symbol.CLASS) {
+            Position pos = parser.getPosition(n.i);
+            System.err.printf(
+                "Attempt to construct object from non-class identifier %s, at line %d, column %d",
+                n.i.s, pos.line, pos.column
+            );
+            compileError = true;
+        }
+        typeCheck.put(n, SymbolType.IDENTIFIER.setIdentifier(n.i.s));
+    }
+
+    public void visit(Not n) {
+        n.e.accept(this);
+        if (typeCheck.get(n.e) != SymbolType.BOOLEAN) {
+            Position pos = parser.getPosition(n.e);
+            System.err.printf(
+                "Attempt to use boolean operator not on non-boolean operands at line %d, character %d\n",
+                pos.line, pos.column
+            );
+            compileError = true;
+        }
+        typeCheck.put(n, SymbolType.BOOLEAN);
+    }
 
     public void visit(Identifier n) {
         Symbol sym = table.getSymbol(n.s);
         if (sym == null) {
             Position pos = parser.getPosition(n);
             System.err.printf(
-                "Use of undefined identifier %s at line %d, character %d",
+                "Use of undefined identifier %s at line %d, character %d\n",
                 n.s, pos.line, pos.column
             );
             compileError = true;
