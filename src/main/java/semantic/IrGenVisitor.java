@@ -1,8 +1,10 @@
-package visitor;
+
+package semantic;
 
 import syntaxtree.*;
+import visitor.Visitor;
 
-  public interface Visitor {
+public class IrGenVisitor implements Visitor {
     public void visit(Program n);
     public void visit(MainClass n);
     public void visit(ClassDeclSimple n);
