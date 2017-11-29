@@ -1,1 +1,1 @@
-echo "it worked!"
+java -cp build/classes/java/main/ Compiler $1 > temp

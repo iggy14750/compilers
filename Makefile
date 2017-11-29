@@ -1,6 +1,9 @@
 
 default: build test
 
+run:
+	java -cp build/classes/java/main/ Compiler $1
+
 build: cup lex gradle
 
 test:

@@ -6,6 +6,7 @@ import syntaxtree.Program;
 
 public class Compiler {
     public static void main(String[] args) throws Exception {
+        System.out.println("Welcode to Goss Copmiler, v0.7.6");
         Parser parser = new Parser(new File(args[0]));
         Program prog = parser.getProgram();
         SymbolTableVisitor vis = new SymbolTableVisitor(parser);
