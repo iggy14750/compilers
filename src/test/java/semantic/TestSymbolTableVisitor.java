@@ -111,4 +111,21 @@ public class TestSymbolTableVisitor {
         Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num"));
         Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num_aux"));
     }
+
+    @Test 
+    public void getQuickSort() throws Exception {
+        Parser parser = new Parser(new File("src/test/etc/QuickSort.java"));
+        Program prog = parser.getProgram();
+        SymbolTableVisitor vis = new SymbolTableVisitor(parser);
+        vis.visit(prog);
+
+        SymbolTable table = vis.table.getChildScope("QS").getChildScope("Start");
+        // The signature of QS.Start
+        Symbol method = table.getSymbol("Start");
+        Assert.assertEquals(SymbolType.INT, method.getMethodSignature().returnType);
+        Assert.assertArrayEquals(
+            new SymbolType[] {SymbolType.INT},
+            method.getMethodSignature().params
+        );
+    }
 }
