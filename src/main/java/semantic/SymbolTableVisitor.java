@@ -129,8 +129,24 @@ public class SymbolTableVisitor implements Visitor {
         }
     }
 
+    public void visit(MethodDecl n) {
+        // Formal Parameters
+        for (int i = 0; i < n.fl.size(); i++) {
+            Formal form = n.fl.elementAt(i);
+            table.put(
+                form.i.s,
+                Symbol.VARIABLE.setVariableType(getType(form.t))
+            );
+        }
+        // Variable Declarations
+        for (int i = 0; i < n.vl.size(); i++) {
+            VarDecl var = n.vl.elementAt(i);
+            table.put(var.i.s,
+                Symbol.VARIABLE.setVariableType(getType(var.t)));
+        }
+    }
+
     public void visit(VarDecl n) {}
-    public void visit(MethodDecl n) {}
     public void visit(Formal n) {}
     public void visit(IntArrayType n) {}
     public void visit(BooleanType n) {}

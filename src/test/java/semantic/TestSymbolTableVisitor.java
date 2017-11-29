@@ -101,5 +101,14 @@ public class TestSymbolTableVisitor {
         Parser parser = new Parser(f);
         Program top = parser.getProgram();
         SymbolTableVisitor vis = new SymbolTableVisitor(parser);
+        vis.visit(top);
+        SymbolTable table = vis.table;
+        
+        table = table.getChildScope("Fac").getChildScope("ComputeFac");
+        Assert.assertNotNull(table);
+        Assert.assertEquals(Symbol.CLASS, table.getSymbol("Fac"));
+        Assert.assertEquals(Symbol.METHOD, table.getSymbol("ComputeFac"));
+        Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num"));
+        Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num_aux"));
     }
 }
