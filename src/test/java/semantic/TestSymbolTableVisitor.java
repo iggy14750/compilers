@@ -1,14 +1,16 @@
 
 package semantic;
 
+import frontend.Parser;
 import frontend.Position;
 import java.util.HashMap;
+import java.io.File;
 import org.junit.*;
 import syntaxtree.*;
 
 public class TestSymbolTableVisitor {
 
-    private SymbolTableVisitor v = new SymbolTableVisitor(new HashMap<String, Position>());
+    private SymbolTableVisitor v = new SymbolTableVisitor();
 
     private Program prog = new Program(
         new MainClass(new Identifier("Main"), new Identifier("args"), new Print(new IntegerLiteral(5))),
@@ -92,4 +94,12 @@ public class TestSymbolTableVisitor {
         // TODO
     }
 
+
+    @Test
+    public void parseAndBuildSymbolTable() throws Exception {
+        File f = new File("src/test/etc/Factorial.java");
+        Parser parser = new Parser(f);
+        Program top = parser.getProgram();
+        SymbolTableVisitor vis = new SymbolTableVisitor(parser);
+    }
 }

@@ -2,6 +2,7 @@
 package semantic;
 
 import frontend.Position;
+import frontend.Parser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,18 +11,22 @@ public class SymbolTable {
     
     private HashMap<String, SymbolTable> children;
     private HashMap<String, Symbol> table;
-    private HashMap<String, Position> position;
     private SymbolTable parent;
+    private Parser parser;
 
     /** Constructs an empty table, with no parent scopes. */
-    public SymbolTable(HashMap<String, Position> lineNumbers) {
-        this(null, lineNumbers);
+    public SymbolTable() {
+        this(null, null);
     }
 
-    private SymbolTable(SymbolTable parent, HashMap<String, Position> lineNumbers) {
+    public SymbolTable(Parser parser) {
+        this(null, parser);
+    }
+
+    private SymbolTable(SymbolTable parent, Parser parser) {
         children = new HashMap<String, SymbolTable>();
         table = new HashMap<String, Symbol>();
-        position = lineNumbers;
+        this.parser = parser;
         this.parent = parent;
     }
 
@@ -51,8 +56,8 @@ public class SymbolTable {
      * @return the child scope which was created, if it was.
      */
     public SymbolTable put(String name, Symbol symbol) {
-        if (table.containsKey(name)) {
-            Position pos = position.get(name);
+        if (table.containsKey(name) && parser != null) {
+            Position pos = parser.getPosition(name);
             System.err.println(String.format(
                 "Multiply defined identifier %s at line %d, column %d",
                 name, pos.line, pos.column
@@ -64,7 +69,7 @@ public class SymbolTable {
             case MAIN_CLASS:
             case CLASS:
             case METHOD:
-                child = new SymbolTable(this, position);
+                child = new SymbolTable(this, parser);
                 children.put(name, child);
         }
         return child;

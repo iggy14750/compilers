@@ -9,7 +9,7 @@ import syntaxtree.*;
 
 public class TestSymbolTable {
 
-    SymbolTable st = new SymbolTable(new HashMap());
+    SymbolTable st = new SymbolTable();
 
     @Test
     public void insertNothing() {
