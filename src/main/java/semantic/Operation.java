@@ -16,7 +16,7 @@ public enum Operation {
     RETURN,
     INDEX_FROM,
     INDEX_TO,
-    NEW_TYPE,
+    NEW_ARRAY,
     NEW_OBJECT,
     LENGTH
 }
