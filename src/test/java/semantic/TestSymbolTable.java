@@ -1,6 +1,7 @@
 
 package semantic;
 
+import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import syntaxtree.*;
 
 public class TestSymbolTable {
 
-    SymbolTable st = new SymbolTable();
+    SymbolTable st = new SymbolTable(new HashMap());
 
     @Test
     public void insertNothing() {

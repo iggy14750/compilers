@@ -1,12 +1,14 @@
 
 package semantic;
 
+import frontend.Position;
+import java.util.HashMap;
 import org.junit.*;
 import syntaxtree.*;
 
 public class TestSymbolTableVisitor {
 
-    private SymbolTableVisitor v = new SymbolTableVisitor();
+    private SymbolTableVisitor v = new SymbolTableVisitor(new HashMap<String, Position>());
 
     private Program prog = new Program(
         new MainClass(new Identifier("Main"), new Identifier("args"), new Print(new IntegerLiteral(5))),

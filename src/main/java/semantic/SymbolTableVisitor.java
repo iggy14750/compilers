@@ -1,16 +1,19 @@
 
 package semantic;
 
+import java.util.HashMap;
+import frontend.Position;
 import syntaxtree.*;
 import visitor.Visitor;
 
 public class SymbolTableVisitor implements Visitor {
     
     public SymbolTable table;
+    HashMap<String, Position> positions;
 
     /** The public constructor constructs a default SymbolTable. */
-    public SymbolTableVisitor() {
-        this(new SymbolTable());
+    public SymbolTableVisitor(HashMap<String, Position> positions) {
+        this(new SymbolTable(positions), positions);
     }
 
     /**
@@ -22,8 +25,9 @@ public class SymbolTableVisitor implements Visitor {
      * </ol>
      * @param global the SymbolTable which this will build, for reasons above.
      */
-    SymbolTableVisitor(SymbolTable global) {
+    SymbolTableVisitor(SymbolTable global, HashMap<String, Position> positions) {
         table = global;
+        this.positions = positions;
     }
 
     private String getId(ClassDecl cd) {
@@ -36,14 +40,14 @@ public class SymbolTableVisitor implements Visitor {
     public void visit(Program n) {
         if (n == null) return;
         SymbolTable mainClass = table.put(n.m.i1.toString(), Symbol.MAIN_CLASS);
-        n.m.accept(new SymbolTableVisitor(mainClass));
+        n.m.accept(new SymbolTableVisitor(mainClass, positions));
         // Followed by the class list....
         for (int i = 0; i < n.cl.size(); i++) {
             SymbolTable aClass = table.put(
                 getId(n.cl.elementAt(i)),
                 Symbol.CLASS
             );
-            n.cl.elementAt(i).accept(new SymbolTableVisitor(aClass));
+            n.cl.elementAt(i).accept(new SymbolTableVisitor(aClass, positions));
         }
     }
 
@@ -98,7 +102,7 @@ public class SymbolTableVisitor implements Visitor {
                     getType(meth.t), getFormalTypes(meth.fl)
                 ))
             );
-            meth.accept(new SymbolTableVisitor(methodScope));
+            meth.accept(new SymbolTableVisitor(methodScope, positions));
         }
     }
 
@@ -117,7 +121,7 @@ public class SymbolTableVisitor implements Visitor {
                     getType(meth.t), getFormalTypes(meth.fl)
                 ))
             );
-            meth.accept(new SymbolTableVisitor(methodScope));
+            meth.accept(new SymbolTableVisitor(methodScope, positions));
         }
     }
 
