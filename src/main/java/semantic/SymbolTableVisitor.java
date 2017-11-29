@@ -26,11 +26,25 @@ public class SymbolTableVisitor implements Visitor {
         table = global;
     }
 
+    private String getId(ClassDecl cd) {
+        if (cd instanceof ClassDeclSimple) {
+            return ( (ClassDeclSimple) cd ).i.s;
+        }
+        return ((ClassDeclExtends) cd).i.s;
+    }
+
     public void visit(Program n) {
         if (n == null) return;
         SymbolTable mainClass = table.put(n.m.i1.toString(), Symbol.MAIN_CLASS);
         n.m.accept(new SymbolTableVisitor(mainClass));
         // Followed by the class list....
+        for (int i = 0; i < n.cl.size(); i++) {
+            SymbolTable aClass = table.put(
+                getId(n.cl.elementAt(i)),
+                Symbol.CLASS
+            );
+            n.cl.elementAt(i).accept(new SymbolTableVisitor(aClass));
+        }
     }
 
     public void visit(MainClass mc) {
@@ -88,7 +102,25 @@ public class SymbolTableVisitor implements Visitor {
         }
     }
 
-    public void visit(ClassDeclExtends n) {}
+    public void visit(ClassDeclExtends n) {
+        // Variable declarations
+        for (int i = 0; i < n.vl.size(); i++) {
+            VarDecl var = n.vl.elementAt(i);
+            table.put(var.i.s, Symbol.VARIABLE.setVariableType(getType(var.t)));
+        }
+        // Method declarations
+        for (int i = 0; i < n.ml.size(); i++) {
+            MethodDecl meth = n.ml.elementAt(i);
+            SymbolTable methodScope = table.put(
+                meth.i.s,
+                Symbol.METHOD.setMethodSignature(new MethodSignature(
+                    getType(meth.t), getFormalTypes(meth.fl)
+                ))
+            );
+            meth.accept(new SymbolTableVisitor(methodScope));
+        }
+    }
+
     public void visit(VarDecl n) {}
     public void visit(MethodDecl n) {}
     public void visit(Formal n) {}
