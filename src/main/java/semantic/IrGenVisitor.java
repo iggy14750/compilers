@@ -16,6 +16,10 @@ public class IrGenVisitor implements Visitor {
         name = new HashMap<Object, String>();
     }
 
+    public List<Quad> getCode() {
+        return code;
+    }
+
     private String newTemp() {
         tempNum++;
         return "t" + (tempNum - 1);
