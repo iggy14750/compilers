@@ -14,4 +14,10 @@ public class Quad {
         operand2 = op2;
         result = res;
     }
+
+    public String toString() {
+        return String.format("%s := %s %s %s",
+            result, operand1, op.toString(), operand2
+        );
+    }
 }
