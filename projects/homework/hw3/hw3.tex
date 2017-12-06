@@ -13,15 +13,9 @@
 \newtheorem{thm}{Claim}
 \providecommand{\prob}[1]{\section*{Problem #1}}
 \providecommand{\soln}{\textbf{Solution: }}
-\providecommand{\imagef}[1]{
+\providecommand{\image}[1]{
     \begin{center}
         \includegraphics[width=0.5\textwidth]
-            {#1}
-    \end{center}
-}
-\providecommand{\imagen}[1]{
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]
             {#1}
     \end{center}
 }
@@ -52,9 +46,28 @@
 \maketitle
 
 \prob{1}
-\imagef{ControlFlowGraph}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{ControlFlowGraph}
+\end{center}
 
 \prob{2}
-\imagen{LivenessPic}
+\begin{center}
+    \includegraphics[width=0.95\textwidth]{LivenessPic}
+\end{center}
 
+
+\prob{3}
+\begin{center}
+\includegraphics[width=0.2\textwidth]{InterferenceGraph}
+
+    \begin{tabular}{l|l}
+        \textbf{Name} & \textbf{Register}\\
+        \hline
+        x & 1 \\
+        a & 3 \\
+        b & 2 \\
+        c & 3 \\
+    \end{tabular}
+    
+\end{center}
 \end{document}
