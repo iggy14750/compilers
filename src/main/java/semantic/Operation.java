@@ -18,7 +18,8 @@ public enum Operation {
     INDEX_TO,
     NEW_ARRAY,
     NEW_OBJECT,
-    LENGTH;
+    LENGTH,
+    LABEL;
 
     public String toString() {
         switch (this) {

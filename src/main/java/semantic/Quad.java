@@ -84,7 +84,7 @@ public class Quad {
     }
 
     public static Quad label(String label) {
-        return new Quad(Operation.LABEL, "", "", res);
+        return new Quad(Operation.LABEL, "", "", label);
     }
 
     public String toString() {

@@ -74,7 +74,15 @@ public class IrGenVisitor implements Visitor {
     }
 
     public void visit(If n) {
-        // No support?
+        n.e.accept(this);
+        String elseBranch = newLabel();
+        String endIf = newLabel();
+        code.add(Quad.ifFalse(
+            name.get(n.e),
+            elseBranch
+        ));
+        n.s1.accept(this);
+        
     }
 
     public void visit(While n) {
