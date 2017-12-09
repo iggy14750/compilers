@@ -108,4 +108,10 @@ public class QuadTest {
         Quad a = Quad.length("x", "y");
         assertEquals("x := y.length", a.toString());
     }
+
+    @Test
+    public void label() {
+        Quad a = Quad.label("x");
+        assertEquals("x:", a.toString());
+    }
 }

@@ -83,6 +83,10 @@ public class Quad {
         return new Quad(Operation.LENGTH, array, "", res);
     }
 
+    public static Quad label(String label) {
+        return new Quad(Operation.LABEL, "", "", res);
+    }
+
     public String toString() {
         switch (op) {
             case PLUS:
@@ -140,6 +144,10 @@ public class Quad {
             case LENGTH:
                 return String.format(
                     "%s := %s.length", result, operand1
+                );
+            case LABEL:
+                return String.format(
+                    "%s:", result
                 );
         }
         return "invalid";

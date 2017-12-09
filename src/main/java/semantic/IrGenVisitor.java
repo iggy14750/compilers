@@ -8,6 +8,7 @@ import java.util.*;
 public class IrGenVisitor implements Visitor {
 
     private int tempNum = 0;
+    private int labelNum = 0;
     private List<Quad> code;
     private Map<Object, String> name;
 
@@ -23,6 +24,11 @@ public class IrGenVisitor implements Visitor {
     private String newTemp() {
         tempNum++;
         return "t" + (tempNum - 1);
+    }
+
+    private String newLabel() {
+        labelNum++;
+        return "L" + (labelNum - 1);
     }
 
     public void visit(Program n) {
