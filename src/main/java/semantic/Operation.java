@@ -18,5 +18,16 @@ public enum Operation {
     INDEX_TO,
     NEW_ARRAY,
     NEW_OBJECT,
-    LENGTH
+    LENGTH;
+
+    public String toString() {
+        switch (this) {
+            case PLUS:      return "+";
+            case MINUS:     return "-";
+            case TIMES:     return "*";
+            case AND:       return "&&";
+            case LESS_THAN: return "<";
+            default:        return "";
+        }
+    }
 }
