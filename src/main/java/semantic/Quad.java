@@ -35,6 +35,54 @@ public class Quad {
         return new Quad(Operation.LESS_THAN, op1, op2, res);
     }
 
+    public static Quad not(String res, String op) {
+        return new Quad(Operation.NOT, op, "", res);
+    }
+
+    public static Quad copy(String res, String op) {
+        return new Quad(Operation.COPY, op, "", res);
+    }
+
+    public static Quad jump(String label) {
+        return new Quad(Operation.GOTO, "", "", label);
+    }
+
+    public static Quad ifFalse(String cond, String label) {
+        return new Quad(Operation.IFFALSE, cond, "", label);
+    }
+
+    public static Quad param(String op) {
+        return new Quad(Operation.PARAM, op, "", "");
+    }
+
+    public static Quad call(String res, String func, String numParams) {
+        return new Quad(Operation.CALL, func, numParams, res);
+    }
+
+    public static Quad ret(String res) {
+        return new Quad(Operation.RETURN, "", "", res);
+    }
+
+    public static Quad indexFrom(String res, String array, String index) {
+        return new Quad(Operation.INDEX_FROM, array, index, res);
+    }
+
+    public static Quad indexTo(String res, String index, String elem) {
+        return new Quad(Operation.INDEX_TO, index, elem, res);
+    }
+
+    public static Quad newObject(String res, String type) {
+        return new Quad(Operation.NEW_OBJECT, type, "", res);
+    }
+
+    public static Quad newArray(String res, String type, String number) {
+        return new Quad(Operation.NEW_ARRAY, type, number, res);
+    }
+
+    public static Quad length(String res, String array) {
+        return new Quad(Operation.LENGTH, array, "", res);
+    }
+
     public String toString() {
         switch (op) {
             case PLUS:
