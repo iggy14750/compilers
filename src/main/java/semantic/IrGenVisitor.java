@@ -82,7 +82,10 @@ public class IrGenVisitor implements Visitor {
             elseBranch
         ));
         n.s1.accept(this);
-        
+        code.add(Quad.jump(endIf));
+        code.add(Quad.label(elseBranch));
+        n.s2.accept(this);
+        code.add(Quad.label(endIf));
     }
 
     public void visit(While n) {
