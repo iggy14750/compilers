@@ -20,7 +20,7 @@ public class Instruction {
     }
 
     public static String label(String label) {
-        return goodLabel(label) + ":";
+        return goodLabel(label);
     }
 
     static String goodLabel(String label) {

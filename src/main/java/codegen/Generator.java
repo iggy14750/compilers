@@ -42,6 +42,8 @@ public class Generator {
                 return Instruction.jal(ir.operand1);
             case LABEL:
                 return Instruction.label(ir.result);
+            case RETURN:
+                return Instruction.move("v0", ir.result);
             case NEW_OBJECT:
                 return "";
         }
