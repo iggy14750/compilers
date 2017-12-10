@@ -12,10 +12,18 @@ public class Instruction {
     }
 
     public static String jal(String label) {
-        return String.format("jal %s", label);
+        return String.format("jal %s", goodLabel(label));
     }
 
     public static String move(String reg1, String reg2) {
         return String.format("move $%s, $%s", reg1, reg2);
+    }
+
+    static String goodLabel(String label) {
+        String[] parts = label.split("\\.");
+        if (parts.length >= 2) {
+            return parts[0] + "_" + parts[1];
+        }
+        return label;
     }
 }

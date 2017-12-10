@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import semantic.Quad;
-import semantic.Operation;
+import semantic.*;
 
 public class Generator {
+
+    private int paramNum;
 
     public List<String> gen(List<Quad> code) {
         List<String> res = new ArrayList<String>();
@@ -18,12 +19,20 @@ public class Generator {
         return res;
     }
 
+    public List<String> gen(List<Quad> code, SymbolTable symbolTable) {
+        return gen(code);
+    }
+
     private String convert(Quad ir) {
+        if (ir.op != Operation.PARAM) {
+            paramNum = 0;
+        }
         switch (ir.op) {
             case PLUS:
                 return Instruction.add(ir.result, ir.operand1, ir.operand2);
             case PARAM:
-                return Instruction.move("a0", ir.operand1);
+                paramNum++;
+                return Instruction.move("a" + (paramNum - 1), ir.operand1);
             case COPY:
                 if (isInt(ir.operand1))
                     return Instruction.li(ir.result, ir.operand1);
@@ -31,6 +40,8 @@ public class Generator {
                     return Instruction.move(ir.result, ir.operand1);
             case CALL:
                 return Instruction.jal(ir.operand1);
+            case NEW_OBJECT:
+                return "";
         }
         return null;
     }

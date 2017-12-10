@@ -80,7 +80,35 @@ public class TestGenerator {
         irCode.add(Quad.call("t3", "_system_out_println", "1"));
         irCode.add(Quad.label("Test2.Start:"));
         irCode.add(Quad.ret("y"));
+        
+        // ...not to mention the symbol table we want.
+        SymbolTable symbolTable = new SymbolTable();
+        symbolTable.put("Test", Symbol.CLASS);
+        SymbolTable clss = symbolTable.put("Test2", Symbol.CLASS);
+        SymbolTable method = clss.put("Start", Symbol.METHOD);
+        method.put("y", Symbol.PARAM.setVariableType(SymbolType.INT).setParamPosition(0));
+
         // And see that it creates reasonable assembly
+        List<String> output = gen.gen(irCode, symbolTable);
+
+        print(output);
+    }
+
+    @Test
+    public void goodLabelNoDots() {
+        assertEquals("label", Instruction.goodLabel("label"));
+    }
+
+    @Test
+    public void goodLabelOneDot() {
+        assertEquals("one_two", Instruction.goodLabel("one.two"));
+    }
+
+    private void print(List<String> list) {
+        for (String s: list) {
+            System.err.println(s);
+        }
+        fail();
     }
 
     private List<Quad> make(Quad[] literal) {
