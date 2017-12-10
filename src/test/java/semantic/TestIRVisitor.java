@@ -1,6 +1,8 @@
 
 package semantic;
 
+import java.util.List;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -126,5 +128,37 @@ public class TestIRVisitor {
         for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], v.getCode().get(i).toString());
         }
+    }
+
+    @Test
+    public void simpleMain() {
+        // class Test {
+        //     public static void main(String[] args) {
+        //         System.out.println(9);
+        //     }
+        // }
+        MainClass mc = new MainClass(
+            new Identifier("Test"),
+            new Identifier("args"),
+            new Print(new IntegerLiteral(9))
+        );
+
+        mc.accept(v);
+
+        String[] expected = new String[] {
+            "param 9",
+            "t0 := call _system_out_println, 1"
+        };
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], v.getCode().get(i).toString());
+        }
+    }
+
+    private void print(List<Quad> code) {
+        for (Quad inst: code) {
+            System.err.println(inst);
+        }
+        fail();
     }
 }

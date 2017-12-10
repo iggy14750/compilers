@@ -110,9 +110,9 @@ public class IrGenVisitor implements Visitor {
         ));
         code.add(new Quad(
             Operation.CALL,
-            "System.out.println",
+            "_system_out_println",
             "1",
-            ""
+            newTemp()
         ));
     }
 
