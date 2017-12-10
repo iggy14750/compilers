@@ -39,6 +39,8 @@ public class Generator {
                 else
                     return Instruction.move(ir.result, ir.operand1);
             case CALL:
+                if (ir.operand1.equals("_system_out_println"))
+                    return Instruction.jal("_system_out_println");
                 return Instruction.jal(ir.operand1) + "\n" + 
                     Instruction.move(ir.result, "v0");
             case LABEL:
