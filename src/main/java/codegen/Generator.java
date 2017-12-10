@@ -20,6 +20,8 @@ public class Generator {
 
     private String convert(Quad ir) {
         switch (ir.op) {
+            case PLUS:
+                return Instruction.add(ir.result, ir.operand1, ir.operand2);
             case PARAM:
                 return Instruction.move("a0", ir.operand1);
             case COPY:
