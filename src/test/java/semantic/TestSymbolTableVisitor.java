@@ -125,6 +125,52 @@ public class TestSymbolTableVisitor {
     }
 
     @Test
+    public void thirdMilestone() {
+        Program p = new Program(
+            new MainClass(
+                new Identifier("Test"),
+                new Identifier("args"),
+                new Print(
+                    new Call(
+                        new NewObject(new Identifier("Test2")),
+                        new Identifier("Start"),
+                        listify(new Exp[] {
+                            new IntegerLiteral(9)
+                        })
+                    )
+                )
+            ),
+            listify(new ClassDecl[] {
+                new ClassDeclSimple(
+                    new Identifier("Test2"),
+                    new VarDeclList(),
+                    listify(new MethodDecl[] {
+                        new MethodDecl(
+                            new IntegerType(),
+                            new Identifier("Start"),
+                            listify(new Formal[] {
+                                new Formal(
+                                    new IntegerType(),
+                                    new Identifier("y")
+                                )
+                            }),
+                            new VarDeclList(),
+                            new StatementList(),
+                            new IdentifierExp("y")
+                        )
+                    })
+                )
+            })
+        );
+        p.accept(v);
+        SymbolTable test = v.table.getChildScope("Test");
+        SymbolTable test2 = v.table.getChildScope("Test2");
+        assertNotNull(test);
+        assertNotNull(test2);
+
+    }
+
+    @Test
     public void parseAndBuildSymbolTable() throws Exception {
         File f = new File("src/test/etc/Factorial.java");
         Parser parser = new Parser(f);
@@ -188,5 +234,13 @@ public class TestSymbolTableVisitor {
             sl.addElement(s);
         }
         return sl;
+    }
+
+    private ClassDeclList listify(ClassDecl[] array) {
+        ClassDeclList cl = new ClassDeclList();
+        for (ClassDecl c: array) {
+            cl.addElement(c);
+        }
+        return cl;
     }
 }
