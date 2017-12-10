@@ -11,6 +11,7 @@ public class IrGenVisitor implements Visitor {
     private int labelNum = 0;
     private List<Quad> code;
     private Map<Object, String> name;
+    private String currentClass;
 
     public IrGenVisitor() {
         code = new ArrayList<Quad>();
@@ -43,12 +44,14 @@ public class IrGenVisitor implements Visitor {
     }
 
     public void visit(ClassDeclSimple n) {
+        currentClass = n.i.s;
         for (int i = 0; i < n.ml.size(); i++) {
             n.ml.elementAt(i).accept(this);
         }
     }
 
     public void visit(ClassDeclExtends n) {
+        currentClass = n.i.s;
         for (int i = 0; i < n.ml.size(); i++) {
             n.ml.elementAt(i).accept(this);
         }
@@ -56,7 +59,9 @@ public class IrGenVisitor implements Visitor {
     public void visit(VarDecl n) {}
 
     public void visit(MethodDecl n) {
-        code.add(Quad.label(n.i.s));
+        code.add(Quad.label(
+            String.format("%s.%s", currentClass, n.i.s)
+        ));
         for (int i = 0; i < n.sl.size(); i++) {
             n.sl.elementAt(i).accept(this);
         }

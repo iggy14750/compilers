@@ -175,7 +175,7 @@ public class TestIRVisitor {
         );
         c.accept(v);
         String[] expected = new String[] {
-            "Start:",
+            "Test2.Start:",
             "return y"
         };
         for (int i = 0; i < v.getCode().size(); i++) {
@@ -240,7 +240,7 @@ public class TestIRVisitor {
             "t2 := call Start, 2",
             "param t2",
             "t3 := call _system_out_println, 1",
-            "Start:",
+            "Test2.Start:",
             "return y",
         };
 
