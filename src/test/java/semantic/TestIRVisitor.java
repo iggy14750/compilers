@@ -95,4 +95,36 @@ public class TestIRVisitor {
             assertEquals(expected[i], v.getCode().get(i).toString());
         }
     }
+
+    @Test
+    public void whileLoop() {
+        // while (true) {
+        //     x = x + 1;
+        // }
+        While w = new While(
+            new True(),
+            new Assign(
+                new Identifier("x"),
+                new Plus(
+                    new IdentifierExp("x"),
+                    new IntegerLiteral(1)
+                )
+            )
+        );
+
+        w.accept(v);
+
+        String[] expected = new String[] {
+            "L0:",
+            "iffalse 1 goto L1",
+            "t0 := x + 1",
+            "x := t0",
+            "goto L0",
+            "L1:"
+        };
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], v.getCode().get(i).toString());
+        }
+    }
 }

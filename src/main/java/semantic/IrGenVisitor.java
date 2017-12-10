@@ -89,21 +89,17 @@ public class IrGenVisitor implements Visitor {
     }
 
     public void visit(While n) {
-        int condition = code.size();
+        String beforeCond = newLabel();
+        String afterLoop = newLabel();
+        code.add(Quad.label(beforeCond));
         n.e.accept(this);
-        n.s.accept(this);
-        int exit = code.size() + 2;
-        code.add(new Quad(
-            Operation.IFFALSE,
+        code.add(Quad.ifFalse(
             name.get(n.e),
-            "",
-            Integer.toString(exit)
+            afterLoop
         ));
-        code.add(new Quad(
-            Operation.GOTO,
-            "","",
-            Integer.toString(condition)
-        ));
+        n.s.accept(this);
+        code.add(Quad.jump(beforeCond));
+        code.add(Quad.label(afterLoop));
     }
 
     public void visit(Print n) {
