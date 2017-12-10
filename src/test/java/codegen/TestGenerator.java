@@ -75,7 +75,7 @@ public class TestGenerator {
         irCode.add(Quad.copy("t1", "9"));
         irCode.add(Quad.param("t0"));
         irCode.add(Quad.param("t1"));
-        irCode.add(Quad.call("t2", "Start", "2"));
+        irCode.add(Quad.call("t2", "Test2.Start", "2"));
         irCode.add(Quad.param("t2"));
         irCode.add(Quad.call("t3", "_system_out_println", "1"));
         irCode.add(Quad.label("Test2.Start:"));
