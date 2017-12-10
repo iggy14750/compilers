@@ -38,4 +38,30 @@ public class TestIRVisitor {
             assertEquals(expected[i], v.getCode().get(i).toString());
         }
     }
+
+    @Test
+    public void complexExpression() {
+        // 2 * i < n + t
+        Exp e = new LessThan(
+            new Times(
+                new IntegerLiteral(2),
+                new IdentifierExp("i")
+            ),
+            new Plus(
+                new IdentifierExp("n"),
+                new IdentifierExp("t")
+            )
+        );
+        e.accept(v);
+
+        String[] expected = new String[] {
+            "t0 := 2 * i",
+            "t1 := n + t",
+            "t2 := t0 < t1"
+        };
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], v.getCode().get(i).toString());
+        }
+    }
 }
