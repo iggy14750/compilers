@@ -41,13 +41,6 @@ public class TestIRVisitor {
         }
     }
 
-    private ExpList listify(Exp[] array) {
-        ExpList el = new ExpList();
-        for (Exp e: array) {
-            el.addElement(e);
-        }
-        return el;
-    }
 
     @Test
     public void complexExpression() {
@@ -159,10 +152,75 @@ public class TestIRVisitor {
         }
     }
 
+    @Test
+    public void functions() {
+        ClassDeclSimple c = new ClassDeclSimple(
+            new Identifier("Test2"),
+            new VarDeclList(),
+            listify(new MethodDecl[] {
+                new MethodDecl(
+                    new IntegerType(),
+                    new Identifier("Start"),
+                    listify(new Formal[] {
+                        new Formal(
+                            new IntegerType(),
+                            new Identifier("y")
+                        )
+                    }),
+                    new VarDeclList(),
+                    new StatementList(),
+                    new IdentifierExp("y")
+                )
+            })
+        );
+        c.accept(v);
+        String[] expected = new String[] {
+            "Start:",
+            "return y"
+        };
+        for (int i = 0; i < v.getCode().size(); i++) {
+            assertEquals(expected[i], v.getCode().get(i).toString());
+        }
+    }
+
     private void print(List<Quad> code) {
+        if (code.size() == 0)
+            System.err.println("no code!");
         for (Quad inst: code) {
             System.err.println(inst);
         }
         fail();
+    }
+
+    private FormalList listify(Formal[] array) {
+        FormalList fl = new FormalList();
+        for (Formal f: array) {
+            fl.addElement(f);
+        }
+        return fl;
+    }
+
+    private MethodDeclList listify(MethodDecl[] array) {
+        MethodDeclList ml = new MethodDeclList();
+        for (MethodDecl m: array) {
+            ml.addElement(m);
+        }
+        return ml;
+    }
+
+    private ExpList listify(Exp[] array) {
+        ExpList el = new ExpList();
+        for (Exp e: array) {
+            el.addElement(e);
+        }
+        return el;
+    }
+
+    private StatementList listify(Statement[] array) {
+        StatementList sl = new StatementList();
+        for (Statement s: array) {
+            sl.addElement(s);
+        }
+        return sl;
     }
 }

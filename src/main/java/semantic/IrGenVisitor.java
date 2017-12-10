@@ -56,9 +56,12 @@ public class IrGenVisitor implements Visitor {
     public void visit(VarDecl n) {}
 
     public void visit(MethodDecl n) {
+        code.add(Quad.label(n.i.s));
         for (int i = 0; i < n.sl.size(); i++) {
             n.sl.elementAt(i).accept(this);
         }
+        n.e.accept(this);
+        code.add(Quad.ret(name.get(n.e)));
     }
 
     public void visit(Formal n) {}
