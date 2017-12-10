@@ -19,6 +19,10 @@ public class Instruction {
         return String.format("move $%s, $%s", reg1, reg2);
     }
 
+    public static String label(String label) {
+        return goodLabel(label) + ":";
+    }
+
     static String goodLabel(String label) {
         String[] parts = label.split("\\.");
         if (parts.length >= 2) {

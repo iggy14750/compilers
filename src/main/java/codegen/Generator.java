@@ -40,6 +40,8 @@ public class Generator {
                     return Instruction.move(ir.result, ir.operand1);
             case CALL:
                 return Instruction.jal(ir.operand1);
+            case LABEL:
+                return Instruction.label(ir.result);
             case NEW_OBJECT:
                 return "";
         }
