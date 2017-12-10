@@ -55,4 +55,36 @@ public class TestGenerator {
         }
         return res;
     }
+
+    private FormalList listify(Formal[] array) {
+        FormalList fl = new FormalList();
+        for (Formal f: array) {
+            fl.addElement(f);
+        }
+        return fl;
+    }
+
+    private MethodDeclList listify(MethodDecl[] array) {
+        MethodDeclList ml = new MethodDeclList();
+        for (MethodDecl m: array) {
+            ml.addElement(m);
+        }
+        return ml;
+    }
+
+    private ExpList listify(Exp[] array) {
+        ExpList el = new ExpList();
+        for (Exp e: array) {
+            el.addElement(e);
+        }
+        return el;
+    }
+
+    private StatementList listify(Statement[] array) {
+        StatementList sl = new StatementList();
+        for (Statement s: array) {
+            sl.addElement(s);
+        }
+        return sl;
+    }
 }
