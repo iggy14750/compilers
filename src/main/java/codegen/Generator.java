@@ -39,7 +39,8 @@ public class Generator {
                 else
                     return Instruction.move(ir.result, ir.operand1);
             case CALL:
-                return Instruction.jal(ir.operand1);
+                return Instruction.jal(ir.operand1) + "\n" + 
+                    Instruction.move(ir.result, "v0");
             case LABEL:
                 return Instruction.label(ir.result);
             case RETURN:
