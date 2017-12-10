@@ -1,6 +1,7 @@
 
 package codegen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,15 +10,21 @@ import semantic.Operation;
 
 public class Generator {
 
-    private List<Quad> code;
-    private Map<Object, String> table;
-
-    public Generator(List<Quad> code, Map<Object, String> table) {
-        this.code = code;
-        this.table = table;
+    public List<String> gen(List<Quad> code) {
+        List<String> res = new ArrayList<String>();
+        for (Quad ir: code) {
+            res.add(convert(ir));
+        }
+        return res;
     }
 
-    public List<Instruction> gen() {
+    private String convert(Quad ir) {
+        switch (ir.op) {
+            case PARAM:
+                return Instruction.li("a0", ir.operand1);
+            case CALL:
+                return Instruction.jal(ir.operand1);
+        }
         return null;
     }
 }
