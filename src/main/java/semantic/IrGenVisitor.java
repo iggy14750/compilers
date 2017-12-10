@@ -248,7 +248,7 @@ public class IrGenVisitor implements Visitor {
         code.add(new Quad(
             Operation.CALL,
             name.get(n.i), // name
-            Integer.toString(n.el.size()), // num params
+            Integer.toString(n.el.size() + 1), // num params
             name.get(n)
         ));
     }
