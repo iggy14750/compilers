@@ -135,7 +135,9 @@ public class SymbolTableVisitor implements Visitor {
             Formal form = n.fl.elementAt(i);
             table.put(
                 form.i.s,
-                Symbol.VARIABLE.setVariableType(getType(form.t))
+                Symbol.PARAM
+                    .setVariableType(getType(form.t))
+                    .setParamPosition(i)
             );
         }
         // Variable Declarations

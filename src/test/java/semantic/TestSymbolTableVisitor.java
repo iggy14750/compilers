@@ -108,7 +108,7 @@ public class TestSymbolTableVisitor {
         Assert.assertNotNull(table);
         Assert.assertEquals(Symbol.CLASS, table.getSymbol("Fac"));
         Assert.assertEquals(Symbol.METHOD, table.getSymbol("ComputeFac"));
-        Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num"));
+        Assert.assertEquals(Symbol.PARAM, table.getSymbol("num"));
         Assert.assertEquals(Symbol.VARIABLE, table.getSymbol("num_aux"));
     }
 
