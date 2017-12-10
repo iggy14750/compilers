@@ -237,7 +237,7 @@ public class TestIRVisitor {
             "t1 := 9",
             "param t0",
             "param t1",
-            "t2 := call Start, 2",
+            "t2 := call Test2.Start, 2",
             "param t2",
             "t3 := call _system_out_println, 1",
             "Test2.Start:",

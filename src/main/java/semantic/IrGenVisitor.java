@@ -11,11 +11,13 @@ public class IrGenVisitor implements Visitor {
     private int labelNum = 0;
     private List<Quad> code;
     private Map<Object, String> name;
+    private Map<Object, String> type;
     private String currentClass;
 
     public IrGenVisitor() {
         code = new ArrayList<Quad>();
         name = new HashMap<Object, String>();
+        type = new HashMap<Object, String>();
     }
 
     public List<Quad> getCode() {
@@ -252,9 +254,13 @@ public class IrGenVisitor implements Visitor {
             ));
         }
         name.put(n, newTemp());
+        String className = type.get(n.e);
+        String methodName = name.get(n.i);
+        String calledName = className == null ?
+            methodName : className + "." + methodName;
         code.add(new Quad(
             Operation.CALL,
-            name.get(n.i), // name
+            calledName, // name
             Integer.toString(n.el.size() + 1), // num params
             name.get(n)
         ));
@@ -297,6 +303,7 @@ public class IrGenVisitor implements Visitor {
 
     public void visit(NewObject n) {
         n.i.accept(this);
+        type.put(n, n.i.s);
         name.put(n, newTemp());
         code.add(new Quad(
             Operation.NEW_OBJECT, 

@@ -62,6 +62,24 @@ public class TestGenerator {
             }
         }*/
         // write out the IR we generate...
+        /*"t0 := new Test2",
+        "t1 := 9",
+        "param t0",
+        "param t1",
+        "t2 := call Start, 2",
+        "param t2",
+        "t3 := call _system_out_println, 1",
+        "Test2.Start:",
+        "return y",*/
+        irCode.add(Quad.newObject("t0", "Test2"));
+        irCode.add(Quad.copy("t1", "9"));
+        irCode.add(Quad.param("t0"));
+        irCode.add(Quad.param("t1"));
+        irCode.add(Quad.call("t2", "Start", "2"));
+        irCode.add(Quad.param("t2"));
+        irCode.add(Quad.call("t3", "_system_out_println", "1"));
+        irCode.add(Quad.label("Test2.Start:"));
+        irCode.add(Quad.ret("y"));
         // And see that it creates reasonable assembly
     }
 
