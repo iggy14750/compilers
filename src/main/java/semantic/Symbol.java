@@ -41,7 +41,7 @@ public enum Symbol {
         return this;
     }
 
-    public int getParamPositino() {
+    public int getParamPosition() {
         if (this != Symbol.PARAM) {
             throw new RuntimeException(
                 "Cannot get parameter position from Symbol " + this

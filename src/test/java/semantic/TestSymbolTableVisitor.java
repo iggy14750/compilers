@@ -6,6 +6,7 @@ import frontend.Position;
 import java.util.HashMap;
 import java.io.File;
 import org.junit.*;
+import static org.junit.Assert.*;
 import syntaxtree.*;
 
 public class TestSymbolTableVisitor {
@@ -94,6 +95,34 @@ public class TestSymbolTableVisitor {
         // TODO
     }
 
+    @Test
+    public void methodParamTypeAndPosition() {
+        ClassDeclSimple c = new ClassDeclSimple(
+            new Identifier("Test2"),
+            new VarDeclList(),
+            listify(new MethodDecl[] {
+                new MethodDecl(
+                    new IntegerType(),
+                    new Identifier("Start"),
+                    listify(new Formal[] {
+                        new Formal(
+                            new IntegerType(),
+                            new Identifier("y")
+                        )
+                    }),
+                    new VarDeclList(),
+                    new StatementList(),
+                    new IdentifierExp("y")
+                )
+            })
+        );
+        c.accept(v);
+        SymbolTable methodScope = v.table.getChildScope("Start");
+        Symbol y = methodScope.getSymbol("y");
+        assertEquals(Symbol.PARAM, y);
+        assertEquals(SymbolType.INT, y.getVariableType());
+        assertEquals(0, y.getParamPosition());
+    }
 
     @Test
     public void parseAndBuildSymbolTable() throws Exception {
@@ -127,5 +156,37 @@ public class TestSymbolTableVisitor {
             new SymbolType[] {SymbolType.INT},
             method.getMethodSignature().params
         );
+    }
+
+    private FormalList listify(Formal[] array) {
+        FormalList fl = new FormalList();
+        for (Formal f: array) {
+            fl.addElement(f);
+        }
+        return fl;
+    }
+
+    private MethodDeclList listify(MethodDecl[] array) {
+        MethodDeclList ml = new MethodDeclList();
+        for (MethodDecl m: array) {
+            ml.addElement(m);
+        }
+        return ml;
+    }
+
+    private ExpList listify(Exp[] array) {
+        ExpList el = new ExpList();
+        for (Exp e: array) {
+            el.addElement(e);
+        }
+        return el;
+    }
+
+    private StatementList listify(Statement[] array) {
+        StatementList sl = new StatementList();
+        for (Statement s: array) {
+            sl.addElement(s);
+        }
+        return sl;
     }
 }
