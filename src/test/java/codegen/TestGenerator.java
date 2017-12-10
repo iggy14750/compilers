@@ -8,6 +8,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import semantic.*;
+import syntaxtree.*;
 
 public class TestGenerator {
 
@@ -46,6 +47,22 @@ public class TestGenerator {
         for (int i = 0; i < mips.size(); i++) {
             assertEquals(expected[i], mips.get(i));
         }
+    }
+
+    @Test
+    public void thirdMilestone() {
+        /* class Test {
+            public static void main(String[] args) {
+                System.out.println(new Test2().Start(9));
+            }
+        }
+        class Test2 {
+            public int Start(int y) {
+                return y;
+            }
+        }*/
+        // write out the IR we generate...
+        // And see that it creates reasonable assembly
     }
 
     private List<Quad> make(Quad[] literal) {

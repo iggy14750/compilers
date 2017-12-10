@@ -183,6 +183,72 @@ public class TestIRVisitor {
         }
     }
 
+    @Test
+    public void thirdMilestone() {
+        /* class Test {
+            public static void main(String[] args) {
+                System.out.println(new Test2().Start(9));
+            }
+        }
+        class Test2 {
+            public int Start(int y) {
+                return y;
+            }
+        }*/
+        Program p = new Program(
+            new MainClass(
+                new Identifier("Test"),
+                new Identifier("args"),
+                new Print(
+                    new Call(
+                        new NewObject(new Identifier("Test2")),
+                        new Identifier("Start"),
+                        listify(new Exp[] {
+                            new IntegerLiteral(9)
+                        })
+                    )
+                )
+            ),
+            listify(new ClassDecl[] {
+                new ClassDeclSimple(
+                    new Identifier("Test2"),
+                    new VarDeclList(),
+                    listify(new MethodDecl[] {
+                        new MethodDecl(
+                            new IntegerType(),
+                            new Identifier("Start"),
+                            listify(new Formal[] {
+                                new Formal(
+                                    new IntegerType(),
+                                    new Identifier("y")
+                                )
+                            }),
+                            new VarDeclList(),
+                            new StatementList(),
+                            new IdentifierExp("y")
+                        )
+                    })
+                )
+            })
+        );
+        p.accept(v);
+        String[] expected = new String[] {
+            "t0 := new Test2",
+            "t1 := 9",
+            "param t0",
+            "param t1",
+            "t2 := call Start, 2",
+            "param t2",
+            "t3 := call _system_out_println, 1",
+            "Start:",
+            "return y",
+        };
+
+        for (int i = 0; i < v.getCode().size(); i++) {
+            assertEquals(expected[i], v.getCode().get(i).toString());
+        }
+    }
+
     private void print(List<Quad> code) {
         if (code.size() == 0)
             System.err.println("no code!");
@@ -222,5 +288,13 @@ public class TestIRVisitor {
             sl.addElement(s);
         }
         return sl;
+    }
+
+    private ClassDeclList listify(ClassDecl[] array) {
+        ClassDeclList cl = new ClassDeclList();
+        for (ClassDecl c: array) {
+            cl.addElement(c);
+        }
+        return cl;
     }
 }
