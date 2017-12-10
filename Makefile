@@ -1,4 +1,8 @@
 
+bundle:
+	cp -r src/main/java projects/ibg4_project3c
+	mv projects/ibg4_project3c/java projects/ibg4_project3c/src
+
 default: build test
 
 run:
