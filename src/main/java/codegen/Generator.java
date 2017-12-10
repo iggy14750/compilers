@@ -21,10 +21,24 @@ public class Generator {
     private String convert(Quad ir) {
         switch (ir.op) {
             case PARAM:
-                return Instruction.li("a0", ir.operand1);
+                return Instruction.move("a0", ir.operand1);
+            case COPY:
+                if (isInt(ir.operand1))
+                    return Instruction.li(ir.result, ir.operand1);
+                else
+                    return Instruction.move(ir.result, ir.operand1);
             case CALL:
                 return Instruction.jal(ir.operand1);
         }
         return null;
+    }
+
+    private boolean isInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }

@@ -10,4 +10,8 @@ public class Instruction {
     public static String jal(String label) {
         return String.format("jal %s", label);
     }
+
+    public static String move(String reg1, String reg2) {
+        return String.format("move $%s, $%s", reg1, reg2);
+    }
 }

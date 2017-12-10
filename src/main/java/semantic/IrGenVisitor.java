@@ -226,6 +226,10 @@ public class IrGenVisitor implements Visitor {
         n.e.accept(this);
         n.i.accept(this);
 
+        for (int i = 0; i < n.el.size(); i++) {
+            n.el.elementAt(i).accept(this);
+        }
+
         code.add(new Quad(
             Operation.PARAM,
             name.get(n.e),
@@ -233,7 +237,6 @@ public class IrGenVisitor implements Visitor {
         ));
 
         for (int i = 0; i < n.el.size(); i++) {
-            n.el.elementAt(i).accept(this);
             code.add(new Quad(
                 Operation.PARAM,
                 name.get(n.el.elementAt(i)),
@@ -250,7 +253,11 @@ public class IrGenVisitor implements Visitor {
     }
 
     public void visit(IntegerLiteral n) {
-        name.put(n, Integer.toString(n.i));
+        name.put(n, newTemp());
+        code.add(Quad.copy(
+            name.get(n),
+            Integer.toString(n.i)
+        ));
     }
     
     public void visit(True n) {

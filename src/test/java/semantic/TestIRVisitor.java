@@ -80,16 +80,18 @@ public class TestIRVisitor {
         e.accept(v);
 
         String[] expected = new String[] {
-            "t0 := 2 * i",
-            "t1 := ~t",
-            "t2 := n + t1",
-            "t3 := t0 < t2",
-            "t4 := arr.length",
+            "t0 := 2",
+            "t1 := t0 * i",
+            "t2 := ~t",
+            "t3 := n + t2",
+            "t4 := t1 < t3",
+            "t5 := arr.length",
+            "t6 := 6",
             "param this",
-            "param 6",
-            "t5 := call func, 2",
-            "t6 := t4 * t5",
-            "t7 := t3 && t6"
+            "param t6",
+            "t7 := call func, 2",
+            "t8 := t5 * t7",
+            "t9 := t4 && t8"
         };
 
         for (int i = 0; i < v.getCode().size(); i++) {
@@ -119,8 +121,9 @@ public class TestIRVisitor {
         String[] expected = new String[] {
             "L0:",
             "iffalse 1 goto L1",
-            "t0 := x + 1",
-            "x := t0",
+            "t0 := 1",
+            "t1 := x + t0",
+            "x := t1",
             "goto L0",
             "L1:"
         };
@@ -146,8 +149,9 @@ public class TestIRVisitor {
         mc.accept(v);
 
         String[] expected = new String[] {
-            "param 9",
-            "t0 := call _system_out_println, 1"
+            "t0 := 9",
+            "param t0",
+            "t1 := call _system_out_println, 1"
         };
         
         for (int i = 0; i < expected.length; i++) {
