@@ -91,7 +91,36 @@ public class TestGenerator {
         // And see that it creates reasonable assembly
         List<String> output = gen.gen(irCode, symbolTable);
 
-        print(output);
+        String[] expected = new String[] {
+            "",
+            "li $t1, 9",
+            "move $a0, $t0",
+            "move $a1, $t1",
+            "jal Test2_Start\nmove $t2, $v0",
+            "move $a0, $t2",
+            "jal _system_out_println",
+            "Test2_Start:",
+            "move $v0, $a1",
+        };
+
+        for (int i = 0; i < output.size(); i++) {
+            assertEquals(expected[i], output.get(i));
+        }
+    }
+
+    @Test
+    public void setTableShouldSet() {
+        SymbolTable symbolTable = new SymbolTable();
+        symbolTable.put("Test", Symbol.CLASS);
+        SymbolTable clss = symbolTable.put("Test2", Symbol.CLASS);
+        SymbolTable method = clss.put("Start", Symbol.METHOD);
+        method.put("y", Symbol.PARAM.setVariableType(SymbolType.INT).setParamPosition(0));
+
+        assertNotNull(symbolTable.getChildScope("Test2").getChildScope("Start"));
+
+        gen.set(symbolTable);
+
+        assertTrue(gen.setTable("Test2.Start:"));
     }
 
     @Test
