@@ -2,11 +2,12 @@
 import java.io.*;
 import frontend.*;
 import semantic.*;
+import codegen.*;
 import syntaxtree.Program;
 
 public class Compiler {
     public static void main(String[] args) throws Exception {
-        System.err.println("Welcode to Goss Copmiler, v0.7.6");
+        System.err.println("Welcome to Goss Copmiler, v0.7.6");
         Parser parser = new Parser(new File(args[0]));
         Program prog = parser.getProgram();
         SymbolTableVisitor vis = new SymbolTableVisitor(parser);
@@ -18,8 +19,9 @@ public class Compiler {
         }
         IrGenVisitor gen = new IrGenVisitor();
         gen.visit(prog);
-        for (Quad line: gen.getCode()) {
-            System.err.println(line.toString());
+        Generator g = new Generator();
+        for (String line: g.gen(gen.getCode(), vis.table)) {
+            System.err.println(line);
         }
     }
 }
