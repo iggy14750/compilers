@@ -23,7 +23,7 @@ public class TestGenerator {
         List<String> mips = gen.gen(irCode);
         assertEquals("li $t0, 9", mips.get(0));
         assertEquals("move $a0, $t0", mips.get(1));
-        assertEquals("jal _system_out_println", mips.get(2));
+        assertEquals("jal _system_out_println\njal _system_exit", mips.get(2));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestGenerator {
             "li $t1, 4",
             "add $t2, $t0, $t1",
             "move $a0, $t2",
-            "jal _system_out_println"
+            "jal _system_out_println\njal _system_exit"
         };
 
         for (int i = 0; i < mips.size(); i++) {
@@ -98,7 +98,7 @@ public class TestGenerator {
             "move $a1, $t1",
             "jal Test2_Start\nmove $t2, $v0",
             "move $a0, $t2",
-            "jal _system_out_println",
+            "jal _system_out_println\njal _system_exit",
             "Test2_Start:",
             "move $v0, $a1\njr $ra",
         };

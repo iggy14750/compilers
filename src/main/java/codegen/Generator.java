@@ -9,9 +9,10 @@ import semantic.*;
 
 public class Generator {
 
-    private int paramNum;
+    private int paramNum = 0;
     private SymbolTable root;
     private SymbolTable methodTable;
+    private boolean seenPrint = false;
 
     public List<String> gen(List<Quad> code) {
         List<String> res = new ArrayList<String>();
@@ -57,8 +58,15 @@ public class Generator {
                 else
                     return Instruction.move(reg(ir.result), reg(ir.operand1));
             case CALL:
-                if (ir.operand1.equals("_system_out_println"))
-                    return Instruction.jal("_system_out_println");
+                if (ir.operand1.equals("_system_out_println")) {
+                    if (seenPrint) {
+                        return Instruction.jal("_system_out_println");
+                    } else {
+                        seenPrint = true;
+                        return Instruction.jal("_system_out_println") +
+                        "\n" + Instruction.jal("_system_exit");
+                    }
+                }
                 return Instruction.jal(ir.operand1) + "\n" + 
                     Instruction.move(reg(ir.result), "v0");
             case LABEL:
