@@ -1,6 +1,7 @@
 
 bundle:
 	cp -r src/main/java projects/ibg4_project3c
+	rm -r projects/ibg4_project3c/src
 	mv projects/ibg4_project3c/java projects/ibg4_project3c/src
 
 default: build test

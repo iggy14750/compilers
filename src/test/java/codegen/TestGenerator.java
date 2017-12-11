@@ -78,7 +78,7 @@ public class TestGenerator {
         irCode.add(Quad.call("t2", "Test2.Start", "2"));
         irCode.add(Quad.param("t2"));
         irCode.add(Quad.call("t3", "_system_out_println", "1"));
-        irCode.add(Quad.label("Test2.Start:"));
+        irCode.add(Quad.label("Test2.Start"));
         irCode.add(Quad.ret("y"));
         
         // ...not to mention the symbol table we want.
@@ -120,7 +120,7 @@ public class TestGenerator {
 
         gen.set(symbolTable);
 
-        assertTrue(gen.setTable("Test2.Start:"));
+        assertTrue(gen.setTable("Test2.Start"));
     }
 
     @Test

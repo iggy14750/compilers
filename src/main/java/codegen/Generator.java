@@ -67,8 +67,7 @@ public class Generator {
         String[] parts = label.split("\\.");
         if (parts.length < 2) return false;
 
-        String method = parts[1].substring(0, parts[1].length() - 1); // get rid of the colon
-        methodTable = root.getChildScope(parts[0]).getChildScope(method);
+        methodTable = root.getChildScope(parts[0]).getChildScope(parts[1]);
         assert methodTable != null;
         return true;
     }
