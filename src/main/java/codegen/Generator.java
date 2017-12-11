@@ -33,6 +33,21 @@ public class Generator {
         switch (ir.op) {
             case PLUS:
                 return Instruction.add(reg(ir.result), reg(ir.operand1), reg(ir.operand2));
+            case MINUS:
+                return Instruction.sub(reg(ir.result), reg(ir.operand1), reg(ir.operand2));
+            case TIMES:
+                return Instruction.mult(reg(ir.operand1), reg(ir.operand2)) + "\n" +
+                    Instruction.mflo(reg(ir.result));
+            case AND:
+                return Instruction.and(reg(ir.result), reg(ir.operand1), reg(ir.operand2));
+            case LESS_THAN:
+                return Instruction.slt(reg(ir.result), reg(ir.operand1), reg(ir.operand2));
+            case NOT:
+                return Instruction.not(reg(ir.result), reg(ir.operand1));
+            case GOTO:
+                return Instruction.jump(ir.result);
+            case IFFALSE:
+                return Instruction.beqz(reg(ir.operand1), ir.result);
             case PARAM:
                 paramNum++;
                 return Instruction.move("a" + (paramNum - 1), reg(ir.operand1));
