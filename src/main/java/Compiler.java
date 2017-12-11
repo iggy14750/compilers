@@ -21,7 +21,7 @@ public class Compiler {
         gen.visit(prog);
         Generator g = new Generator();
         for (String line: g.gen(gen.getCode(), vis.table)) {
-            System.err.println(line);
+            System.out.println(line);
         }
         String[] sysCode = new String[] {
             "_system_exit:",
