@@ -32,7 +32,7 @@ public class Instruction {
     }
 
     public static String jump(String label) {
-        return String.format("jump %s", goodLabel(label));
+        return String.format("j %s", goodLabel(label));
     }
 
     public static String jr(String reg) {
