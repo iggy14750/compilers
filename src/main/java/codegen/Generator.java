@@ -66,7 +66,8 @@ public class Generator {
                 setTable(ir.result);
                 return Instruction.label(ir.result);
             case RETURN:
-                return Instruction.move("v0", reg(ir.result));
+                return Instruction.move("v0", reg(ir.result)) + "\n" +
+                    Instruction.jr("ra");
             case NEW_OBJECT:
                 return "";
         }

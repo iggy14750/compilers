@@ -35,6 +35,10 @@ public class Instruction {
         return String.format("jump %s", goodLabel(label));
     }
 
+    public static String jr(String reg) {
+        return String.format("jr $%s", reg);
+    }
+
     public static String beqz(String op1, String label) {
         return String.format("beqz $%s, %s", op1, goodLabel(label));
     }

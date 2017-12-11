@@ -100,7 +100,7 @@ public class TestGenerator {
             "move $a0, $t2",
             "jal _system_out_println",
             "Test2_Start:",
-            "move $v0, $a1",
+            "move $v0, $a1\njr $ra",
         };
 
         for (int i = 0; i < output.size(); i++) {
